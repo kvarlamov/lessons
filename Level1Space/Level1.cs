@@ -5,7 +5,7 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int odometer(int[] oksana)
+        public static int odometer(int [] oksana)
         {
             int s = 0;
             int previousTime = 0;
