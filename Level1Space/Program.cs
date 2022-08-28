@@ -6,7 +6,6 @@ namespace Level1Space
     {
         public static void Main(string[] args)
         {
-            
         }
     }
 }

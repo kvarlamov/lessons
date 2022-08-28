@@ -5,21 +5,21 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int squirrel(int N)
+        public static int odometer(int[] oksana)
         {
-            long result = 1;
+            int s = 0;
+            int previousTime = 0;
 
-            for (int i = 2; i <= N; i++)
+            for (int i = 0; i < oksana.Length-1; i+=2)
             {
-                result = result * i;
+                int speed = oksana[i];
+                int time = oksana[i + 1] - previousTime;
+                previousTime = oksana[i + 1];
+
+                s += time * speed;
             }
 
-            while (result >= 10)
-            {
-                result = result / 10;
-            }
-            
-            return (int)result ;
+            return s;
         }
     }
 }
