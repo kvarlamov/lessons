@@ -7,7 +7,6 @@ namespace Level1Space
     {
         public static int ConquestCampaign(int N, int M, int L, int [] battalion)
         {
-            bool invaded = false;
             int day=0;
             int counter = 0;
             int allFields = N * M;
@@ -18,7 +17,7 @@ namespace Level1Space
             {
                 nextStep[i]--;
             }
-            List<int> toInvade = new List<int>();
+            List<int> toInvade;
             char[] directions = new[] {'n','s','w','e'};
 
             while (allFields > counter)
