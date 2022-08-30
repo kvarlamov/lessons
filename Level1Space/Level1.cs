@@ -5,22 +5,25 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int [] MadMax(int N, int [] Tele)
+        public static int[] SynchronizingTables(int N, int[] ids, int[] salary)
         {
-            int l = Tele.Length;
-            int[] result = new int[l];
-            Array.Sort(Tele);
-            int maxIndex = N / 2;
-    
-            result[maxIndex] = Tele[l-1];
-    
-            for(int i = 0; i < maxIndex; i++)
+            Dictionary<int, int> dictionary = new Dictionary<int, int>(N);
+            int[] idsSort = new int[N];
+            Array.Copy(ids, idsSort, N);
+            Array.Sort(idsSort);
+            Array.Sort(salary);
+
+            for (var i = 0; i < N; i++)
             {
-                result[i] = Tele[i];
-                result[i + maxIndex + 1] = Tele[l-2-i];
+                dictionary.Add(idsSort[i], salary[i]);
             }
-    
-            return result;
+
+            for (int i = 0; i < N; i++)
+            {
+                salary[i] = dictionary[ids[i]];
+            }
+
+            return salary;
         }
     }
 }
