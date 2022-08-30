@@ -5,7 +5,7 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int[] SynchronizingTables(int N, int[] ids, int[] salary)
+        public static int [] SynchronizingTables(int N, int [] ids, int [] salary)
         {
             Dictionary<int, int> dictionary = new Dictionary<int, int>(N);
             int[] idsSort = new int[N];
