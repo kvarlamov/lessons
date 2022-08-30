@@ -5,74 +5,22 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int ConquestCampaign(int N, int M, int L, int [] battalion)
+        public static int [] MadMax(int N, int [] Tele)
         {
-            int day=0;
-            int counter = 0;
-            int allFields = N * M;
-            bool[,] field = new bool[N, M];
-            
-            List<int> nextStep = new List<int>(battalion);
-            for (int i = 0; i < nextStep.Count; i++)
+            int l = Tele.Length;
+            int[] result = new int[l];
+            Array.Sort(Tele);
+            int maxIndex = N / 2;
+    
+            result[maxIndex] = Tele[l-1];
+    
+            for(int i = 0; i < maxIndex; i++)
             {
-                nextStep[i]--;
+                result[i] = Tele[i];
+                result[i + maxIndex + 1] = Tele[l-2-i];
             }
-            List<int> toInvade;
-            char[] directions = new[] {'n','s','w','e'};
-
-            while (allFields > counter)
-            {
-                toInvade = nextStep;
-                nextStep = new List<int>();
-	
-                for(int i = 0; i < toInvade.Count - 1; i+=2)
-                {
-                    foreach(var d in directions) 
-                    {
-                        int row = toInvade[i];
-                        int column = toInvade[i+1];
-
-                        if (day > 0)
-                        {
-                            switch (d)
-                            {
-                                case 'n':
-                                    column += 1;
-                                    break;
-                                case 's':
-                                    column -= 1;
-                                    break;
-                                case 'w':
-                                    row -= 1;
-                                    break;
-                                case 'e':
-                                    row += 1;
-                                    break;
-                            }
-                        }
-
-                        if (row > N-1 || column > M-1 || row < 0 || column < 0)
-                            continue;
-		
-                        if (!field[row,column])
-                        {
-                            field[row,column] = true;
-                            nextStep.Add(row);
-                            nextStep.Add(column);
-                            counter++;
-                        }
-                        
-                        if (day == 0)
-                            break;
-                    }
-                }
-	
-                day++;
-                if (allFields == counter)
-                    break;
-            }
-
-            return day;
+    
+            return result;
         }
     }
 }
