@@ -7,6 +7,9 @@ namespace Level1Space
     {
         public static string PatternUnlock(int N, int [] hits)
         {
+            System.Globalization.CultureInfo ci = System.Threading.Thread.CurrentThread.CurrentCulture;
+            var separator = ci.NumberFormat.CurrencyDecimalSeparator;
+
             if (N == 0)
                 return string.Empty;
             
@@ -41,7 +44,7 @@ namespace Level1Space
             }
 
             string sums = sum.ToString();
-            string[] split = sums.Split('.');
+            string[] split = sums.Split(separator[0]);
             if (split.Length > 1)
             {
                 double roundChar = Char.GetNumericValue(split[1][5]);
@@ -56,7 +59,7 @@ namespace Level1Space
             }
 
             string result = string.Join("", split);
-            result = result.Replace(".", "").Replace("0", "");
+            result = result.Replace(separator, "").Replace("0", "");
 
             return result;
         }
