@@ -9,15 +9,15 @@ namespace Level1Space
         {
             double sqrTwo = Math.Sqrt(2);
             Dictionary<int, int[]> diagonals = new Dictionary<int, int[]>();
-            diagonals.Add(6, new int[] {2});
-            diagonals.Add(1, new int[] {5,8});
-            diagonals.Add(9, new int[] {2});
-            diagonals.Add(5, new int[] {1,3});
-            diagonals.Add(2, new int[] {6,9,4,7});
-            diagonals.Add(8, new int[] {1,3});
-            diagonals.Add(4, new int[] {2});
-            diagonals.Add(3, new int[] {5,8});
-            diagonals.Add(7, new int[] {2});
+            diagonals.Add(1, new int [] {5,8});
+            diagonals.Add(2, new int [] {6,9,4,7});
+            diagonals.Add(3, new int [] {5,8});
+            diagonals.Add(4, new int [] {2});
+            diagonals.Add(5, new int [] {1,3});
+            diagonals.Add(6, new int [] {2});
+            diagonals.Add(7, new int [] {2});
+            diagonals.Add(8, new int [] {1,3});
+            diagonals.Add(9, new int [] {2});
 
             double sum = 0;
 
