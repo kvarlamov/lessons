@@ -45,5 +45,17 @@ namespace Level1SpaceTests
             // Assert
             Assert.AreEqual(new int[] {0, 0, 0, 1, 0, 0, 0, 0, 0}, res);
         }
+        
+        [Test]
+        public void WordSearch_Multiple()
+        {
+            // Arrange
+            var s = "любой тест на нахождение строки тест здесь.";
+
+            var res = Level1.WordSearch(4, s, "тест");
+            
+            // Assert
+            Assert.AreEqual(new int[] {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, res);
+        }
     }
 }

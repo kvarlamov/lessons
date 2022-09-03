@@ -8,7 +8,6 @@ namespace Level1Space
         public static int [] WordSearch(int len, string s, string subs)
         {
             List<string> searchList = new List<string>();
-            int wordsCount = s.Split(' ').Length;
             int counter = 0;
             bool spacesInLine = false;
             int spaceIndexLocal = 0;
@@ -59,6 +58,7 @@ namespace Level1Space
                         {
                             //cut current long word
                             currentLine = currentLine.Substring(0, len);
+                            //пока длина остатка слова больше len добавляем в массив и переносим указатель
                         }
                         
                         searchList.Add(currentLine.Trim());
@@ -67,7 +67,7 @@ namespace Level1Space
                     spacesInLine = false;
                     
                     currentLine = string.Empty;
-                    if (counter++ >= wordsCount)
+                    if (counter++ >= s.Length)
                         return null; //error
                 }
             }
