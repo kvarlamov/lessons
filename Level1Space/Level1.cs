@@ -5,63 +5,95 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static string PatternUnlock(int N, int [] hits)
+        public static int [] WordSearch(int len, string s, string subs)
         {
-            System.Globalization.CultureInfo ci = System.Threading.Thread.CurrentThread.CurrentCulture;
-            var separator = ci.NumberFormat.CurrencyDecimalSeparator;
-
-            if (N == 0)
-                return string.Empty;
+            List<string> searchList = new List<string>();
+            int wordsCount = s.Split(' ').Length;
+            int counter = 0;
+            bool spacesInLine = false;
+            int spaceIndexLocal = 0;
+            int spaceIndexGlobal = 0;
+            string currentLine = string.Empty;
             
-            if (N == 1)
-                return hits[0].ToString();
-            
-            double sqrTwo = 1.414213562373;
-            var diagonals = new Dictionary<int, int[]>();
-            diagonals.Add(1, new int [] {5,8});
-            diagonals.Add(2, new int [] {6,9,4,7});
-            diagonals.Add(3, new int [] {5,8});
-            diagonals.Add(4, new int [] {2});
-            diagonals.Add(5, new int [] {1,3});
-            diagonals.Add(6, new int [] {2});
-            diagonals.Add(7, new int [] {2});
-            diagonals.Add(8, new int [] {1,3});
-            diagonals.Add(9, new int [] {2});
-
-            double sum = 0;
-
-            for(int i = 0; i < N - 1; i++)
+            for (int i = 0; i < s.Length; i++)
             {
-                bool flag = diagonals.TryGetValue(hits[i], out var array);
-                if (flag && Array.IndexOf(array, hits[i + 1]) != -1)
+                if (s[i] == ' ')
                 {
-                    sum += sqrTwo;
+                    spacesInLine = true;
+                    spaceIndexGlobal = i;
+                    spaceIndexLocal = currentLine.Length;
                 }
+                
+                currentLine += s[i];
+            
+                if (i == s.Length - 1)
+                {
+                    searchList.Add(currentLine.Trim());
+                }
+                else if (currentLine.Length == len)
+                {
+                    int j = i + 1;
+
+                    if (s[j] == ' ')
+                    {
+                        searchList.Add(currentLine.Trim());
+                        i = j;
+                    }
+                    else
+                    {
+                        while (j < s.Length && s[j] != ' ')
+                        {
+                            currentLine += s[j];
+                            j++;
+                        }
+
+                        int wordLength = spacesInLine ? j - spaceIndexGlobal - 1 : currentLine.Length;
+                        if (wordLength <= len)
+                        {
+                            //cut to previous word
+                            currentLine = currentLine.Substring(0, spaceIndexLocal);
+                            if (spacesInLine)
+                                i = spaceIndexGlobal;
+                        }
+                        else
+                        {
+                            //cut current long word
+                            currentLine = currentLine.Substring(0, len);
+                        }
+                        
+                        searchList.Add(currentLine.Trim());
+                    }
+                    
+                    spacesInLine = false;
+                    
+                    currentLine = string.Empty;
+                    if (counter++ >= wordsCount)
+                        return null; //error
+                }
+            }
+            
+            int[] result = new int[searchList.Count];
+            
+            for (var i = 0; i < searchList.Count; i++)
+            {
+                if (!searchList[i].Contains(subs))
+                    result[i] = 0;
                 else
                 {
-                    sum += 1;
+                    var arr = searchList[i].Split(new []{' '}, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var str in arr)
+                    {
+                        if (str.Equals(subs))
+                        {
+                            result[i] = 1;
+                            break;
+                        }
+                    }
                 }
             }
-
-            string sums = sum.ToString();
-            string[] split = sums.Split(separator[0]);
-            if (split.Length > 1)
-            {
-                double roundChar = Char.GetNumericValue(split[1][5]);
-                if (roundChar > 4)
-                {
-                    double toChange = Char.GetNumericValue(split[1][4]) + 1;
-                    split[1] = split[1].Remove(4, 1);
-                    split[1] = split[1].Insert(4, toChange.ToString());
-                }
-
-                split[1] = split[1].Substring(0, 5);
-            }
-
-            string result = string.Join("", split);
-            result = result.Replace(separator, "").Replace("0", "");
 
             return result;
         }
+
     }
 }

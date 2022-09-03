@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Level1SpaceTests
 {
-    public class Level1Tests
+    public class PatternUnlockTests
     {
         [Test]
         public void PatternUnlock_changedCulture_141421()
@@ -17,7 +17,7 @@ namespace Level1SpaceTests
             Thread.CurrentThread.CurrentCulture = ci;
             
             // Act
-            var result = Level1.PatternUnlock(n, hits);
+            var result = Level1Solved.PatternUnlock(n, hits);
             
             // Assert
             Assert.AreEqual("141421", result);
@@ -33,7 +33,7 @@ namespace Level1SpaceTests
             int n = 2;
             
             // Act
-            var result = Level1.PatternUnlock(n, hits);
+            var result = Level1Solved.PatternUnlock(n, hits);
             
             // Assert
             Assert.AreEqual("141421", result);
@@ -49,7 +49,7 @@ namespace Level1SpaceTests
             int n = 10;
             
             // Act
-            var result = Level1.PatternUnlock(n, hits);
+            var result = Level1Solved.PatternUnlock(n, hits);
             
             // Assert
             Assert.AreEqual("982843", result);
@@ -65,7 +65,7 @@ namespace Level1SpaceTests
             int n = 3;
             
             // Act
-            var result = Level1.PatternUnlock(n, hits);
+            var result = Level1Solved.PatternUnlock(n, hits);
             
             // Assert
             Assert.AreEqual("2", result);
@@ -81,7 +81,7 @@ namespace Level1SpaceTests
             int n = 11;
             
             // Act
-            var result = Level1.PatternUnlock(n, hits);
+            var result = Level1Solved.PatternUnlock(n, hits);
             
             // Assert
             Assert.AreEqual("1", result);
