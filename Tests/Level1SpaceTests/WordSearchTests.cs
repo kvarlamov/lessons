@@ -16,7 +16,7 @@ namespace Level1SpaceTests
             // Arrange
             var s = "Каждый охотник желает знать где сидит фазан";
 
-            var res = Level1.WordSearch(len, s, subs);
+            var res = Level1Solved.WordSearch(len, s, subs);
             
             // Assert
             Assert.AreEqual(expected, res);
@@ -28,7 +28,7 @@ namespace Level1SpaceTests
             // Arrange
             var s = "1) строка разбивается на набор строк через выравнивание по заданной ширине.";
 
-            var res = Level1.WordSearch(12, s, "строк");
+            var res = Level1Solved.WordSearch(12, s, "строк");
             
             // Assert
             Assert.AreEqual(new int[] {0, 0, 0, 1, 0, 0, 0}, res);
@@ -40,7 +40,7 @@ namespace Level1SpaceTests
             // Arrange
             var s = "1) строка разбивается на набор строк через выравнивание по заданной ширине.";
 
-            var res = Level1.WordSearch(10, s, "строк");
+            var res = Level1Solved.WordSearch(10, s, "строк");
             
             // Assert
             Assert.AreEqual(new int[] {0, 0, 0, 1, 0, 0, 0, 0, 0}, res);
@@ -52,7 +52,7 @@ namespace Level1SpaceTests
             // Arrange
             var s = "любой тест на нахождение строки тест здесь.";
 
-            var res = Level1.WordSearch(4, s, "тест");
+            var res = Level1Solved.WordSearch(4, s, "тест");
             
             // Assert
             Assert.AreEqual(new int[] {0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, res);
