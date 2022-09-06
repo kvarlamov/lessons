@@ -19,7 +19,7 @@ namespace Level1SpaceTests
         [TestCase(new int[] {1, -3, 2,5, -3, 8, -6}, 2)]
         public void Test1(int[] data, int expected)
         {
-            var result = Level1.SumOfThe(data.Length, data);
+            var result = Level1Solved.SumOfThe(data.Length, data);
             var testResult = Test(data.Length, data);
             
             Assert.AreEqual(expected, result);
