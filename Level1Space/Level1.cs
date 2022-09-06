@@ -8,10 +8,7 @@ namespace Level1Space
         public static string TheRabbitsFoot(string s, bool encode)
         {
             string s1 = s.Replace(" ", "");
-            if (!encode)
-                return Decode(s.Split(' '), s1.Length);
-
-            return Encode(s1);
+            return encode ?  Encode(s1) : Decode(s.Split(' '), s1.Length);
         }
 
         private static string Decode(string[] arr, int len)
