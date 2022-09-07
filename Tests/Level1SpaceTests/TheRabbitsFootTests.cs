@@ -10,7 +10,7 @@ namespace Level1SpaceTests
         {
             string s = "отдай мою кроличью лапку";
 
-            var res = Level1.TheRabbitsFoot(s, true);
+            var res = Level1Solved.TheRabbitsFoot(s, true);
             
             Assert.AreEqual("омоюу толл дюиа акчп йрьк", res);
         }
@@ -20,7 +20,7 @@ namespace Level1SpaceTests
         {
             string s = "какая-то тестовая строка для кодирования символов";
 
-            var res = Level1.TheRabbitsFoot(s, true);
+            var res = Level1Solved.TheRabbitsFoot(s, true);
             
             Assert.AreEqual("кторяосо аовоквив ктакоам аеяаднв яссдиио -ттлрял", res);
         }
@@ -30,7 +30,7 @@ namespace Level1SpaceTests
         {
             string s = "кторяосо аовоквив ктакоам аеяаднв яссдиио -ттлрял";
 
-            var res = Level1.TheRabbitsFoot(s, false);
+            var res = Level1Solved.TheRabbitsFoot(s, false);
             
             Assert.AreEqual("какая-тотестоваястрокадлякодированиясимволов", res);
         }
@@ -40,7 +40,7 @@ namespace Level1SpaceTests
         {
             string s = "омоюу толл дюиа акчп йрьк";
 
-            var res = Level1.TheRabbitsFoot(s, false);
+            var res = Level1Solved.TheRabbitsFoot(s, false);
             
             Assert.AreEqual("отдаймоюкроличьюлапку", res);
         }
