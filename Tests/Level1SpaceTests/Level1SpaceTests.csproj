@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BigMinusTests.cs" />
     <Compile Include="PatternUnlockTests.cs" />
     <Compile Include="PrintingCostsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

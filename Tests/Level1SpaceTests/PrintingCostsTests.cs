@@ -14,7 +14,7 @@ namespace Level1SpaceTests
             Thread.CurrentThread.CurrentCulture = ci;
             string str = "☺ ";
             
-            var res = Level1.PrintingCosts(str);
+            var res = Level1Solved.PrintingCosts(str);
             
             Assert.AreEqual(23, res);
         }
@@ -31,7 +31,7 @@ namespace Level1SpaceTests
             CultureInfo ci = new CultureInfo("ru-Ru");
             Thread.CurrentThread.CurrentCulture = ci;
 
-            var res = Level1.PrintingCosts(column);
+            var res = Level1Solved.PrintingCosts(column);
             
             Assert.AreEqual(expected, res);
         }
