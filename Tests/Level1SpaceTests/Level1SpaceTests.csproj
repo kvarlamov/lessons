@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BigMinusTests.cs" />
+    <Compile Include="MassVoteTests.cs" />
     <Compile Include="PatternUnlockTests.cs" />
     <Compile Include="PrintingCostsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

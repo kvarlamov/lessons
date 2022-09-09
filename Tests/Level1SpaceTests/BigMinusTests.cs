@@ -13,7 +13,7 @@ namespace Level1SpaceTests
         [TestCase("55","190", "135")]
         public void SomeTestsSmallNumbers(string s1, string s2, string expected)
         {
-            var res = Level1.BigMinus(s1, s2);
+            var res = Level1Solved.BigMinus(s1, s2);
             
             Assert.AreEqual(expected, res);
             Assert.AreEqual(LongCalc(long.Parse(s1), long.Parse(s2)), res);
@@ -28,7 +28,7 @@ namespace Level1SpaceTests
         [TestCase("22","22", "0")]
         public void EqualLenghStrings(string s1, string s2, string expected)
         {
-            var res = Level1.BigMinus(s1, s2);
+            var res = Level1Solved.BigMinus(s1, s2);
             
             Assert.AreEqual(expected, res);
             Assert.AreEqual(LongCalc(long.Parse(s1), long.Parse(s2)), res);
@@ -40,7 +40,7 @@ namespace Level1SpaceTests
         [TestCase("1","321", "320")]
         public void TestFromTask(string s1, string s2, string expected)
         {
-            var res = Level1.BigMinus(s1, s2);
+            var res = Level1Solved.BigMinus(s1, s2);
             
             Assert.AreEqual(expected, res);
             Assert.AreEqual(LongCalc(long.Parse(s1), long.Parse(s2)), res);
@@ -54,7 +54,7 @@ namespace Level1SpaceTests
         [TestCase("1111111111111111","111111111111111", "1000000000000000")]
         public void LongStrings(string s1, string s2, string expected)
         {
-            var res = Level1.BigMinus(s1, s2);
+            var res = Level1Solved.BigMinus(s1, s2);
             
             Assert.AreEqual(expected, res);
             Assert.AreEqual(LongCalc(long.Parse(s1), long.Parse(s2)), res);

@@ -5,73 +5,53 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static string BigMinus(string s1, string s2)
+        public static string MassVote(int N, int [] Votes)
         {
-            string big = s1;
-            string small = s2;
+            const string case1 = "majority winner ";
+            const string case2 = "minority winner ";
+            const string case3 = "no winner";
             
-            //get bigger string
-            if (s1.Length == s2.Length)
+            if (N == 1)
             {
-                for (int i = 0; i < s1.Length; i++)
-                {
-                    double a = char.GetNumericValue(s1[i]);
-                    double b = char.GetNumericValue(s2[i]);
-
-                    if (a < b)
-                    {
-                        big = s2;
-                        small = s1;
-                        break;
-                    }
-
-                    if (a > b)
-                    {
-                        break;
-                    }
-                }
+                return case1 + "1";
             }
+            
+            double allVotes = Votes[0];
+            List<int> maxIndices = new List<int>();
+            //number of candidate (index + 1)
+            maxIndices.Add(1);
+            double leader = Votes[0];
 
-            if (s1.Length < s2.Length)
+            for (var i = 1; i < Votes.Length; i++)
             {
-                big = s2;
-                small = s1;
-            }
-
-            string result = string.Empty;
-
-            int t = 0;
-            int j = small.Length - 1;
-            for (int i = big.Length - 1; i > -1; i--, j--)
-            {
-                int a = (int)char.GetNumericValue(big[i]);
-                int b = 0;
-                if (j > -1)
-                    b = (int)char.GetNumericValue(small[j]);
-
-                int localres;
+                allVotes += Votes[i];
                 
-                if (b > a - t)
+                if (Votes[i] == leader)
                 {
-                    a += 10;
-                    localres = a - b - t;
-                    t = 1;
+                    maxIndices.Add(i + 1);
                 }
-                else
+                
+                if (Votes[i] > leader)
                 {
-                    localres = a - b - t;
-                    t = 0;
+                    maxIndices.Clear();
+                    leader = Votes[i];
+                    maxIndices.Add(i + 1);
                 }
-
-                result = result.Insert(0, localres.ToString());
             }
 
-            while (result.Length > 1 && result[0] == '0')
+            if (maxIndices.Count > 1)
             {
-                result = result.Substring(1);
+                return case3;
             }
 
-            return result;
+            var leaderPercent = Math.Round(100 * (leader / allVotes), 3);
+
+            if (leaderPercent > 50)
+            {
+                return case1 + maxIndices[0];
+            }
+
+            return case2 + maxIndices[0];
         }
     }
 }
