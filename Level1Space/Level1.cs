@@ -5,53 +5,25 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static string MassVote(int N, int [] Votes)
+        public static int [] UFO(int N, int [] data, bool octal)
         {
-            const string case1 = "majority winner ";
-            const string case2 = "minority winner ";
-            const string case3 = "no winner";
-            
-            if (N == 1)
+            int a = octal ? 8 : 16;
+            int[] result = new int[N];
+            for (var i = 0; i < N; i++)
             {
-                return case1 + "1";
-            }
-            
-            double allVotes = Votes[0];
-            List<int> maxIndices = new List<int>();
-            //number of candidate (index + 1)
-            maxIndices.Add(1);
-            double leader = Votes[0];
-
-            for (var i = 1; i < Votes.Length; i++)
-            {
-                allVotes += Votes[i];
-                
-                if (Votes[i] == leader)
+                int deg = 0;
+                double localResult = 0;
+                while (data[i] > 0)
                 {
-                    maxIndices.Add(i + 1);
+                    var t = data[i] % 10;
+                    data[i] = data[i] / 10;
+                    localResult += Math.Pow(a, deg++) * t;
                 }
-                
-                if (Votes[i] > leader)
-                {
-                    maxIndices.Clear();
-                    leader = Votes[i];
-                    maxIndices.Add(i + 1);
-                }
+
+                result[i] = (int)localResult;
             }
 
-            if (maxIndices.Count > 1)
-            {
-                return case3;
-            }
-
-            var leaderPercent = Math.Round(100 * (leader / allVotes), 3);
-
-            if (leaderPercent > 50)
-            {
-                return case1 + maxIndices[0];
-            }
-
-            return case2 + maxIndices[0];
+            return result;
         }
     }
 }
