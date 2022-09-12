@@ -14,16 +14,14 @@ namespace Level1Space
             {
                 int signalInterval = track[i][1] + track[i][2];
                 //go to traffic light
-                while (carCoordinates < track[i][0])
+                while (carCoordinates < track[i][0] && L > 0)
                 {
                     travelTime++;
                     carCoordinates++;
                     L--;
-                    if ( L <= 0)
-                        break;
                 }
                 
-                if ( L <= 0)
+                if (L <= 0)
                     break;
                 
                 int currentTimePointOfCar = travelTime - signalInterval * (travelTime / signalInterval);
