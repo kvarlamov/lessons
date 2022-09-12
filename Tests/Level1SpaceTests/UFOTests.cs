@@ -11,7 +11,7 @@ namespace Level1SpaceTests
         public void HexTest1()
         {
             var data = new[] {1234, 1777};
-            var res = Level1.UFO(2, data, false);
+            var res = Level1Solved.UFO(2, data, false);
             
             Assert.AreEqual(new int [] {4660,6007}, res);
             Assert.AreEqual(TestCorrect(new[] {1234, 1777}, false), res);
@@ -22,7 +22,7 @@ namespace Level1SpaceTests
         {
             var data = new[] {1234, 1777};
             var expectedFromTest = TestCorrect(data, true);
-            var res = Level1.UFO(2, data, true);
+            var res = Level1Solved.UFO(2, data, true);
             
             Assert.AreEqual(new int [] {668,1023}, res);
             Assert.AreEqual(expectedFromTest, res);
@@ -37,7 +37,7 @@ namespace Level1SpaceTests
         public void Test2(int[] data, bool flag, int[] expectedRes)
         {
             var expectedFromTest = TestCorrect(data, flag);
-            var res = Level1.UFO(data.Length, data, flag);
+            var res = Level1Solved.UFO(data.Length, data, flag);
             
             Assert.AreEqual(expectedRes, res);
             Assert.AreEqual(expectedFromTest, res);

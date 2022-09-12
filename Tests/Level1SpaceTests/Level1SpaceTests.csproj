@@ -62,6 +62,7 @@
     <Compile Include="SumOfTheTests.cs" />
     <Compile Include="TheRabbitsFootTests.cs" />
     <Compile Include="UFOTests.cs" />
+    <Compile Include="UnmannedTests.cs" />
     <Compile Include="WordSearchTests.cs" />
   </ItemGroup>
   <ItemGroup>

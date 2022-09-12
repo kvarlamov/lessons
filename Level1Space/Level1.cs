@@ -5,25 +5,48 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int [] UFO(int N, int [] data, bool octal)
+        public static int Unmanned(int L, int N, int [][] track)
         {
-            int a = octal ? 8 : 16;
-            int[] result = new int[N];
-            for (var i = 0; i < N; i++)
+            int travelTime = 0;
+            int carCoordinates = 0;
+
+            for (int i = 0; i < N && L > 0; i++)
             {
-                int deg = 0;
-                double localResult = 0;
-                while (data[i] > 0)
+                int signalInterval = track[i][1] + track[i][2];
+                //go to traffic light
+                while (carCoordinates < track[i][0])
                 {
-                    var t = data[i] % 10;
-                    data[i] = data[i] / 10;
-                    localResult += Math.Pow(a, deg++) * t;
+                    travelTime++;
+                    carCoordinates++;
+                    L--;
+                    if ( L <= 0)
+                        break;
+                }
+                
+                if ( L <= 0)
+                    break;
+                
+                int currentTimePointOfCar = travelTime - signalInterval * (travelTime / signalInterval);
+                
+                while(currentTimePointOfCar < track[i][1])
+                {
+                    //red - wait for green
+                    travelTime++;
+                    currentTimePointOfCar = travelTime - signalInterval * (travelTime / signalInterval);
                 }
 
-                result[i] = (int)localResult;
+                L--;
+                carCoordinates++;
+                travelTime++;
             }
 
-            return result;
+            while (L > 0)
+            {
+                travelTime++;
+                L--;
+            }
+            
+            return travelTime;
         }
     }
 }
