@@ -5,46 +5,56 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static int Unmanned(int L, int N, int [][] track)
+        public static bool TankRush(int H1, int W1, string S1, int H2, int W2, string S2)
         {
-            int travelTime = 0;
-            int carCoordinates = 0;
-
-            for (int i = 0; i < N && L > 0; i++)
-            {
-                int signalInterval = track[i][1] + track[i][2];
-                //go to traffic light
-                while (carCoordinates < track[i][0] && L > 0)
-                {
-                    travelTime++;
-                    carCoordinates++;
-                    L--;
-                }
-                
-                if (L <= 0)
-                    break;
-                
-                int currentTimePointOfCar = travelTime - signalInterval * (travelTime / signalInterval);
-                
-                while(currentTimePointOfCar < track[i][1])
-                {
-                    //red - wait for green
-                    travelTime++;
-                    currentTimePointOfCar = travelTime - signalInterval * (travelTime / signalInterval);
-                }
-
-                L--;
-                carCoordinates++;
-                travelTime++;
-            }
-
-            while (L > 0)
-            {
-                travelTime++;
-                L--;
-            }
+            if (H2 > H1 || W2 > W1)
+                return false;
             
-            return travelTime;
+            string[] split = S1.Split(' ');
+            string[] subStr = S2.Split(' ');
+
+            Queue<int> indexes = new Queue<int>();
+            
+            for (int i = 0; i < H1; i++)
+            {
+                //pointer to second arr
+                int k = 0;
+                
+                if (split[i].Contains(subStr[k]))
+                {
+                    indexes = split[i].AllIndexesOf(subStr[k]);
+                    k++;
+                }
+
+                while (indexes.Count != 0)
+                {
+                    if (H2 == 1)
+                        return true;
+                    int index = indexes.Dequeue();
+                    for (int j = i + 1; j < H1 && k < H2; j++)
+                    {
+                        if (!split[j].Contains(subStr[k]) || split[j].Substring(index, subStr[k].Length) != subStr[k])
+                            break;
+                        if (k == H2 - 1)
+                            return true;
+                        k++;
+                    }
+                }
+            }
+
+            return false;
+        }
+        
+        public static Queue<int> AllIndexesOf(this string str, string value) {
+            if (String.IsNullOrEmpty(value))
+                throw new ArgumentException("the string to find may not be empty", "value");
+            Queue<int> indexes = new Queue<int>();
+            for (int index = 0;; index += value.Length) {
+                index = str.IndexOf(value, index);
+                if (index == -1)
+                    return indexes;
+                indexes.Enqueue(index);
+            }
         }
     }
 }
