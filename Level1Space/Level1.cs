@@ -49,7 +49,7 @@ namespace Level1Space
             if (String.IsNullOrEmpty(value))
                 throw new ArgumentException("the string to find may not be empty", "value");
             Queue<int> indexes = new Queue<int>();
-            for (int index = 0;; index += value.Length) {
+            for (int index = 0;; index += 1) {
                 index = str.IndexOf(value, index);
                 if (index == -1)
                     return indexes;
