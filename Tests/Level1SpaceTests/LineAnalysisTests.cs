@@ -17,7 +17,7 @@ namespace Level1SpaceTests
         [TestCase("*.*.*.*.*.*.*.*.*.*", true)]
         public void TestEx(string line, bool expected)
         {
-            var result = Level1.LineAnalysis(line);
+            var result = Level1Solved.LineAnalysis(line);
         }
     }
 }

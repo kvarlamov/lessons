@@ -6,7 +6,7 @@ namespace Level1SpaceTests
     public class UnmannedTests
     {
         [Test]
-        public void FirstCaseTest()
+        public void FirstCaseTest() 
         {
             var res = Level1Solved.Unmanned(10, 2, new int[][] {new[] {3, 5, 5}, new[] {5, 2, 2}});
             Assert.AreEqual(12, res);

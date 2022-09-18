@@ -5,35 +5,66 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static bool LineAnalysis(string line)
+        public static bool MisterRobot(int N, int [] data)
         {
-            if (line[0] != '*' || line[line.Length - 1] != '*')
-                return false;
+            int expected = 1;
+            bool right = false;
 
-            if (!line.Contains("."))
-                return true;
-
-            string pattern = string.Empty;
-            string current = string.Empty;
-
-            int i = 0;
-            while (i < line.Length)
+            for (int i = 0; i < N; i++)
             {
-                int to = line.IndexOf('*', i + 1 );
-                if (to < 0)
-                    break;
-
-                current = line.Substring(i, to - i);
-                if (!string.IsNullOrEmpty(pattern) && !pattern.Equals(current))
+                if (data[i] == expected)
                 {
-                    return false;
+                    expected++;
+                    continue;
                 }
 
-                pattern = current;
-                i=to;
+                var index = Array.IndexOf(data, expected);
+                int leftIndex = i;
+                int rightIndex = index;
+                if (index - 3 >= i || index == i + 2)
+                {
+                    leftIndex = index - 2;
+                    right = true;
+                }
+
+                while (right)
+                {
+                    int tmp = data[leftIndex + 1];
+                    data[leftIndex + 1] = data[leftIndex];
+                    data[leftIndex] = data[rightIndex];
+                    data[rightIndex] = tmp;
+                    
+                    rightIndex = leftIndex;
+                    if (rightIndex - 3 >= i || i+2 == rightIndex)
+                    {
+                        leftIndex = rightIndex - 2;
+                    }
+                    else
+                    {
+                        leftIndex = i;
+                        right = false;
+                        break;
+                    }
+                }
+
+                if (leftIndex + 2 > N - 1 || (index == N - 1 && data[index] == N))
+                    break;
+
+                if (expected != data[i])
+                {
+                    int tmp2 = data[leftIndex + 2];
+                    data[leftIndex + 2] = data[leftIndex];
+                    data[leftIndex] = data[rightIndex];
+                    data[rightIndex] = tmp2;
+                }
+                
+                expected++;
             }
 
-            return true;
+            if (data[N-1] == N)
+                return true;
+            
+            return false;
         }
     }
 }
