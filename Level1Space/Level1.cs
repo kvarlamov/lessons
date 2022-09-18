@@ -61,10 +61,7 @@ namespace Level1Space
                 expected++;
             }
 
-            if (data[N-1] == N)
-                return true;
-            
-            return false;
+            return data[N-1] == N;
         }
     }
 }
