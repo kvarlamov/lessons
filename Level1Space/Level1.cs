@@ -5,63 +5,48 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static bool MisterRobot(int N, int [] data)
+        public static string [] ShopOLAP(int N, string [] items)
         {
-            int expected = 1;
-            bool right = false;
+            SortedDictionary<string, int> dict = new SortedDictionary<string, int>();
 
-            for (int i = 0; i < N; i++)
+            foreach (var item in items)
             {
-                if (data[i] == expected)
-                {
-                    expected++;
-                    continue;
-                }
+                var spaceIndex = item.IndexOf(' ');
+                string name = item.Substring(0, spaceIndex);
+                int value = int.Parse(item.Substring(spaceIndex + 1));
 
-                var index = Array.IndexOf(data, expected);
-                int leftIndex = i;
-                int rightIndex = index;
-                if (index - 3 >= i || index == i + 2)
+                if (!dict.TryGetValue(name, out int v))
                 {
-                    leftIndex = index - 2;
-                    right = true;
-                }
-
-                while (right)
-                {
-                    int tmp = data[leftIndex + 1];
-                    data[leftIndex + 1] = data[leftIndex];
-                    data[leftIndex] = data[rightIndex];
-                    data[rightIndex] = tmp;
-                    
-                    rightIndex = leftIndex;
-                    if (rightIndex - 3 >= i || i+2 == rightIndex)
-                    {
-                        leftIndex = rightIndex - 2;
-                    }
-                    else
-                    {
-                        leftIndex = i;
-                        right = false;
-                        break;
-                    }
-                }
-
-                if (leftIndex + 2 > N - 1 || (index == N - 1 && data[index] == N))
-                    break;
-
-                if (expected != data[i])
-                {
-                    int tmp2 = data[leftIndex + 2];
-                    data[leftIndex + 2] = data[leftIndex];
-                    data[leftIndex] = data[rightIndex];
-                    data[rightIndex] = tmp2;
+                    dict.Add(name, value);
                 }
                 
-                expected++;
+                dict[name] = v + value;
             }
 
-            return data[N-1] == N;
+            return dict.OrderByValue();
+        }
+
+        private static string[] OrderByValue(this SortedDictionary<string, int> dic)
+        {
+            List<string> result = new List<string>();
+            while (dic.Count > 0)
+            {
+                int maxValue = 0;
+                string maxKey = string.Empty;
+                foreach (var item in dic)
+                {
+                    if (item.Value > maxValue)
+                    {
+                        maxValue = item.Value;
+                        maxKey = item.Key;
+                    }
+                }
+                
+                result.Add(string.Join(" ", maxKey, maxValue));
+                dic.Remove(maxKey);
+            }
+            
+            return result.ToArray();
         }
     }
 }
