@@ -7,7 +7,7 @@ namespace Level1Space
     {
         private static Stack<string> history = new Stack<string>();
         private static Stack<string> undoStack = new Stack<string>();
-        private static List<string> bufer = new List<string>(){string.Empty};
+        private static List<string> bufer = new List<string>();
         
         public static string BastShoe(string command)
         {
@@ -21,20 +21,22 @@ namespace Level1Space
                 cmd = command.Substring(0, spaceIndex);
                 arg = command.Substring(spaceIndex + 1);
             }
-            
+
+            string current = string.Empty;
+
             switch (cmd)
             {
                 case "1":
                     if (history.Count > 0 && history.Peek() == "4" && undoStack.Count > 0)
                         undoStack.Clear();
-                    bufer.Add(string.Concat(bufer[bufer.Count - 1], arg));
+                    current = bufer.Count > 0 ? string.Concat(bufer[bufer.Count - 1], arg) : arg;
+                    bufer.Add(current);
                     break;
                 case "2":
                     if (history.Count > 0 && history.Peek() == "4" && undoStack.Count > 0)
                         undoStack.Clear();
                     int trim = int.Parse(arg);
-                    string current = string.Empty;
-                    if (trim < bufer[bufer.Count - 1].Length)
+                    if (bufer.Count > 0 && trim < bufer[bufer.Count - 1].Length)
                     {
                         current = bufer[bufer.Count - 1].Substring(0, bufer[bufer.Count - 1].Length - trim);
                     }
@@ -43,11 +45,13 @@ namespace Level1Space
                     break;
                 case "3":
                     history.Push(cmd);
-                    if (bufer[bufer.Count - 1].Length - 1 < int.Parse(arg) || int.Parse(arg) < 0)
+                    if (bufer.Count == 0 || bufer[bufer.Count - 1].Length - 1 < int.Parse(arg) || int.Parse(arg) < 0)
                         return string.Empty;
 
                     return bufer[bufer.Count - 1][int.Parse(arg)].ToString();
                 case "4":
+                    if (bufer.Count == 0)
+                        return string.Empty;
                     var previousCommand = history.Pop();
                     if (previousCommand == "4")
                     {
@@ -61,6 +65,9 @@ namespace Level1Space
                     
                     undoStack.Push(bufer[bufer.Count-1]);
                     bufer.RemoveAt(bufer.Count-1);
+                    if (bufer.Count == 0)
+                        return string.Empty;
+                    
                     return bufer[bufer.Count - 1];
                 
                 case "5":
@@ -68,6 +75,8 @@ namespace Level1Space
                     {
                         bufer.Add(undoStack.Pop());
                     }
+                    break;
+                case "":
                     break;
             }
             

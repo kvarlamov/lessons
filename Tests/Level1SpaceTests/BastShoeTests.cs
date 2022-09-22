@@ -94,5 +94,43 @@ namespace Level1SpaceTests
                 Assert.AreEqual(expected.Dequeue(), res);
             }
         }
+
+        [Test]
+        public void Four()
+        {
+            Queue<string> commands = new Queue<string>();
+            commands.Enqueue("1 Привет");
+            commands.Enqueue("1 , Мир!");
+            commands.Enqueue("1 ++");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            commands.Enqueue("4");
+            
+            Queue<string> expected = new Queue<string>();
+            expected.Enqueue("Привет");
+            expected.Enqueue("Привет, Мир!");
+            expected.Enqueue("Привет, Мир!++");
+            expected.Enqueue("Привет, Мир!");
+            expected.Enqueue("Привет");
+            expected.Enqueue("");
+            expected.Enqueue("");
+            expected.Enqueue("");
+            expected.Enqueue("");
+            expected.Enqueue("");
+            expected.Enqueue("");
+            expected.Enqueue("");
+            expected.Enqueue("");
+
+            while (commands.Count > 0)
+            {
+                var res = Level1.BastShoe(commands.Dequeue());
+                Assert.AreEqual(expected.Dequeue(), res);
+            }
+        }
     }
 }
