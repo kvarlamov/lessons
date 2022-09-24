@@ -132,5 +132,57 @@ namespace Level1SpaceTests
                 Assert.AreEqual(expected.Dequeue(), res);
             }
         }
+
+        [Test]
+        public void TestNew()
+        {
+            Queue<string> commands = new Queue<string>();
+            commands.Enqueue("1 Привет");
+            commands.Enqueue("1 , Мир!");
+            commands.Enqueue("1 ++");
+            commands.Enqueue("3 1");
+            commands.Enqueue("4");
+            
+            Queue<string> expected = new Queue<string>();
+            expected.Enqueue("Привет");
+            expected.Enqueue("Привет, Мир!");
+            expected.Enqueue("Привет, Мир!++");
+            expected.Enqueue("р");
+            expected.Enqueue("Привет, Мир!");
+            
+            while (commands.Count > 0)
+            {
+                var res = Level1.BastShoe(commands.Dequeue());
+                Assert.AreEqual(expected.Dequeue(), res);
+            }
+        }
+
+        [Test]
+        public void TestStrange()
+        {
+            List<KeyValuePair<string, string>> dic = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>( "4", ""),
+                new KeyValuePair<string, string>( "2 2", ""),
+                new KeyValuePair<string, string>("5", ""),
+                new KeyValuePair<string, string>("1 Привет", "Привет"),
+                new KeyValuePair<string, string>("1 ++", "Привет++"),
+                new KeyValuePair<string, string>("4", "Привет"),
+                new KeyValuePair<string, string>("4", ""),
+                new KeyValuePair<string, string>("4", ""),
+                new KeyValuePair<string, string>("4", ""),
+                new KeyValuePair<string, string>("4", ""),
+                new KeyValuePair<string, string>("5", ""),
+                new KeyValuePair<string, string>("5", "Привет"),
+                new KeyValuePair<string, string>("5", "Привет++"),
+                new KeyValuePair<string, string>( "2 2", "Привет")
+            };
+
+            foreach (var i in dic)
+            {
+                var res = Level1.BastShoe(i.Key);
+                Assert.AreEqual(i.Value, res);
+            }
+        }
     }
 }

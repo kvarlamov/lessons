@@ -5,9 +5,10 @@ namespace Level1Space
 {
     public static class Level1
     {
-        private static Stack<string> history = new Stack<string>();
-        private static Stack<string> undoStack = new Stack<string>();
-        private static List<string> bufer = new List<string>();
+        private static int pointer = 0;
+        private static int stopPointer = 0;
+        private static List<string> shoeList = new List<string>() {string.Empty};
+        private static bool wasFour = false;
         
         public static string BastShoe(string command)
         {
@@ -27,61 +28,72 @@ namespace Level1Space
             switch (cmd)
             {
                 case "1":
-                    if (history.Count > 0 && history.Peek() == "4" && undoStack.Count > 0)
-                        undoStack.Clear();
-                    current = bufer.Count > 0 ? string.Concat(bufer[bufer.Count - 1], arg) : arg;
-                    bufer.Add(current);
+                    current = pointer > 0 ? string.Concat(shoeList[pointer], arg) : arg;
+
+                    if (wasFour)
+                    {
+                        wasFour = false;
+                        string last =shoeList[pointer];
+                        shoeList.Clear();
+                        shoeList.Add(last);
+                        shoeList.Add(current);
+                        pointer = shoeList.Count - 1;
+                        break;
+                    }
+
+                    pointer += 1;
+                    shoeList.Add(current);
                     break;
                 case "2":
-                    if (history.Count > 0 && history.Peek() == "4" && undoStack.Count > 0)
-                        undoStack.Clear();
                     int trim = int.Parse(arg);
-                    if (bufer.Count > 0 && trim < bufer[bufer.Count - 1].Length)
+                    if (pointer > 0 && trim < shoeList[pointer].Length)
                     {
-                        current = bufer[bufer.Count - 1].Substring(0, bufer[bufer.Count - 1].Length - trim);
+                        current = shoeList[pointer].Substring(0, shoeList[pointer].Length - trim);
                     }
-                    
-                    bufer.Add(current);
+
+                    if (wasFour)
+                    {
+                        wasFour = false;
+                        string last =shoeList[pointer];
+                        shoeList.Clear();
+                        shoeList.Add(last);
+                        shoeList.Add(current);
+                        pointer = shoeList.Count - 1;
+                        break;
+                    }
+
+                    pointer += 1;
+                    shoeList.Add(current);
                     break;
                 case "3":
-                    history.Push(cmd);
-                    if (bufer.Count == 0 || bufer[bufer.Count - 1].Length - 1 < int.Parse(arg) || int.Parse(arg) < 0)
+                    if (shoeList.Count == 0 || shoeList[pointer].Length - 1 < int.Parse(arg) || int.Parse(arg) < 0)
                         return string.Empty;
-
-                    return bufer[bufer.Count - 1][int.Parse(arg)].ToString();
+                    
+                    return shoeList[pointer][int.Parse(arg)].ToString();
                 case "4":
-                    if (bufer.Count == 0)
-                        return string.Empty;
-                    var previousCommand = history.Pop();
-                    if (previousCommand == "4")
+                    wasFour = true;
+
+                    if (pointer - 1 <= 0)
                     {
-                        previousCommand = history.Peek();
+                        pointer = 0;
+                        return shoeList[pointer];
                     }
 
-                    history.Push(cmd);
-                    
-                    if (previousCommand == "4" || previousCommand == "3") 
-                        return bufer[bufer.Count - 1];
-                    
-                    undoStack.Push(bufer[bufer.Count-1]);
-                    bufer.RemoveAt(bufer.Count-1);
-                    if (bufer.Count == 0)
-                        return string.Empty;
-                    
-                    return bufer[bufer.Count - 1];
-                
+                    pointer -= 1;
+                    return shoeList[pointer];
                 case "5":
-                    if (undoStack.Count > 0)
-                    {
-                        bufer.Add(undoStack.Pop());
-                    }
-                    break;
-                case "":
-                    break;
+                    if (pointer + 1 > shoeList.Count - 1)
+                        pointer = shoeList.Count - 1;
+                    else
+                        pointer++;
+
+                    return shoeList[pointer];
+                default:
+                    return shoeList[pointer];
+
             }
-            
-            history.Push(cmd);
-            return bufer[bufer.Count - 1];
+
+            return shoeList[pointer];
         }
     }
 }
