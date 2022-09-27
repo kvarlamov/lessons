@@ -15,6 +15,9 @@ namespace Level1Space
 
             int l = input.Length;
 
+            if (input.Length == 2 && input[l - 1] < input[l - 2])
+                return string.Empty;
+
             if (input[l - 1] > input[l - 2])
             {
                 return Swap(input, l - 1, l - 2);
