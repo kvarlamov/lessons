@@ -5,94 +5,52 @@ namespace Level1Space
 {
     public static class Level1
     {
-        private static int _pointer = 0;
-        private static List<string> _shoeList = new List<string>() {string.Empty};
-        private static bool _wasFour = false;
-        
-        public static string BastShoe(string command)
+        public static string BiggerGreater(string input)
         {
-            string arg = string.Empty;
-            string cmd = command;
+            //check that all chars equal
+            if (string.IsNullOrEmpty(input.Replace(input[0].ToString(), string.Empty)))
+            {
+                return string.Empty;
+            }
+
+            int l = input.Length;
+
+            if (input[l - 1] > input[l - 2])
+            {
+                return Swap(input, l - 1, l - 2);
+            }
+
+            // firstly set first char next bigger
+            char currentFind = input[0];
+            char min = input[1];
+            int index = 0;
+            for (int i = 2; i < input.Length - 1; i++)
+            {
+                if (input[i] < min && input[i] > currentFind)
+                {
+                    currentFind = input[i];
+                    index = i;
+                }
+            }
+
+            if (index != 0)
+                input = Swap(input, 0, index);
+
+            var tail = input.Substring(1).ToCharArray();
+            Array.Sort(tail);
             
-            //so we should have two operands
-            if (command.Length > 1)
-            {
-                var spaceIndex = command.IndexOf(' ');
-                cmd = command.Substring(0, spaceIndex);
-                arg = command.Substring(spaceIndex + 1);
-            }
+            return string.Concat(input[0].ToString(), new string(tail));
+        }
 
-            string current = string.Empty;
+        private static string Swap(string input, int index1, int index2)
+        {
+            string a = input[index1].ToString();
+            string b = input[index2].ToString();
 
-            switch (cmd)
-            {
-                case "1":
-                    current = _pointer > 0 ? string.Concat(_shoeList[_pointer], arg) : arg;
+            input = input.Remove(index1, 1).Insert(index1, b);
+            input = input.Remove(index2, 1).Insert(index2, a);
 
-                    if (_wasFour)
-                    {
-                        _wasFour = false;
-                        string last =_shoeList[_pointer];
-                        _shoeList.Clear();
-                        _shoeList.Add(last);
-                        _shoeList.Add(current);
-                        _pointer = _shoeList.Count - 1;
-                        break;
-                    }
-
-                    _pointer += 1;
-                    _shoeList.Add(current);
-                    break;
-                case "2":
-                    int trim = int.Parse(arg);
-                    if (_pointer > 0 && trim < _shoeList[_pointer].Length)
-                    {
-                        current = _shoeList[_pointer].Substring(0, _shoeList[_pointer].Length - trim);
-                    }
-
-                    if (_wasFour)
-                    {
-                        _wasFour = false;
-                        string last =_shoeList[_pointer];
-                        _shoeList.Clear();
-                        _shoeList.Add(last);
-                        _shoeList.Add(current);
-                        _pointer = _shoeList.Count - 1;
-                        break;
-                    }
-
-                    _pointer += 1;
-                    _shoeList.Add(current);
-                    break;
-                case "3":
-                    if (_shoeList.Count == 0 || _shoeList[_pointer].Length - 1 < int.Parse(arg) || int.Parse(arg) < 0)
-                        return string.Empty;
-                    
-                    return _shoeList[_pointer][int.Parse(arg)].ToString();
-                case "4":
-                    _wasFour = true;
-
-                    if (_pointer - 1 <= 0)
-                    {
-                        _pointer = 0;
-                        return _shoeList[_pointer];
-                    }
-
-                    _pointer -= 1;
-                    return _shoeList[_pointer];
-                case "5":
-                    if (_pointer + 1 > _shoeList.Count - 1)
-                        _pointer = _shoeList.Count - 1;
-                    else
-                        _pointer++;
-
-                    return _shoeList[_pointer];
-                default:
-                    return _shoeList[_pointer];
-
-            }
-
-            return _shoeList[_pointer];
+            return input;
         }
     }
 }

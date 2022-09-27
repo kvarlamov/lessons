@@ -40,7 +40,7 @@ namespace Level1SpaceTests
 
             while (commands.Count > 0)
             {
-                var res = Level1.BastShoe(commands.Dequeue());
+                var res = Level1Solved.BastShoe(commands.Dequeue());
                 Assert.AreEqual(expected.Dequeue(), res);
             }
         }
@@ -90,7 +90,7 @@ namespace Level1SpaceTests
 
             while (commands.Count > 0)
             {
-                var res = Level1.BastShoe(commands.Dequeue());
+                var res = Level1Solved.BastShoe(commands.Dequeue());
                 Assert.AreEqual(expected.Dequeue(), res);
             }
         }
@@ -128,7 +128,7 @@ namespace Level1SpaceTests
 
             while (commands.Count > 0)
             {
-                var res = Level1.BastShoe(commands.Dequeue());
+                var res = Level1Solved.BastShoe(commands.Dequeue());
                 Assert.AreEqual(expected.Dequeue(), res);
             }
         }
@@ -152,7 +152,7 @@ namespace Level1SpaceTests
             
             while (commands.Count > 0)
             {
-                var res = Level1.BastShoe(commands.Dequeue());
+                var res = Level1Solved.BastShoe(commands.Dequeue());
                 Assert.AreEqual(expected.Dequeue(), res);
             }
         }
@@ -180,7 +180,7 @@ namespace Level1SpaceTests
 
             foreach (var i in dic)
             {
-                var res = Level1.BastShoe(i.Key);
+                var res = Level1Solved.BastShoe(i.Key);
                 Assert.AreEqual(i.Value, res);
             }
         }

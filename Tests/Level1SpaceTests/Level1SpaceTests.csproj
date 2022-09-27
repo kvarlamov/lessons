@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BastShoeTests.cs" />
+    <Compile Include="BiggerGreaterTests.cs" />
     <Compile Include="BigMinusTests.cs" />
     <Compile Include="LineAnalysisTests.cs" />
     <Compile Include="MassVoteTests.cs" />
