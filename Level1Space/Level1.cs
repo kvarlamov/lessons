@@ -5,55 +5,51 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static string BiggerGreater(string input)
+        public static bool SherlockValidString(string s)
         {
-            //check that all chars equal
-            if (string.IsNullOrEmpty(input.Replace(input[0].ToString(), string.Empty)))
-            {
-                return string.Empty;
-            }
-
-            int l = input.Length;
-
-            if (input.Length == 2 && input[l - 1] < input[l - 2])
-                return string.Empty;
-
-            if (input[l - 1] > input[l - 2])
-            {
-                return Swap(input, l - 1, l - 2);
-            }
-
-            // firstly set first char next bigger
-            char currentFind = input[0];
-            char min = input[1];
-            int index = 0;
-            for (int i = 2; i < input.Length - 1; i++)
-            {
-                if (input[i] < min && input[i] > currentFind)
-                {
-                    currentFind = input[i];
-                    index = i;
-                }
-            }
-
-            if (index != 0)
-                input = Swap(input, 0, index);
-
-            var tail = input.Substring(1).ToCharArray();
-            Array.Sort(tail);
+            if (s.Length == 2)
+                return true;
             
-            return string.Concat(input[0].ToString(), new string(tail));
-        }
+            Dictionary<char, int> dic = new Dictionary<char, int>();
 
-        private static string Swap(string input, int index1, int index2)
-        {
-            string a = input[index1].ToString();
-            string b = input[index2].ToString();
+            int maxFreq = 0;
 
-            input = input.Remove(index1, 1).Insert(index1, b);
-            input = input.Remove(index2, 1).Insert(index2, a);
+            foreach (var ch in s)
+            {
+                int freq = 0;
+                
+                if (!dic.TryGetValue(ch, out freq))
+                {
+                    dic.Add(ch, freq);
+                }
 
-            return input;
+                
+                dic[ch] = freq + 1;
+            }
+
+            Dictionary<int, int> res = new Dictionary<int, int>();
+            List<int> keys = new List<int>();
+
+            foreach (var value in dic.Values)
+            {
+                int freq = 0;
+
+                if (!res.TryGetValue(value, out freq))
+                {
+                    res.Add(value, freq);
+                    keys.Add(value);
+                }
+
+                res[value] = freq + 1;
+            }
+
+            if (res.Count == 1)
+                return true;
+            
+            if (res.Count > 2 || !res.ContainsValue(1) || Math.Abs(keys[0] - keys[1]) > 1)
+                return false;
+
+            return true;
         }
     }
 }

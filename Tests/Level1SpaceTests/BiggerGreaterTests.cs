@@ -10,9 +10,10 @@ namespace Level1SpaceTests
         [TestCase("ая", "яа")]
         [TestCase("вибк", "викб")]
         [TestCase("вкиб", "ибвк")]
+        [TestCase("za", "")]
         public void Test1(string input, string expected)
         {
-            var res = Level1.BiggerGreater(input);
+            var res = Level1Solved.BiggerGreater(input);
             
             Assert.AreEqual(expected, res);
         }
