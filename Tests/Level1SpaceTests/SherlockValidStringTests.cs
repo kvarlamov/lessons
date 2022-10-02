@@ -18,7 +18,7 @@ namespace Level1SpaceTests
         [TestCase("xyyzabcc", false)]
         public void Test(string input, bool expected)
         {
-            var res = Level1.SherlockValidString(input);
+            var res = Level1Solved.SherlockValidString(input);
             
             Assert.AreEqual(expected, res);
         }

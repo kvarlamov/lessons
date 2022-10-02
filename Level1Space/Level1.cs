@@ -5,51 +5,107 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static bool SherlockValidString(string s)
+        public static string [] TreeOfLife(int H, int W, int N, string [] tree)
         {
-            if (s.Length == 2)
-                return true;
+            bool isEven = true;
+            int yearCounter = 0;
+            char[,] resTree = new char[H, W];
             
-            Dictionary<char, int> dic = new Dictionary<char, int>();
-
-            int maxFreq = 0;
-
-            foreach (var ch in s)
+            // fill the tree
+            for (int i = 0; i < H; i++)
             {
-                int freq = 0;
-                
-                if (!dic.TryGetValue(ch, out freq))
+                for (int j = 0; j < W; j++)
                 {
-                    dic.Add(ch, freq);
+                    var c = tree[i][j] == '+' ? '1' : tree[i][j];
+                    resTree[i, j] = c;
+                }
+            }
+            
+            while (N > 0)
+            {
+                bool shouldDestroy = false;
+                // increase
+                for (int i = 0; i < H; i++)
+                {
+                    for (int j = 0; j < W; j++)
+                    {
+                        // adding 48 because '0' has 48 code
+                        char c = resTree[i, j] == '.' ? '1' : (char) (char.GetNumericValue(resTree[i, j]) + 1 + 48);
+                        resTree[i, j] = c;
+                        
+                        if (char.GetNumericValue(c) >= 3)
+                            shouldDestroy = true;
+                    }
                 }
 
-                
-                dic[ch] = freq + 1;
-            }
-
-            Dictionary<int, int> res = new Dictionary<int, int>();
-            List<int> keys = new List<int>();
-
-            foreach (var value in dic.Values)
-            {
-                int freq = 0;
-
-                if (!res.TryGetValue(value, out freq))
+                if (shouldDestroy && !isEven)
                 {
-                    res.Add(value, freq);
-                    keys.Add(value);
+                    ClearTree(resTree, H, W);
                 }
 
-                res[value] = freq + 1;
+                isEven = !isEven;
+                N--;
             }
 
-            if (res.Count == 1)
-                return true;
-            
-            if (res.Count > 2 || !res.ContainsValue(1) || Math.Abs(keys[0] - keys[1]) > 1)
-                return false;
+            for (int i = 0; i < H; i++)
+            {
+                string currentLine = string.Empty;
+                for (int j = 0; j < W; j++)
+                {
+                    var c = resTree[i, j] == '.' ? '.' : '+';
+                    currentLine = string.Concat(currentLine, c);
+                }
 
-            return true;
+                tree[i] = currentLine;
+            }
+
+            return tree;
+        }
+
+        private static void ClearTree(char[,] tree, int H, int W)
+        {
+            bool[,] mask = new bool[H, W];
+
+            // fill mask for clearing
+            for (int i = 0; i < H; i++)
+            {
+                for (int j = 0; j < W; j++)
+                {
+                    if (char.GetNumericValue(tree[i, j]) < 3) continue;
+                    
+                    mask[i, j] = true;
+                    // left
+                    if (j > 0)
+                    {
+                        mask[i, j - 1] = true;
+                    }
+                    // right
+                    if (j < W - 1)
+                    {
+                        mask[i, j + 1] = true;
+                    }
+                    // up
+                    if (i > 0)
+                    {
+                        mask[i - 1, j] = true;
+                    }
+                    // down
+                    if (i < H - 1)
+                    {
+                        mask[i + 1, j] = true;
+                    }
+                }
+            }
+            
+            // clearing
+            for (int i = 0; i < H; i++)
+            {
+                for (int j = 0; j < W; j++)
+                {
+                    if (mask[i, j])
+                        tree[i, j] = '.';
+                }
+            }
         }
     }
 }
