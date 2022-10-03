@@ -15,7 +15,7 @@ namespace Level1SpaceTests
             string[] tree = new[] {".+..", "..+.", ".+.."};
             var expected = new[] {".+..", "..+.", ".+.."};
 
-            var res = Level1.TreeOfLife(H, W, N, tree);
+            var res = Level1Solved.TreeOfLife(H, W, N, tree);
             
             CollectionAssert.AreEqual(expected, res);            
         }
@@ -29,7 +29,7 @@ namespace Level1SpaceTests
             string[] tree = new[] {".+..", "..+.", ".+.."};
             var expected = new[] {"...+", "+...", "...+"};
 
-            var res = Level1.TreeOfLife(H, W, N, tree);
+            var res = Level1Solved.TreeOfLife(H, W, N, tree);
             
             CollectionAssert.AreEqual(expected, res);            
         }
@@ -44,7 +44,7 @@ namespace Level1SpaceTests
             string[] tree = new[] {".+..", "..+.", ".+.."};
             var expected = new[] {"++++", "++++", "++++"};
 
-            var res = Level1.TreeOfLife(H, W, N, tree);
+            var res = Level1Solved.TreeOfLife(H, W, N, tree);
             
             CollectionAssert.AreEqual(expected, res);            
         }
@@ -62,7 +62,7 @@ namespace Level1SpaceTests
             int W = 5;
             string[] tree = new[] {"..+..", ".+...", "...++","++...","+.+.."};
 
-            var res = Level1.TreeOfLife(H, W, N, tree);
+            var res = Level1Solved.TreeOfLife(H, W, N, tree);
             
             CollectionAssert.AreEqual(expected, res);            
         }

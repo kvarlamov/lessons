@@ -59,6 +59,7 @@
     <Compile Include="BigMinusTests.cs" />
     <Compile Include="LineAnalysisTests.cs" />
     <Compile Include="MassVoteTests.cs" />
+    <Compile Include="MatrixTurnTests.cs" />
     <Compile Include="MaximumDiscountTests.cs" />
     <Compile Include="MisterRobotTests.cs" />
     <Compile Include="PatternUnlockTests.cs" />

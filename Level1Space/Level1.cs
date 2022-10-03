@@ -5,107 +5,81 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static string [] TreeOfLife(int H, int W, int N, string [] tree)
+        public static void MatrixTurn(string[] Matrix, int M, int N, int T)
         {
-            bool isEven = true;
-            int yearCounter = 0;
-            char[,] resTree = new char[H, W];
-            
-            // fill the tree
-            for (int i = 0; i < H; i++)
+            char[,] m = new char[M, N];
+            for (int i = 0; i < M; i++)
             {
-                for (int j = 0; j < W; j++)
+                for (int j = 0; j < N; j++)
                 {
-                    var c = tree[i][j] == '+' ? '1' : tree[i][j];
-                    resTree[i, j] = c;
+                    m[i, j] = Matrix[i][j];
                 }
             }
-            
-            while (N > 0)
+
+            for (int i = 0, j = 0; i < M / 2 && j < N / 2; i++,j++)
             {
-                bool shouldDestroy = false;
-                // increase
-                for (int i = 0; i < H; i++)
-                {
-                    for (int j = 0; j < W; j++)
-                    {
-                        // adding 48 because '0' has 48 code
-                        char c = resTree[i, j] == '.' ? '1' : (char) (char.GetNumericValue(resTree[i, j]) + 1 + 48);
-                        resTree[i, j] = c;
-                        
-                        if (char.GetNumericValue(c) >= 3)
-                            shouldDestroy = true;
-                    }
-                }
-
-                if (shouldDestroy && !isEven)
-                {
-                    ClearTree(resTree, H, W);
-                }
-
-                isEven = !isEven;
-                N--;
+                Rotate(m, M - i, N - j, T, i, j);
             }
-
-            for (int i = 0; i < H; i++)
+            
+            for (int i = 0; i < M; i++)
             {
                 string currentLine = string.Empty;
-                for (int j = 0; j < W; j++)
+                for (int j = 0; j < N; j++)
                 {
-                    var c = resTree[i, j] == '.' ? '.' : '+';
-                    currentLine = string.Concat(currentLine, c);
+                    currentLine = string.Concat(currentLine, m[i,j]);
                 }
 
-                tree[i] = currentLine;
+                Matrix[i] = currentLine;
             }
-
-            return tree;
         }
 
-        private static void ClearTree(char[,] tree, int H, int W)
+        private static void Rotate(char[,] matrix, int downBorder, int rightBorder, int T, int verticalStart, int horizontalStart)
         {
-            bool[,] mask = new bool[H, W];
+            if (T == 0)
+                return;
 
-            // fill mask for clearing
-            for (int i = 0; i < H; i++)
-            {
-                for (int j = 0; j < W; j++)
-                {
-                    if (char.GetNumericValue(tree[i, j]) < 3) continue;
-                    
-                    mask[i, j] = true;
-                    // left
-                    if (j > 0)
-                    {
-                        mask[i, j - 1] = true;
-                    }
-                    // right
-                    if (j < W - 1)
-                    {
-                        mask[i, j + 1] = true;
-                    }
-                    // up
-                    if (i > 0)
-                    {
-                        mask[i - 1, j] = true;
-                    }
-                    // down
-                    if (i < H - 1)
-                    {
-                        mask[i + 1, j] = true;
-                    }
-                }
-            }
+            int i = verticalStart;
+            int j = horizontalStart;
+            char prev = matrix[i, j];
+            char tmp;
             
-            // clearing
-            for (int i = 0; i < H; i++)
+            //go right
+            for (j += 1; j < rightBorder; j++)
             {
-                for (int j = 0; j < W; j++)
-                {
-                    if (mask[i, j])
-                        tree[i, j] = '.';
-                }
+                tmp = matrix[i, j];
+                matrix[i, j] = prev;
+                prev = tmp;
             }
+
+            j = rightBorder - 1;
+            //go down
+            for (i += 1; i < downBorder; i++)
+            {
+                tmp = matrix[i, j];
+                matrix[i, j] = prev;
+                prev = tmp;
+            }
+
+            i = downBorder - 1;
+            //go left
+            for (j-=1; j >= horizontalStart; j--)
+            {
+                tmp = matrix[i, j];
+                matrix[i, j] = prev;
+                prev = tmp;
+            }
+
+            j = horizontalStart;
+            //go up
+            for (i-=1; i >= verticalStart; i--)
+            {
+                tmp = matrix[i, j];
+                matrix[i, j] = prev;
+                prev = tmp;
+            }
+
+            T--;
+            Rotate(matrix, downBorder, rightBorder, T, verticalStart, horizontalStart);
         }
     }
 }
