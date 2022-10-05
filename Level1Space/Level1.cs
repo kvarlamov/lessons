@@ -5,81 +5,63 @@ namespace Level1Space
 {
     public static class Level1
     {
-        public static void MatrixTurn(string[] Matrix, int M, int N, int T)
+        public static bool TransformTransform(int[] A, int N)
         {
-            char[,] m = new char[M, N];
-            for (int i = 0; i < M; i++)
+            int[] transform = Transform(A);
+
+            var result = 0;
+
+            foreach (var i in transform)
             {
-                for (int j = 0; j < N; j++)
-                {
-                    m[i, j] = Matrix[i][j];
-                }
+                result += i;
             }
 
-            for (int i = 0, j = 0; i < M / 2 && j < N / 2; i++,j++)
-            {
-                Rotate(m, M - i, N - j, T, i, j);
-            }
-            
-            for (int i = 0; i < M; i++)
-            {
-                string currentLine = string.Empty;
-                for (int j = 0; j < N; j++)
-                {
-                    currentLine = string.Concat(currentLine, m[i,j]);
-                }
-
-                Matrix[i] = currentLine;
-            }
+            return result % 2 == 0;
         }
 
-        private static void Rotate(char[,] matrix, int downBorder, int rightBorder, int T, int verticalStart, int horizontalStart)
+        private static int[] Transform(int[] A)
         {
-            if (T == 0)
-                return;
+            int numberOfTransformation = 2;
+            List<int> B = new List<int>();
 
-            int i = verticalStart;
-            int j = horizontalStart;
-            char prev = matrix[i, j];
-            char tmp;
+            for (int n = 0; n < numberOfTransformation; n++)
+            {
+                B = Transformate(A);
+                A = B.ToArray();
+            }
+
+            return B.ToArray();
+        }
+
+        private static List<int> Transformate(int[] A)
+        {
+            int n = A.Length;
+            List<int> B = new List<int>();
             
-            //go right
-            for (j += 1; j < rightBorder; j++)
+            for (int i = 0; i < n - 1; i++)
             {
-                tmp = matrix[i, j];
-                matrix[i, j] = prev;
-                prev = tmp;
+                for (int j = 0; j < n - 1 - i; j++)
+                {
+                    int k = i + j;
+                    int max = FindMax(A, j, k);
+                    B.Add(max);
+                }
             }
 
-            j = rightBorder - 1;
-            //go down
-            for (i += 1; i < downBorder; i++)
+            return B;
+        }
+
+        private static int FindMax(int[] A, int j, int k)
+        {
+            int max = 0;
+            
+            for (int i = j; i < k; i++)
             {
-                tmp = matrix[i, j];
-                matrix[i, j] = prev;
-                prev = tmp;
+                if (A[i] > max)
+                    max = A[i];
             }
 
-            i = downBorder - 1;
-            //go left
-            for (j-=1; j >= horizontalStart; j--)
-            {
-                tmp = matrix[i, j];
-                matrix[i, j] = prev;
-                prev = tmp;
-            }
-
-            j = horizontalStart;
-            //go up
-            for (i-=1; i >= verticalStart; i--)
-            {
-                tmp = matrix[i, j];
-                matrix[i, j] = prev;
-                prev = tmp;
-            }
-
-            T--;
-            Rotate(matrix, downBorder, rightBorder, T, verticalStart, horizontalStart);
+            return max;
         }
     }
 }
