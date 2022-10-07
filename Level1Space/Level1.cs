@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Level1Space
 {
@@ -13,7 +12,7 @@ namespace Level1Space
 
             bool flag = false;
 
-            village = Regex.Replace(village, "[A-Za-z]", "");
+            village = System.Text.RegularExpressions.Regex.Replace(village, "[A-Za-z]", "");
             
             for (int i = 0; i < village.Length; i++)
             {
