@@ -1,59 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Level1Space
 {
     public static class Level1
     {
-        public static bool TransformTransform(int[] A, int N)
+        public static bool white_walkers(string village)
         {
-            List<int> transform = Transform(A);
+            if (string.IsNullOrEmpty(village) || !village.Contains("="))
+                return false;
 
-            var result = 0;
+            bool flag = false;
 
-            foreach (var i in transform)
-            {
-                result += i;
-            }
-
-            return result % 2 == 0;
-        }
-
-        private static List<int> Transform(int[] A)
-        {
-            return Transformate(Transformate(A).ToArray());
-        }
-
-        private static List<int> Transformate(int[] A)
-        {
-            int n = A.Length;
-
-            List<int> B = new List<int>();
-
-            for (int i = 0; i <= n - 1; i++)
-            {
-                for (int j = 0; j <= n - 1 - i; j++)
-                {
-                    int k = i + j;
-                    int max = FindMax(A, j, k);
-                    B.Add(max);
-                }
-            }
-
-            return B;
-        }
-
-        private static int FindMax(int[] A, int j, int k)
-        {
-            int max = 0;
+            village = Regex.Replace(village, "[A-Za-z]", "");
             
-            for (int i = j; i <= k; i++)
+            for (int i = 0; i < village.Length; i++)
             {
-                if (A[i] > max)
-                    max = A[i];
-            }
+                int whiteWalkers = 0;
+                
+                if (!int.TryParse(village[i].ToString(), out int numFirst))
+                {
+                    continue;
+                }
 
-            return max;
+                int j = i + 1;
+                int numSecond = 0;
+                bool isWalkers = false;
+                while (j < village.Length && !int.TryParse(village[j].ToString(), out numSecond))
+                {
+                    if (village[j] == '=')
+                    {
+                        isWalkers = true;
+                        whiteWalkers++;
+                    }
+
+                    j++;
+                }
+
+                if (!isWalkers || numFirst + numSecond != 10)
+                    continue;
+                
+                if (numFirst + numSecond == 10 && whiteWalkers != 3)
+                    return false;
+
+                flag = true;
+                i = j-1;
+            }
+            
+            return flag;
         }
     }
 }

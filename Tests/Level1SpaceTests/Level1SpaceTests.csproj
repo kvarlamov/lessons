@@ -74,6 +74,7 @@
     <Compile Include="TreeOfLifeTests.cs" />
     <Compile Include="UFOTests.cs" />
     <Compile Include="UnmannedTests.cs" />
+    <Compile Include="white_walkersTests.cs" />
     <Compile Include="WordSearchTests.cs" />
   </ItemGroup>
   <ItemGroup>

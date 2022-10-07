@@ -8,9 +8,11 @@ namespace Level1SpaceTests
         [Test]
         public void Test1()
         {
-            int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            int[] arr = {1,2,1,7,2,4,3,1,5,1,2,1,6,1,2};
 
-            var result = Level1.TransformTransform(arr, arr.Length);
+            var result = Level1Solved.TransformTransform(arr, arr.Length);
+            
+            Assert.IsFalse(result);
         }
     }
 }
