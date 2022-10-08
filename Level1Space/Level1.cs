@@ -71,21 +71,10 @@ namespace Level1Space
 
         private static void ReverseArrayPart(int[] arr, int from, int to)
         {
-            // Stack<int> st = new Stack<int>();
-                
             for (int j = from, i = to; j <= i; j++, i--)
             {
                 (arr[j], arr[i]) = (arr[i], arr[j]);
             }
-            // for (int j = from, i = to; j <= i; j++, i--)
-            // {
-            //     st.Push(arr[j]);
-            // }
-            //
-            // for (int j = from; j <= to; j++)
-            // {
-            //     arr[j] = st.Pop();
-            // }
         }
 
         private static int FindToIndex(int[] arr, int i)
