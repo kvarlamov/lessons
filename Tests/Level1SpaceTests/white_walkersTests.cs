@@ -14,7 +14,7 @@ namespace Level1SpaceTests
         [TestCase("abc=8==hdjs=3gg1=======5", false)]
         public void Test1(string village, bool expected)
         {
-            var result = Level1.white_walkers(village);
+            var result = Level1Solved.white_walkers(village);
             Assert.AreEqual(expected, result);
         }
     }
