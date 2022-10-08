@@ -6,6 +6,7 @@ namespace Level1SpaceTests
     public class FootballTests
     {
         [Test]
+        [TestCase((new int[] {1,2,3}), false)]
         [TestCase((new int[] {1,3,2}), true)]
         [TestCase((new int[] {1, 7, 5, 3, 9}), true)]
         [TestCase((new int[] {1, 5, 3, 4, 2, 6}), true)]

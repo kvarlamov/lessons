@@ -7,9 +7,6 @@ namespace Level1Space
     {
         public static bool Football(int[] F, int N)
         {
-            if (N < 3)
-                return true;
-
             if (IsOrdered(F))
                 return false;
             
