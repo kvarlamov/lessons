@@ -9,6 +9,9 @@ namespace Level1Space
         {
             if (N < 3)
                 return true;
+
+            if (IsOrdered(F))
+                return false;
             
             var copy = (int[])F.Clone();
             
