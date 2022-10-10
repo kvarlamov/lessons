@@ -25,7 +25,7 @@ namespace Level1SpaceTests
         [TestCase((new int[] {9,8,7,3,1}), true)]
         public void Test(int[] arr, bool expected)
         {
-            var result = Level1.Football(arr, arr.Length);
+            var result = Level1Solved.Football(arr, arr.Length);
             
             Assert.AreEqual(expected, result);
         }

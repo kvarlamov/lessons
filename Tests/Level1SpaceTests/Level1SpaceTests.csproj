@@ -58,6 +58,7 @@
     <Compile Include="BiggerGreaterTests.cs" />
     <Compile Include="BigMinusTests.cs" />
     <Compile Include="FootballTests.cs" />
+    <Compile Include="KeymakerTests.cs" />
     <Compile Include="LineAnalysisTests.cs" />
     <Compile Include="MassVoteTests.cs" />
     <Compile Include="MatrixTurnTests.cs" />
