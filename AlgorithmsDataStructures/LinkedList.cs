@@ -4,17 +4,17 @@ using System.Collections.Generic;
 namespace AlgorithmsDataStructures
 {
 
-    public class Node
+    public class NodeLinkedList
     {
         public int value;
-        public Node next;
-        public Node(int _value) { value = _value; }
+        public NodeLinkedList next;
+        public NodeLinkedList(int _value) { value = _value; }
     }
 
     public class LinkedList
     {
-        public Node head;
-        public Node tail;
+        public NodeLinkedList head;
+        public NodeLinkedList tail;
 
         public LinkedList()
         {
@@ -22,7 +22,7 @@ namespace AlgorithmsDataStructures
             tail = null;
         }
 
-        public void AddInTail(Node _item)
+        public void AddInTail(NodeLinkedList _item)
         {
             if (head == null)
                 head = _item;
@@ -31,9 +31,9 @@ namespace AlgorithmsDataStructures
             tail = _item;
         }
 
-        public Node Find(int _value)
+        public NodeLinkedList Find(int _value)
         {
-            Node node = head;
+            NodeLinkedList node = head;
             while (node != null)
             {
                 if (node.value.Equals(_value))
@@ -43,10 +43,10 @@ namespace AlgorithmsDataStructures
             return null;
         }
 
-        public List<Node> FindAll(int _value)
+        public List<NodeLinkedList> FindAll(int _value)
         {
-            List<Node> nodes = new List<Node>();
-            Node current = head;
+            List<NodeLinkedList> nodes = new List<NodeLinkedList>();
+            NodeLinkedList current = head;
             while (current != null)
             {
                 if (current.value.Equals(_value))
@@ -65,7 +65,7 @@ namespace AlgorithmsDataStructures
                 return false; 
             }
 
-            Node current = head;
+            NodeLinkedList current = head;
 
             if (current.value.Equals(_value))
             {
@@ -76,7 +76,7 @@ namespace AlgorithmsDataStructures
                 return true;
             }
 
-            Node next = current.next;
+            NodeLinkedList next = current.next;
 
             while (next != null)
             {
@@ -112,7 +112,7 @@ namespace AlgorithmsDataStructures
         public int Count()
         {
             int count = 0;
-            Node node = head;
+            NodeLinkedList node = head;
             while (node != null)
             {
                 count++;
@@ -122,7 +122,7 @@ namespace AlgorithmsDataStructures
             return count;
         }
 
-        public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
+        public void InsertAfter(NodeLinkedList _nodeAfter, NodeLinkedList _nodeToInsert)
         {
             //if null push to head
             if (_nodeAfter == null)
@@ -140,12 +140,12 @@ namespace AlgorithmsDataStructures
                 return;
             }
 
-            Node current = head;
+            NodeLinkedList current = head;
             while (current != null)
             {
                 if (_nodeAfter.value.Equals(current.value))
                 {
-                    Node tmp = current.next;
+                    NodeLinkedList tmp = current.next;
                     if (tmp == null) 
                         tail = _nodeToInsert;
                     current.next = _nodeToInsert;
