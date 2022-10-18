@@ -7,8 +7,7 @@ namespace AlgorithmsDataStructures
     {
         public int value;
         public Node next, prev;
-        public bool IsDummy { get; protected set; }
-
+        
         public Node(int _value) { 
             value = _value; 
             next = null;

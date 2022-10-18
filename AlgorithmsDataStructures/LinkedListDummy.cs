@@ -7,11 +7,6 @@ namespace AlgorithmsDataStructures
         public DummyNode(int _value) : base(_value)
         {
         }
-
-        public DummyNode() : this(0)
-        {
-            IsDummy = true;
-        }
     }
     
     public class LinkedListDummy
@@ -21,8 +16,8 @@ namespace AlgorithmsDataStructures
 
         public LinkedListDummy()
         {
-            _head = new DummyNode();
-            _tail = new DummyNode();
+            _head = new DummyNode(0);
+            _tail = new DummyNode(0);
             _head.next = _tail;
             _tail.prev = _head;
         }
@@ -31,7 +26,7 @@ namespace AlgorithmsDataStructures
         {
             List<int> list = new List<int>();
             Node curr = _head.next;
-            while (!curr.IsDummy)
+            while (!(curr is DummyNode))
             {
                 list.Add(curr.value);
                 curr = curr.next;
@@ -42,7 +37,7 @@ namespace AlgorithmsDataStructures
         
         public void AddInTail(Node _item)
         {
-            if (_head.next.IsDummy)
+            if (_head.next is DummyNode)
             {
                 _head.next = _item;
                 _item.prev = _head;
@@ -61,7 +56,7 @@ namespace AlgorithmsDataStructures
         public Node Find(int _value)
         {
             Node current = _head.next;
-            while (!current.IsDummy)
+            while (!(current is DummyNode))
             {
                 if (current.value.Equals(_value))
                     return current;
@@ -77,7 +72,7 @@ namespace AlgorithmsDataStructures
             List<Node> nodes = new List<Node>();
 
             Node current = _head.next;
-            while (!current.IsDummy)
+            while (!(current is DummyNode))
             {
                 if (current.value.Equals(_value))
                 {
@@ -94,7 +89,7 @@ namespace AlgorithmsDataStructures
         {
             Node current = _head.next;
 
-            while (!current.IsDummy)
+            while (!(current is DummyNode))
             {
                 if (!current.value.Equals(_value))
                 {
@@ -128,7 +123,7 @@ namespace AlgorithmsDataStructures
         {
             int count = 0;
             Node current = _head.next;
-            while (!current.IsDummy)
+            while (!(current is DummyNode))
             {
                 count++;
                 current = current.next;
@@ -147,7 +142,7 @@ namespace AlgorithmsDataStructures
 
             Node current = _head.next;
 
-            while (!current.IsDummy)
+            while (!(current is DummyNode))
             {
                 if (!current.value.Equals(_nodeAfter.value))
                 {
@@ -166,7 +161,7 @@ namespace AlgorithmsDataStructures
 
         private void Enqueue(Node _nodeToInsert)
         {
-            if (_head.next.IsDummy)
+            if (_head.next is DummyNode)
             {
                 _tail.prev = _nodeToInsert;
                 _nodeToInsert.next = _tail;
