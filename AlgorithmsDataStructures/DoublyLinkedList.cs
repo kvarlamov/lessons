@@ -7,11 +7,24 @@ namespace AlgorithmsDataStructures
     {
         public int value;
         public Node next, prev;
+        public bool IsDummy { get; protected set; }
 
         public Node(int _value) { 
             value = _value; 
             next = null;
             prev = null;
+        }
+    }
+
+    public class DummyNode : Node
+    {
+        public DummyNode(int _value) : base(_value)
+        {
+        }
+
+        public DummyNode() : this(0)
+        {
+            IsDummy = true;
         }
     }
 
