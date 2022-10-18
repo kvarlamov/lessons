@@ -16,18 +16,6 @@ namespace AlgorithmsDataStructures
         }
     }
 
-    public class DummyNode : Node
-    {
-        public DummyNode(int _value) : base(_value)
-        {
-        }
-
-        public DummyNode() : this(0)
-        {
-            IsDummy = true;
-        }
-    }
-
     public class LinkedList2
     {
         public Node head;
