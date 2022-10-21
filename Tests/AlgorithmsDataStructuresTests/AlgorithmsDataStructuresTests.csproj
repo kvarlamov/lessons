@@ -45,6 +45,7 @@
     <ItemGroup>
         <Compile Include="DoublyLinkedListTests.cs" />
         <Compile Include="DummyLinkedListTests.cs" />
+        <Compile Include="DynArrayTests.cs" />
         <Compile Include="LinkedListTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
