@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public T GetItem(int index)
         {
-            CheckIndex(index);
+            CheckIndexRange(index);
             
             return array[index];
         }
@@ -56,7 +56,7 @@ namespace AlgorithmsDataStructures
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Insert(T itm, int index)
         {
-            CheckIndex(index);
+            CheckIndexRange(index);
             ResizeIfFull();
             
             for (int i = index; i <= count; i++)
@@ -76,7 +76,8 @@ namespace AlgorithmsDataStructures
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Remove(int index)
         {
-            CheckIndex(index);
+            CheckEmpty();
+            CheckIndexRange(index);
 
             for (int i = index; i < count - 1; i++)
             {
@@ -85,6 +86,12 @@ namespace AlgorithmsDataStructures
 
             count--;
             ShrinkArr();
+        }
+
+        private void CheckEmpty()
+        {
+            if (count == 0)
+                throw new IndexOutOfRangeException();
         }
 
         /// <summary>
@@ -114,9 +121,9 @@ namespace AlgorithmsDataStructures
                 MakeArray(newCapacity);
         }
 
-        private void CheckIndex(int index)
+        private void CheckIndexRange(int index)
         {
-            if (count == 0 || index > count || index < 0)
+            if (index > count || index < 0)
                 throw new IndexOutOfRangeException();
         }
     }
