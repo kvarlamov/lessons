@@ -114,6 +114,14 @@ namespace AlgorithmsDataStructuresTests
             Assert.Throws<IndexOutOfRangeException>(() => array.Remove(32));
         }
 
+        [Test]
+        public void RemoveFromEmpty()
+        {
+            DynArray<int> array = new DynArray<int>();
+            
+            Assert.Throws<IndexOutOfRangeException>(() => array.Remove(0));
+        }
+
         private void FillArray(DynArray<int> arr)
         {
             arr.Append(1);

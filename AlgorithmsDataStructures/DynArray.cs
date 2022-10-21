@@ -116,7 +116,7 @@ namespace AlgorithmsDataStructures
 
         private void CheckIndex(int index)
         {
-            if (index > count || index < 0)
+            if (count == 0 || index > count || index < 0)
                 throw new IndexOutOfRangeException();
         }
     }
