@@ -43,6 +43,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="DequeTests.cs" />
         <Compile Include="DoublyLinkedListTests.cs" />
         <Compile Include="DummyLinkedListTests.cs" />
         <Compile Include="DynArrayTests.cs" />
