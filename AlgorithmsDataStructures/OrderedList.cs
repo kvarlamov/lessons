@@ -33,7 +33,7 @@ namespace AlgorithmsDataStructures
             int result = 0;
             if(typeof(T) == typeof(String))
             {
-                throw new NotImplementedException();
+                result = CompareString(v1, v2);
                 // версия для лексикографического сравнения строк
             }
             else
@@ -151,8 +151,6 @@ namespace AlgorithmsDataStructures
             }
         }
 
-        
-
         public void Clear(bool asc)
         {
             _ascending = asc;
@@ -198,6 +196,14 @@ namespace AlgorithmsDataStructures
             int b = (int) (object) v2;
 
             return a.CompareTo(b);
+        }
+        
+        private int CompareString(T v1, T v2)
+        {
+            string s1 = v1.ToString().Trim();
+            string s2 = v2.ToString().Trim();
+
+            return String.Compare(s1, s2, StringComparison.Ordinal);
         }
 
         private void InsertFirst(Node<T> newNode)

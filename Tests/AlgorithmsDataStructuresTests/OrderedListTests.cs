@@ -11,6 +11,26 @@ namespace AlgorithmsDataStructuresTests
         #region Add_Asc
 
         [Test]
+        public void StringAdd_Test1()
+        {
+            var list = new OrderedList<string>(true);
+            list.Add("124");
+            list.Add("123");
+            list.Add("3");
+            list.Add("099999");
+
+            var expected = new List<string>()
+            {
+                "099999", "123", "124", "3"
+            };
+            var result = list.GetAll();
+            
+            CollectionAssert.AreEqual(expected, result.Select(x => x.value).ToList());
+            Assert.That(list.head.value, Is.EqualTo("099999"));
+            Assert.That(list.tail.value, Is.EqualTo("3"));
+        }
+        
+        [Test]
         public void Add_Head_Empty()
         {
             var list = new OrderedList<int>(true);
