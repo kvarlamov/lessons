@@ -42,6 +42,7 @@
         <Compile Include="Deque.cs" />
         <Compile Include="DoublyLinkedList.cs" />
         <Compile Include="DynArray.cs" />
+        <Compile Include="HashTable.cs" />
         <Compile Include="LinkedList.cs" />
         <Compile Include="LinkedListDummy.cs" />
         <Compile Include="OrderedList.cs" />

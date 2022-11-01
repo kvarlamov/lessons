@@ -98,6 +98,7 @@ namespace AlgorithmsDataStructures
 
         private Node<T> BinarySearch(List<Node<T>> list, int left, int right, T val)
         {
+            //todo - add break if we cant find value in any cases
             if (left > right)
             {
                 return null;

@@ -47,6 +47,7 @@
         <Compile Include="DoublyLinkedListTests.cs" />
         <Compile Include="DummyLinkedListTests.cs" />
         <Compile Include="DynArrayTests.cs" />
+        <Compile Include="HashTableTests.cs" />
         <Compile Include="LinkedListTests.cs" />
         <Compile Include="OrderedListTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
