@@ -71,26 +71,24 @@ namespace AlgorithmsDataStructures
         private int Seek(int index, string value = null)
         {
             int circle = 0;
-            int maxCircles = 2;
+            int maxCircles = size;
+            int currStep = step;
             while (circle <= maxCircles)
             {
                 if (slots[index] == value)
                     return index;
 
                 int i = index + step;
-                int prevStep = i;
-                int currStep = step;
+                
                 for (; i < size; i += currStep)
                 {
                     if (slots[i] == value)
                         return i;
-
-                    prevStep = i;
-                    currStep *= step;
                 }
 
                 circle++;
-                index = prevStep >= size - 1 ? 0 : size - prevStep;
+                index = index + 1 > size - 1 ? 0 : index + 1;
+                currStep = currStep * step >= size ? step : currStep * step ;
             }
 
             return -1;

@@ -46,6 +46,30 @@ namespace AlgorithmsDataStructuresTests
             var check = listNotPutted.Except(res).ToArray();
             Assert.IsTrue(check.Length == listNotPutted.Count);
         }
+        
+        [Test]
+        public void PutShortTest()
+        {
+            for (int j = 0; j < 500; j++)
+            {
+                HashTable table = new HashTable(Size, Stp);
+                var strs = TestNumbersSuperShort();
+                var listNotPutted = new List<string>();
+
+                for (int i = 0; i < strs.Length; i++)
+                {
+                    if (table.Put(strs[i])== -1)
+                        listNotPutted.Add(strs[i]);
+                }
+
+                var res = table.GetAll();
+                Assert.IsTrue(res.All(x => !string.IsNullOrEmpty(x)));
+
+                //check that not putted not exist in final hashset
+                var check = listNotPutted.Except(res).ToArray();
+                Assert.IsTrue(check.Length == listNotPutted.Count);
+            }
+        }
 
         [Test]
         public void FindTests()
@@ -90,6 +114,19 @@ namespace AlgorithmsDataStructuresTests
         static string[] TestNumbersShort()
         {
             int size = 100;
+            Random rnd = new Random();
+            var arr = new string[size];
+            for (int i = 0; i < size; i++)
+            {
+                arr[i] = rnd.Next(0, 2000000).ToString();
+            }
+
+            return arr;
+        }
+        
+        static string[] TestNumbersSuperShort()
+        {
+            int size = 20;
             Random rnd = new Random();
             var arr = new string[size];
             for (int i = 0; i < size; i++)
