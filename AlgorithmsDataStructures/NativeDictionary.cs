@@ -50,7 +50,10 @@ namespace AlgorithmsDataStructures
         /// <param name="value"></param>
         public void Put(string key, T value)
         {
-            int index = SeekSlot(key);
+            int index = HashFun(key);
+            
+            index = IsKey(key) ? Seek(index, key) : Seek(index);
+            
             slots[index] = key;
             values[index] = value;
         }
@@ -70,17 +73,6 @@ namespace AlgorithmsDataStructures
                 return default(T);
             
             return values[finalIndex];
-        }
-
-        public string[] GetAllKeys()
-        {
-
-            return slots;
-        }
-        
-        public T[] GetAllValues()
-        {
-            return values;
         }
 
         /// <summary>
@@ -118,7 +110,6 @@ namespace AlgorithmsDataStructures
                         return i;
                 }
 
-                
                 index = index + 1 > size - 1 ? 0 : index + 1;
                 currStep = currStep * step >= size ? step : currStep * step ;
             }
