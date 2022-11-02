@@ -3,29 +3,23 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
-    public class HashTable
+    public class NativeDictionary<T>
     {
+        private const int step = 3;
         public int size;
-        public int step;
-        public string [] slots; 
+        public string [] slots;
+        public T [] values;
 
-        public HashTable(int sz, int stp)
+        public NativeDictionary(int sz)
         {
             size = sz;
-            step = stp;
             slots = new string[size];
-            for(int i=0; i<size; i++) 
-                slots[i] = null;
+            values = new T[size];
         }
 
-        /// <summary>
-        /// return slot index
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int HashFun(string value)
+        public int HashFun(string key)
         {
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(value);
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(key);
             int sum = 0;
             for (int i = 0; i < data.Length; i++)
             {
@@ -38,56 +32,69 @@ namespace AlgorithmsDataStructures
         }
 
         /// <summary>
-        /// find empty slot index or -1 if all not empty
+        /// true if key exists, else - false
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool IsKey(string key)
+        {
+            int index = HashFun(key);
+
+            return Seek(index, key) != -1;
+        }
+
+        /// <summary>
+        /// Put value by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void Put(string key, T value)
+        {
+            int index = SeekSlot(key);
+            slots[index] = key;
+            values[index] = value;
+        }
+
+        /// <summary>
+        /// Get value by key or null(default) if not found  
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public T Get(string key)
+        {
+            int index = HashFun(key);
+
+            int finalIndex = Seek(index, key);
+            
+            if (finalIndex == -1)
+                return default(T);
+            
+            return values[finalIndex];
+        }
+
+        public string[] GetAllKeys()
+        {
+
+            return slots;
+        }
+        
+        public T[] GetAllValues()
+        {
+            return values;
+        }
+
+        /// <summary>
+        /// return slot index by provided key or -1 if all is not empty
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public int SeekSlot(string value)
+        private int SeekSlot(string value)
         {
             int index = HashFun(value);
 
             return Seek(index);
         }
-
-        /// <summary>
-        /// put value and return index, or return -1 if index not found
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int Put(string value)
-        {
-            int index = SeekSlot(value);
-            
-            if (index == -1)
-                return -1;
-
-            slots[index] = value;
-            return index;
-        }
-
-        /// <summary>
-        /// return index of slot with provided value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int Find(string value)
-        {
-            int index = HashFun(value);
-
-            return Seek(index, value);
-        }
-
-        public List<string> GetAll()
-        {
-            var res = new List<string>();
-            for (int i = 0; i < size; i++)
-            {
-                res.Add(slots[i]);
-            }
-
-            return res;
-        }
-
+        
         /// <summary>
         /// return index of value (or empty slot index if value == null) or -1 if not found empty
         /// </summary>
@@ -118,5 +125,5 @@ namespace AlgorithmsDataStructures
 
             return -1;
         }
-    }
+    } 
 }
