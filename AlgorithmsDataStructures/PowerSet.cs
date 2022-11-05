@@ -10,7 +10,7 @@ namespace AlgorithmsDataStructures
         private const int _maxCircles = 1;
         private int _size;
         private const int Step = 1;
-        public readonly T[] _entries;
+        public readonly List<T> _entries;
 
         public PowerSet() : this(20000)
         {
@@ -18,19 +18,22 @@ namespace AlgorithmsDataStructures
 
         public PowerSet(int capacity)
         {
-            _entries = new T[capacity];
+            _entries = new List<T>(capacity);
             _bulkCapacity = capacity;
         }
 
         public int Size()
         {
-            return _size;
+            return _entries.Count;
         }
 
         public void Put(T value)
         {
             if (value == null)
                 return;
+            if (!_entries.Contains(value))
+                _entries.Add(value);
+            return;
             
             //todo - need to move common code in function
             int index = HashFun(value);
@@ -66,6 +69,9 @@ namespace AlgorithmsDataStructures
 
         public bool Get(T value)
         {
+            return _entries.Contains(value);
+                
+            
             int index = HashFun(value);
 
             for (int circle = 0; circle <= _maxCircles; circle++)
@@ -95,6 +101,8 @@ namespace AlgorithmsDataStructures
 
         public bool Remove(T value)
         {
+            return _entries.Remove(value);
+            
             int index = HashFun(value);
             
             //fast deletion
@@ -106,7 +114,7 @@ namespace AlgorithmsDataStructures
             }
 
             //slow deletion
-            for (int i = 0; i < _entries.Length; i++)
+            for (int i = 0; i < _entries.Count; i++)
             {
                 if (_entries[i] != null && _entries[i].Equals(value))
                 {
