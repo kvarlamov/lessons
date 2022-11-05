@@ -111,7 +111,6 @@ namespace AlgorithmsDataStructures
                         return i;
                 }
 
-                
                 index = index + 1 > size - 1 ? 0 : index + 1;
                 currStep = currStep * step >= size ? step : currStep * step ;
             }
