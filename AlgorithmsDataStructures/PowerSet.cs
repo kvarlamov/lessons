@@ -5,11 +5,6 @@ namespace AlgorithmsDataStructures
 {
     public class PowerSet<T>
     {
-        //todo - think is it possible to rewrite on List<>
-        private int _bulkCapacity;
-        private const int _maxCircles = 1;
-        private int _size;
-        private const int Step = 1;
         public readonly List<T> _entries;
 
         public PowerSet() : this(20000)
@@ -19,7 +14,6 @@ namespace AlgorithmsDataStructures
         public PowerSet(int capacity)
         {
             _entries = new List<T>(capacity);
-            _bulkCapacity = capacity;
         }
 
         public int Size()
@@ -33,62 +27,11 @@ namespace AlgorithmsDataStructures
                 return;
             if (!_entries.Contains(value))
                 _entries.Add(value);
-            return;
-            
-            //todo - need to move common code in function
-            int index = HashFun(value);
-
-            for (int circle = 0; circle <= _maxCircles; circle++)
-            {
-                if (_entries[index] == null)
-                {
-                    _entries[index] = value;
-                    _size++;
-                    return;
-                }
-                
-                if (_entries[index].Equals(value))
-                    return;
-
-                for (int i = index + Step; i < _bulkCapacity; i += Step)
-                {
-                    if (_entries[i] == null)
-                    {
-                        _entries[i] = value;
-                        _size++;
-                        return;
-                    }
-                    
-                    if (_entries[i].Equals(value))
-                        return;
-                }
-
-                index = 0;
-            }
         }
 
         public bool Get(T value)
         {
             return _entries.Contains(value);
-                
-            
-            int index = HashFun(value);
-
-            for (int circle = 0; circle <= _maxCircles; circle++)
-            {
-                if (_entries[index] != null && _entries[index].Equals(value))
-                    return true;
-
-                for (int i = index + Step; i < _bulkCapacity; i += Step)
-                {
-                    if (_entries[i] != null && _entries[i].Equals(value))
-                        return true;
-                }
-
-                index = 0;
-            }
-
-            return false;
         }
 
         public IEnumerable<T> GetEntries()
@@ -102,29 +45,6 @@ namespace AlgorithmsDataStructures
         public bool Remove(T value)
         {
             return _entries.Remove(value);
-            
-            int index = HashFun(value);
-            
-            //fast deletion
-            if (_entries[index] != null && _entries[index].Equals(value))
-            {
-                _entries[index] = default;
-                _size = _size - 1 <= 0 ? 0 : _size - 1;
-                return true;
-            }
-
-            //slow deletion
-            for (int i = 0; i < _entries.Count; i++)
-            {
-                if (_entries[i] != null && _entries[i].Equals(value))
-                {
-                    _entries[i] = default;
-                    _size = _size - 1 <= 0 ? 0 : _size - 1;
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         public PowerSet<T> Intersection(PowerSet<T> set2)
@@ -191,22 +111,6 @@ namespace AlgorithmsDataStructures
             }
 
             return true;
-        }
-
-        private int HashFun(T value)
-        {
-            if (typeof(T) != typeof(string)) throw new NotImplementedException();
-            
-            byte[] data = System.Text.Encoding.UTF8.GetBytes((string)(object)value);
-            int sum = 0;
-            for (int i = 0; i < data.Length; i++)
-            {
-                sum += data[i];
-            }
-            
-            var res = sum % _bulkCapacity;
-            
-            return res;
         }
     }
 }

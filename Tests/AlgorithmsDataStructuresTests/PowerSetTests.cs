@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using AlgorithmsDataStructures;
 using NUnit.Framework;
@@ -9,21 +8,8 @@ namespace AlgorithmsDataStructuresTests
 {
     public class PowerSetTests
     {
-        private Stopwatch _stopWatch;
         
-        [TearDown]
-        public void Cleanup()
-        {
-            if (_stopWatch == null)
-                return;
-            
-            _stopWatch.Stop();
-            Console.WriteLine("Excution time for {0} - {1} ms",
-                TestContext.CurrentContext.Test.Name,
-                _stopWatch.ElapsedMilliseconds);
-        }
-        
-        [Test]
+        [Test, MaxTime(7000)]
         public void Put_EqualElements_SetWithoutDuplicates()
         {
             var set = new PowerSet<string>(1);
@@ -37,7 +23,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsFalse(set.Get("asdf"));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void PutFew()
         {
             int length = 10;
@@ -59,10 +45,9 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsFalse(set.Get("asdf"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void PutBig()
         {
-            _stopWatch = Stopwatch.StartNew();
             int length = 20000;
             var set = new PowerSet<string>(length);
             var list = GetList(length);
@@ -82,7 +67,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsFalse(set.Get("asdf"));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void Put_OnlyDistinctBig()
         {
             int length = 20000;
@@ -96,7 +81,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.That(set.Size(), Is.EqualTo(length));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Remove_One()
         {
             int length = 10;
@@ -108,13 +93,12 @@ namespace AlgorithmsDataStructuresTests
                 set.Put(str);
             }
 
-            _stopWatch = Stopwatch.StartNew();
             Assert.IsTrue(set.Remove(strs[3]));
             Assert.IsFalse(set._entries.Contains(strs[3]));
             Assert.That(set.Size(), Is.EqualTo(length - 1));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void Remove_All()
         {
             int length = 10;
@@ -126,7 +110,6 @@ namespace AlgorithmsDataStructuresTests
                 set.Put(str);
             }
 
-            _stopWatch = Stopwatch.StartNew();
             for (var i = 0; i < strs.Count; i++)
             {
                 Assert.IsTrue(set.Remove(strs[i]));
@@ -140,7 +123,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.That(set.Size(), Is.EqualTo(0));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Remove_OneBig()
         {
             int length = 20000;
@@ -152,7 +135,6 @@ namespace AlgorithmsDataStructuresTests
                 set.Put(str);
             }
 
-            _stopWatch = Stopwatch.StartNew();
             Assert.That(set._entries.Distinct().ToArray().Length, Is.EqualTo(length));
 
             var rnd = new Random();
@@ -165,7 +147,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.That(set.Size(), Is.EqualTo(length - 1));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Remove_AllBig()
         {
             int length = 20000;
@@ -177,7 +159,6 @@ namespace AlgorithmsDataStructuresTests
                 set.Put(str);
             }
 
-            _stopWatch = Stopwatch.StartNew();
             Assert.That(set._entries.Distinct().ToArray().Length, Is.EqualTo(length));
             
             for (var i = 0; i < strs.Count; i++)
@@ -193,7 +174,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.That(set.Size(), Is.EqualTo(0));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void Intersect_Empty()
         {
             var set1 = new PowerSet<string>(5);
@@ -210,14 +191,13 @@ namespace AlgorithmsDataStructuresTests
             set2.Put("9");
             set2.Put("10");
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Intersection(set2);
             
             Assert.That(res.Size(), Is.EqualTo(0));
             Assert.IsTrue(res.GetEntries().ToArray().All(i => string.IsNullOrEmpty(i)));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Intersect_Empty3()
         {
             var set1 = new PowerSet<string>();
@@ -229,14 +209,13 @@ namespace AlgorithmsDataStructuresTests
             set2.Put("9");
             set2.Put("10");
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Intersection(set2);
             
             Assert.That(res.Size(), Is.EqualTo(0));
             Assert.IsTrue(res.GetEntries().ToArray().All(i => string.IsNullOrEmpty(i)));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Intersect_Empty2()
         {
             var set1 = new PowerSet<string>(5);
@@ -248,14 +227,13 @@ namespace AlgorithmsDataStructuresTests
             set1.Put("4");
             set1.Put("5");
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Intersection(set2);
             
             Assert.That(res.Size(), Is.EqualTo(0));
             Assert.IsTrue(res.GetEntries().ToArray().All(i => string.IsNullOrEmpty(i)));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Intersect_NotEmpty()
         {
             var set1 = new PowerSet<string>(5);
@@ -272,7 +250,6 @@ namespace AlgorithmsDataStructuresTests
             set2.Put("9");
             set2.Put("5");
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Intersection(set2);
             
             Assert.That(res.Size(), Is.EqualTo(3));
@@ -281,7 +258,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("5"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Intersect_NotEmpty2()
         {
             var set1 = new PowerSet<string>(5);
@@ -298,7 +275,6 @@ namespace AlgorithmsDataStructuresTests
             set2.Put("4");
             set2.Put("5");
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Intersection(set2);
             
             Assert.That(res.Size(), Is.EqualTo(5));
@@ -309,7 +285,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("5"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Intersect_NotEmpty_Big()
         {
             var set1 = new PowerSet<string>();
@@ -322,7 +298,6 @@ namespace AlgorithmsDataStructuresTests
                 set2.Put(i);
             }
             
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Intersection(set2);
             
             Assert.That(res.Size(), Is.EqualTo(length));
@@ -332,7 +307,7 @@ namespace AlgorithmsDataStructuresTests
             }
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void Union_OneEmpty1()
         {
             var set1 = new PowerSet<string>(5);
@@ -354,7 +329,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("5"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Union_OneEmpty2()
         {
             var set1 = new PowerSet<string>(5);
@@ -376,7 +351,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("5"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Union_NotEmpty1()
         {
             var set1 = new PowerSet<string>(5);
@@ -405,7 +380,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("6"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Union_NotEmpty2()
         {
             var set1 = new PowerSet<string>(5);
@@ -434,7 +409,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("6"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Union_NotEmpty3()
         {
             var set1 = new PowerSet<string>(1);
@@ -451,7 +426,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("2"));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void UnionBig()
         {
             var set1 = new PowerSet<string>();
@@ -471,13 +446,12 @@ namespace AlgorithmsDataStructuresTests
 
             var expected = list1.Union(list2).ToArray();
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Union(set2);
             
             Assert.That(res.Size(), Is.EqualTo(expected.Length));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void Difference_Empty1()
         {
             var set1 = new PowerSet<string>(5);
@@ -500,7 +474,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.GetEntries().ToArray().All(x => string.IsNullOrEmpty(x)));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void Difference_NotEmpty1()
         {
             var set1 = new PowerSet<string>(5);
@@ -522,7 +496,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(res.Get("4"));
         }
         
-        [Test]
+        [Test, MaxTime(7000)]
         public void DifferenceBig()
         {
             var set1 = new PowerSet<string>();
@@ -542,7 +516,6 @@ namespace AlgorithmsDataStructuresTests
 
             var expected = list1.Except(list2).ToArray();
 
-            _stopWatch = Stopwatch.StartNew();
             var res = set1.Difference(set2);
             
             Assert.That(res.Size(), Is.EqualTo(expected.Length));
@@ -586,7 +559,7 @@ namespace AlgorithmsDataStructuresTests
             Assert.IsTrue(set1.IsSubset(set2));
         }
 
-        [Test]
+        [Test, MaxTime(7000)]
         public void IsSubSet_Empty()
         {
             var set1 = new PowerSet<string>(5);
