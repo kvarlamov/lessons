@@ -46,6 +46,7 @@
         <Compile Include="HashTable.cs" />
         <Compile Include="LinkedList.cs" />
         <Compile Include="LinkedListDummy.cs" />
+        <Compile Include="NativeCache.cs" />
         <Compile Include="NativeDictionary.cs" />
         <Compile Include="OrderedList.cs" />
         <Compile Include="PowerSet.cs" />

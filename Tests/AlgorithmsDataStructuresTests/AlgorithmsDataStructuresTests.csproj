@@ -46,6 +46,7 @@
         <Compile Include="DynArrayTests.cs" />
         <Compile Include="HashTableTests.cs" />
         <Compile Include="LinkedListTests.cs" />
+        <Compile Include="NativeCacheTests.cs" />
         <Compile Include="NativeDictionaryTests.cs" />
         <Compile Include="OrderedListTests.cs" />
         <Compile Include="PowerSetTests.cs" />
