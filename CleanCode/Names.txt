@@ -1,0 +1,41 @@
+﻿//Variables names
+
+Wrong - correct
+//comment
+***
+
+compare - compareResult (compare_result)
+// результат сравнения двух значений в linked list
+
+a - firstCompareValue (first_compare_value)
+// первое из 2-х значений, используемое для сравнения в ф-ии сравнения
+
+s1 - firstCompareString (first_compare_string)
+// первая из 2-х строк, используемая для сравнения в ф-ии сравнения
+
+data - encodedKeyData (encoded_key_data)
+// массив байтов, полученный из входного значения ключа в словаре
+
+sum - allBytesSumm (all_bytes_summ)
+// сумма всех байтов в байтовом массиве
+
+index - slotPosition (slot_position)
+// результат хэш-функции, определяющий слот для размещения значения
+
+min - minHitsIndex (min_hits_index)
+// индекс минимального значения в массиве подсчета обращений к кэшу
+
+minHits - minHitsIndex (min_hits_index)
+// индекс минимального значения в массиве подсчета обращений к кэшу
+
+list - linkedListValues (linked_list_values)
+// значения всех нод в linked list
+
+result - arrayFillFactor (array_fill_factor)
+// степень заполнения (заполненность) массива 0 .. 1
+
+bittest - bitArray (bit_array)
+// массив битов в фильтре Блюма
+
+res - hashFunctionResult (hash_function_result)
+// результат выполнения хэш-функции
