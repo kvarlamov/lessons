@@ -1,0 +1,105 @@
+﻿//Variables names - additional
+
+6.1 - Correct Abstraction level in names
+    6.1.1
+    неправильно - получение какого-то элемента из корзины
+    var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
+    
+    правильно - текущий продукт в корзине по id
+    var productInCart = ...
+    
+    6.1.2
+    неправильно - получение какого-то пользователя
+    var user = new User
+    
+    правильно - новый пользователь сайта интернет-магазина
+    var newShopUser = ...
+    
+    6.1.3
+    неправильно - какой-то покупатель
+    var customer = new Customer
+    
+    правильно - новый зарегестрированный покупатель
+    var newRegisteredCustomer = ...
+    
+    6.1.4
+    неправильно - какой-то кэш
+    _cache ...
+    
+    правильно - кэш сервиса CustomerService
+    _customerServiceCache
+    
+    6.1.5
+    неправильно - какой-то репозиторий
+    _repository
+    
+    правильно - репозиторий для работы с сущностью Customer
+    _customerRepository
+    
+6.2 - Use IT/ CS/ Programming words in names
+    6.2.1
+    UnitOfWork - pattern
+    _unitOfWork.Customers.GetByIdIncludePreferencesAsync(id)
+    
+    6.2.2
+    Repository в имени - показывает, что класс для работы с БД
+    _orderRepository.GetAllAsync();
+    
+    6.2.3
+    Facade - pattern, предоставляет упрощенный интерфейс для работы со сложной логикой
+    Service - класс - сервис, в котором находится бизнес-логика
+    class BoInstanceFacadeService
+    
+    6.2.4
+    Controller - одна из 3-х составляющих паттерна MVC
+    class AccountController
+
+6.3 - Use context in names
+    6.3.1
+    class AccountController
+        method - Register
+            var user - с учетом контекста понятно, что это новый регистрируемый на сайте пользователь
+            
+    6.3.2
+    class Product
+        decimal Price { get; set; } - контекст показывает, что цена относится к продукту
+        
+    6.3.3
+    class Role
+        string Name { get; set; } - контекст определяет, что перед нами имя Роли
+        
+6.4 - Names length should be from 8 to 20 symbols
+    6.4.1
+    неправильно
+    var o = _db.Orders
+    
+    правильно
+    var existingOrder = ...
+    
+    6.4.2
+    неправильно
+    var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
+    
+    правильно
+    var productInCart =
+    
+    6.4.3
+    неправильно
+    var orders = ...
+    
+    правильно
+    var allOrders = ...
+        
+    6.4.4
+    неправильно
+    var roles = ...
+    
+    правильно 
+    var allRoles = ...
+
+    6.4.5
+    неправильно
+    _db
+    
+    правильно
+    _dbContext
