@@ -41,6 +41,7 @@
         <Content Include="Names.txt" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Content Include="Names2.txt" />
+        <Content Include="Names3.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

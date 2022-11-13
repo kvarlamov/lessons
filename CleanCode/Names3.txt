@@ -1,0 +1,63 @@
+7.1 Correct names for boolean (is..., or done, success, ok, found, error)
+    7.1.1 
+    shouldDestroy - isNeedToDestroy
+    
+    7.1.2   
+    wasFour - isKeyFourPushed
+    
+    7.1.3
+    isExist - found
+    
+    7.1.4
+    ignoreAction - isNeedIgnoreAction
+    
+    7.1.5
+    spacesInLine - isSpacesInLine
+    
+7.2 spesial cases for bool vars (done, success, ok, found, error)
+    7.2.1
+    hasError -> error
+    
+    7.2.2
+    isExist -> found
+    
+    7.2.3
+    flag -> found
+    
+7.3 i,j,k for indixes, for complex logic could be changed
+    7.3.1
+    for (int i = 1; i < PageModel.TotalPages; i++){...}
+    i -> page
+    
+    7.3.2
+    for (int i = 0; i < H; i++) { ...
+        for (int j = 0; j < W; j++) { ...
+        }
+    }
+    i, j -> row, column
+    
+7.4 use antonyms for better understanding
+    7.4.1
+    leftIndex - rightIndex
+    
+    7.4.2
+    big - small
+    
+    7.4.3
+    a,b -> first - second (on swap)
+    
+    7.4.4
+    leftBorder - rightBorder
+    
+7.5 for temp variables (short lifetime) always use all other rules
+    7.5.1
+    tmp -> currentChar
+    
+    7.5.2
+    n -> factor (random value in hash function)
+    
+    7.5.3
+    ci -> currentCulture (culture info for setting separator)
+    
+        
+    
