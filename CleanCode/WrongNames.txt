@@ -1,0 +1,141 @@
+Avoid some naming
+
+1. Similar name with different meaning
+2. dont use digits and symbols
+3. dont use standart name
+4. don't use short or common names like sum, result, etc
+5. hidden meaning of names should be avoided (for ex: fedora, mandriva,...)
+6. use suffixes in the end: Total, Sum, Average, Max, Min, Record, String, Pointer
+7. use spec suffixes, _mps - metrtes per second, _min - minutes
+
+
+examples:
+1. 
+before
+    int hash1 = Hash1(str1);
+    int hash2 = Hash2(str1);
+
+after
+    int hashFirst  = Hash1(str1);
+    int hashSecond = Hash2(str1);
+    
+2. 
+before
+    public int HashFun(string key)
+    {
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(key);
+        int sum = 0;
+        for (int i = 0; i < data.Length; i++)
+        {
+            sum += data[i];
+        }
+        
+        var res = sum % size;
+        
+        return res;
+    }
+    
+after
+    public int HashFun(string key)
+    {
+        byte[] encodedKey = System.Text.Encoding.UTF8.GetBytes(key);
+        int summOfBytes = 0;
+        for (int i = 0; i < encodedKey.Length; i++)
+        {
+            summOfBytes += encodedKey[i];
+        }
+        
+        var slotIndex = summOfBytes % size;
+        
+        return slotIndex;
+    }
+    
+3.
+before
+    // dynamic array structure - calculate filling of storage
+    double result = (double)count / capacity;
+    
+after
+    double storageFilling = ...
+    
+4.
+before
+//Hashtable - get all values from slots
+public List<string> GetAll()
+{
+    var res = new List<string>();
+    ...
+}
+
+after
+public List<string> GetAll()
+{
+    var allSlotValues = new List<string>();
+    ...
+}
+
+5.
+before
+//in Queue - spin queue task
+T[] list = new T[_queue.Count];
+
+after
+// list could be used when we use List<>
+T[] values = ...
+
+6.
+before
+var rolesModelList = roles.Select(x => 
+    new RoleItemResponse()
+    {
+        Id = x.Id,
+        Name = x.Name,
+        Description = x.Description
+    }).ToArray();
+
+after
+var rolesModels = ...
+
+7.
+before
+//task MaximumDiscount
+int result = 0;
+foreach (var p in priceFree)
+{
+    result += p;
+}
+
+after
+int freePriceSum = 0;
+foreach (var price in priceFree)
+{
+    freePriceSum += price;
+}
+
+8.
+before
+
+
+after
+
+9.
+before
+
+after
+
+10.
+before
+
+after
+
+11.
+before
+
+after
+
+12.
+before
+
+after
+
+
