@@ -1,0 +1,7 @@
+1. Try to avoid in class names such words like:
+2. Use one conception in naming through project: for example use one word lile fetch*, get* or retrieve* elsewhere
+
+
+Classnames
+1. class MsSqlDataDefinitionManager -> class MsSqlDataDefinition
+2. 
