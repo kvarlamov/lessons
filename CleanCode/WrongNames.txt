@@ -114,27 +114,88 @@ foreach (var price in priceFree)
 
 8.
 before
+using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+{
+    // пустые строки считаем как ошибочные
+    countError = CountEmptyRows(reader, headersExcel);
+    long countObjects = reader.RowCount - 2;
+    ...
+}
 
 after
+using (IExcelDataReader excelDataReader = ExcelReaderFactory.CreateReader(stream))
+{
+    // пустые строки считаем как ошибочные
+    numOfErrors = CountEmptyRows(excelDataReader, headersExcel);
+    long excelRowsTotal = excelDataReader.RowCount - 2;
+    ...
+}
 
 9.
 before
+var certificateDto = new ...
+var validFrom = DateTime.UtcNow.AddDays(-5);
+var validTo = DateTime.UtcNow.AddDays(30);
 
 after
+var certificateDto = new ...
+var validFromDate = DateTime.UtcNow.AddDays(-5);
+var validToDate = DateTime.UtcNow.AddDays(30);
 
 10.
 before
+//excel parser - result for 
+string[] splitRowFieldValue = GetFieldValues(rowFieldValue);
 
-after
+List<string> result = new ();
+foreach (string value in splitRowFieldValue)
+{
+    //some logic for handling field value
+    ...
+    result.Add(fieldValue);
+}
+
+rowFieldValue = string.Join(",", result);
+
+after - changed result name
+List<string> rowFieldValues = ...
 
 11.
 before
+public dynamic GetFieldValue(SearchClientIndexFieldDto dtoField)
+{
+    bool.TryParse(dtoField.Value, out bool result);
+
+    return result;
+}
 
 after
+public dynamic GetFieldValue(SearchClientIndexFieldDto dtoField)
+{
+    bool.TryParse(dtoField.Value, out bool fieldValue);
+
+    return fieldValue;
+}
 
 12.
 before
+private static string FormatDate(string dateValue, IEnumerable<FieldPropertyDto> fieldProperties, int timezoneOffset = 0)
+{
+    ...
+
+    DateTime? result = ...;
+
+    return result?.ToString(DefaultFieldFormatConstants.DateFormatYMDHyphen);
+}
 
 after
+private static string FormatDate(string dateValue, IEnumerable<FieldPropertyDto> fieldProperties, int timezoneOffset = 0)
+{
+    ...
+
+    DateTime? formattedDate = ...;
+
+    return formattedDate?.ToString(DefaultFieldFormatConstants.DateFormatYMDHyphen);
+}
 
 
