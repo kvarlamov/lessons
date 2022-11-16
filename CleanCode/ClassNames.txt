@@ -1,7 +1,66 @@
 1. Try to avoid in class names such words like:
-2. Use one conception in naming through project: for example use one word lile fetch*, get* or retrieve* elsewhere
+2. Use one conception in naming through project: for example use one word like fetch*, get* or retrieve* elsewhere
 
 
 Classnames
 1. class MsSqlDataDefinitionManager -> class MsSqlDataDefinition
-2. 
+2. public class AddClaimDTO : ClaimDTO -> ... NewClaimDto ...
+3. AddLoginDTO -> NewLoginDto
+4. SetLockoutDTO -> LockoutEndDto
+5. CreateOrderModel -> NewOrderModel
+6. GiveOrderToAllDto -> AllOrdersDto
+
+Method 
+1. 
+before
+public void Edit(int id, EmployeeView Employee) => Put($"{_ServiceAddress}/{id}", Employee);
+
+after
+Edit -> Put - common word
+public void Put(...) => Put(...)
+
+2.
+before
+public void Add(EmployeeView Employee) => Post<EmployeeView>(_ServiceAddress, Employee);
+
+after
+Post -> Add
+public void Add(...) => Add(...)
+
+3.
+before
+public Task<Customer> CreateAsync(Customer request) => _service.AddAsync(request)
+
+after
+public Task<> AddAsync(...) => _service.AddAsync(...)
+
+4.
+before
+await Clients.All.SendAsync("Receive", ...)
+
+after
+await Clients.All.SendAsync("Get", ...)
+
+5.
+before
+public bool Delete(int id) => Remove($"{_ServiceAddress}/{id}").IsSuccessStatusCode;
+
+after
+remove -> delete
+public bool Delete(...) => Delete(...)
+
+6.
+before
+public async Task<> FetchAndLockExternalTasksAsync(...)
+
+after
+better to use Get... according to other project naming
+... GetAndLockExternalTasksAsync(...)
+
+7.
+before
+public bool ReceiveMessagesByEmail(...)
+
+after
+better to use Get... according to other project naming
+... GetMessagesByEmail(...)

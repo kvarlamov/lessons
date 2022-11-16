@@ -38,6 +38,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="ClassNames.txt" />
         <Content Include="Names.txt" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Content Include="Names2.txt" />
