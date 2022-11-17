@@ -1,0 +1,111 @@
+1. Method names should be verbs. Reading-writing: get*, set*. Bool: is*
+2. Method should show what it doing, in names should be all data and side effects. Avoid side effects)
+3. Void methods - verb + object, which state is changing: printDocument, cancelOrder,...
+4. date.add(5) - wrong, we don't know is it new date or changing of existing: better - addDaysTo, daysSince
+***
+
+1.
+void RemoveAll() 
+- 
+void ClearCart() 
+- 
+class CartService, метод очистки всей корзины, первоначальное название неконкретное, 
+т.к. нет объекта над которым производим действие 
+
+2.
+Zip compressor class
+void Start() 
+- 
+void StartCompressing() 
+- 
+новое название однозначно показывает, какой процесс запускает метод
+
+3.
+PagedProductDto GetProducts(ProductFilter Filter = null)
+-
+PagedProductDto GetAllProducts()
+PagedProductDto GetFilteredProducts(ProductFilter Filter)
+-
+split to 2 separate methods (разбиваем на 2 отдельных метода, чтобы было однозначно понятно что выполняет каждый)
+Также позволит избавиться от лишнего null check
+
+4.
+void ValidateCreate(...) 
+- 
+void ValidateTemplateOnCreation(...)
+- 
+в методе создания некоторого Шаблона происходит валидация, 
+первоначальное название вводит в заблуждение, что выполняет метод,
+плюс 2 глагола подряд без объекта вообще дают ложное ощущение, что тут делается 2 действия
+
+5.
+void ProcessingFile(...)
+-
+void ProcessFile(...)
+-
+Метод обработки файла. Синтаксическая ошибка - в англ. ing используется для сущ., меняем на глагол
+
+6.
+List<IndicesInfoDto> UserAndManageRoleIndecies()
+-
+List<IndicesInfoDto> GetUserAndManageRoleIndecies()
+-
+Отсутствие глагола вводит в заблуждение, что перед нами не метод,
+а свойство или поле
+
+7.
+void CreateSettings(...)
+-
+void CreateSettingsAndUpdateElasticIndex()
+-
+По факту в методе кроме создания настроек происходит еще обновление эластика,
+поэтому нужно уточнение в имени, ну а лучше - вынести метод обновления в отдельный
+
+8.
+void CreateOrUpdateRelation()
+-
+void CreateRelation()
+void UpdateRelation()
+-
+В названии первого метода сразу подразумевается, что он делает 2 разных действия =>
+нужно будет использовать как минимум один условный оператор. И при усложнении и расширении логики
+нужно будет по сути расширять 2 метода в одном. Также усложняет тестирование и чтение кода
+Лучше разбить на 2 метода
+
+9.
+async Task<...> CreateOrUpdateIndexAsync(...)
+-
+async Task<...> CreateIndexAsync(...)
+async Task<...> UpdateIndexAsync(...)
+-
+В первом имени метода, кроме того, что присутствует 2 действия (как минимум), 
+также в теле метода проверяется существование индекса.
+Так что для начала нужно как минимум разделить метод на 2.
+
+10.
+Task PerformTask(...)
+-
+Task PerformImportExcelTask(...)
+-
+class ImportExcelService.
+Уточняем, какую конкретно задачу выполняет метод,т.к. могут появиться другие в данном классе
+
+11.
+ExportConfigurationDto Export()
+-
+ExportConfigurationDto ExportConfiguration()
+-
+class ConfigurationFacadeService
+В первом имени отсутствуют выходные данные - объект, 
+более того в классе встречаются еще методы с приставкой Export*
+поэтому лучше конкретизировать, что мы экспортируем в данном случае
+
+12.
+void AddBoInstanceHistoryIfNeed(...)
+-
+void AddBoInstanceHistory(...)
+-
+На мой взгляд приставка IfNeed добавляет ненужную двусмысленность,
+сразу возникает вопрос что тут должны быть какие-то особые условия.
+Комментария/документации к методу и кода должно быть достаточно для
+понимания.
