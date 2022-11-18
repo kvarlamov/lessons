@@ -44,6 +44,7 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Content Include="Names2.txt" />
         <Content Include="Names3.txt" />
+        <Content Include="OopAndInterfaces.txt" />
         <Content Include="WrongNames.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
