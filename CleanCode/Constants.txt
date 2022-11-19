@@ -1,0 +1,113 @@
+1. Use UPPER_CASE style for constant names. And also name should be about abstract entity, but not about specific value
+2. Avoid "magic" numbers in projects.
+3. For number like literals use only 1 or 0, others use variables or constants.
+***
+1.
+const string FilePath = "test.zip"
+-
+const string TEST_FILE_PATH = ...
+-
+Первоначальное имя слишком общее. Кроме того не все символы UpperCase. 
+p.s. Далее upper case не будет считаться за исправление, т.к. так везде в проекте
+
+2.
+instanceList = await _boInstanceService.GetBulkInstances(1000, 1000); //(skip,take)
+-
+instanceList = await _boInstanceService.GetBulkInstances(BULK_SIZE, BULK_SIZE); 
+-
+значение вынесено в константу, т.к. вероятнее всего оно не изменится или будет меняться очень редко
+
+3.
+public const string Separator = ","
+-
+public const string DECIMAL_SEPARATOR = ","
+-
+Конкретизируем, для чего используется конкретный сепаратор. Поскольку запятая может выступать разделителем 
+в разных случаях, например для разбиения строки, или наоборот для слияния массива в строку с разделителем
+
+4.
+const string XlsExtension = "xls"
+-
+const string OLD_EXCEL_FILE_EXTENSION = "xls"
+const string CURRENT_EXCEL_FILE_EXTENSION = "xlsx"
+-
+Первоначальное название показывает конкретное значение, поэтому плохое.
+Меняем на сущность, которую определяет константа
+
+5.
+public const string ErrorMessagePrefix = "Некорректно заполнен файл excel. "
+-
+public const string EXCEL_FILE_ERROR_MESSAGE_PREFIX = ...
+-
+Конкретизируем, к чему относится префикс ошибки, первоначальное имя слишком общее и может быть похожая константа в другом месте проекта.
+
+6.
+private const string DateFormat = "MM/dd/yyyy"
+-
+private const string FILE_STORAGE_DATE_FORMAT = ...
+-
+Т.к. в проекте может (и встречается) несколько таких констант, но с немного разными форматами, 
+то лучше конкретизировать имя для конкретного формата, чтобы избежать путаницы
+
+7.
+MakeArray(capacity * 2)
+-
+MakeArray(capacity * GROWING_FACTOR);
+-
+class DynArray.
+Магическое число 2 заменено на константу
+const int GROWING_FACTOR = 2;
+показывающую коэффициент расширения структуры.
+
+8.
+[RegularExpression(@"(?:[А-ЯЁ][а-яё]+)|(?:[A-Z][a-z]+)", ErrorMessage = "Странное имя")]
+-
+[RegularExpression(ALL_RUSSIAN_ENGLISH_CHAR_REGULAR_EXP, ErrorMessage = "Некорректное имя")]
+-
+Регуляргое выражение для букв русского и латинского алфавита (для имени) может быть использовано в нескольких местах
+поэтому есть смысл вынести регулярку в константу
+Также можно вынести сообщение об ошибке, но в данном случае для тестового примера пропускаем
+
+9.
+[MaxLength(256)]
+-
+[MaxLength(MAX_ALLOWED_STRING_LENGTH)]
+-
+В атрибуте определяется максимальная длина string значения свойства. Также выносим значение в константу,
+поскольку данный атрибут используется в разных местах в проекте
+
+10.
+services.Configure<IdentityOptions>(
+                opt =>
+                {
+                    opt.Password.RequiredLength = 3;
+                ...
+                }
+-
+services.Configure<IdentityOptions>(
+                opt =>
+                {
+                    opt.Password.RequiredLength = MIN_PASSWORD_LENGTH;
+                ...
+                }
+-
+Выносим магическое значение 3, определяющее минимальную допустимую длину пароля в константу
+
+11.
+long countObjects = reader.RowCount - 2;
+-
+long countObjects = reader.RowCount - NUM_ROWS_TO_SKIP
+-
+Файл с логикой обработки эксель файла
+Выносим магическое число 2 в константу, т.к. в коде отсутсвовал комментарий, и в любом случае не ясно, что оно делает.
+Число показывает, сколько строк мы пропускаем в файле эксель перед обработкой.
+
+12.
+await Task.Delay(3600, stoppingToken);
+- 
+await Task.Delay(DELAY_IN_EXECUTION_SEC, stoppingToken);
+-
+В данном случае в методе циклической (периодической) обработки фоновой задачи использовалось магическое число,
+из которого непонятно, в каких единицах измерения мы выполняем задержку, и также не факт, что мы где-то еще не
+используем это число.
+Лучше вынести в константу с понятным именем, показывающем единицы измерения, или даже в конфигурационный файл.
