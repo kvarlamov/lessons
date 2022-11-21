@@ -1,0 +1,137 @@
+﻿1.
+bool flag = diagonals.TryGetValue(hits[i], out var array);
+if (flag && Array.IndexOf(array, hits[i + 1]) != -1)
+-
+bool notFound = Array.IndexOf(array, hits[i + 1]) == -1;
+if (flag && notFound)
+-
+Используя логическую переменную повысим читабельность if выражения
+
+2.
+string GetRandomDouble() =>
+    (new Random().NextDouble() * _doubleGeneratingOptions.MaxValue - _doubleGeneratingOptions.MinValue) + _doubleGeneratingOptions.MinValue).ToString();
+...
+public double MinValue {get;set;} = -5;
+public double MaxValue {get;set;} = 5;
+-
+public int MinValue ...
+public int MaxValue ...
+-
+В данной формуле мы безопасно можем изменить double на int и это не влияет на результат
+
+3.
+string[] arrayFromSqrt = sqrt.ToString().Split(DECIMAL_SEPARATOR);
+-
+string[] arrayFromSqrt = sqrt.ToString(CultureInfo.InvariantCulture).Split(DECIMAL_SEPARATOR);
+-
+Используем перегруженную версию ToString, независящую от текущей культуры.
+
+4.
+if (maxFileSizeField != null
+    && !string.IsNullOrWhiteSpace(maxFileSizeField.Value)
+    && int.Parse(maxFileSizeField.Value) > _boInstanceFormOptions.MaxFileSize)
+{
+    throw ...
+}
+-
+isMaxFileSizeFieldNotNullAndHasValue = 
+    maxFileSizeField != null && !string.IsNullOrWhiteSpace(maxFileSizeField.Value);
+isFileSizeFieldValueGreaterThanMax = int.Parse(maxFileSizeField?.Value) > _boInstanceFormOptions.MaxFileSize;
+
+if (isMaxFileSizeFieldNotNullAndHasValue && isFileSizeFieldValueGreaterThanMax) {
+...
+}
+-
+Выносим слолжный набор условий в переменные для повышения читабельности
+
+5.
+if (!string.IsNullOrEmpty(rowFieldValue) && (templateField.Kind == FieldKind.Date || templateField.Kind == FieldKind.DateTime)) {
+...
+}
+-
+isFieldIsDateKind = templateField.Kind == FieldKind.Date || templateField.Kind == FieldKind.DateTime;
+if (!string.IsNullOrEmpty(rowFieldValue) && isFieldIsDateKind) {
+...
+}
+-
+Вынесли длинное условие в переменную - повысили читаемость
+
+6.
+if ((resource.ObjectId.HasValue && context.FormFieldProperties.All(r => r.ObjectId != resource.ObjectId))
+     || (!string.IsNullOrWhiteSpace(resource.ObjectName) && context.FormFieldProperties.All(r => r.ObjectName != resource.ObjectName)))
+    {
+    ...
+    }
+-
+bool isAllFormFieldPropsHasDiffObjId = context.FormFieldProperties.All(r => r.ObjectId != resource.ObjectId);
+bool isAllFormFieldPropsHasDiffObjName = context.FormFieldProperties.All(r => r.ObjectName != resource.ObjectName);
+if ((resource.ObjectId.HasValue && isAllFormFieldPropsHasDiffObjId)
+     || (!string.IsNullOrWhiteSpace(resource.ObjectName) && isAllFormFieldPropsHasDiffObjName))
+    {
+    ...
+    }
+-
+Вынес 2 сложных условия на Linq в отдельные переменные, т.к. первоначальную версию сходу прочитать практически нереально.
+
+7.
+if (template.BoTemplateFields.Any(s => s.Kind == FieldKind.File || s.Kind == FieldKind.FileList)) {
+...
+}
+-
+bool IsFieldKind(BoTemplateFieldDto s) => s.Kind == FieldKind.File || s.Kind == FieldKind.FileList;
+
+if (template.BoTemplateFields.Any(IsFieldKind)) {
+...
+}
+-
+Первоначальное выражение можно упростить вынеся лямбда-выражение в отдельный делегат (предикат) с понятным именем
+
+8.
+int result;
+for (int i = 2; i <= N; i++)
+{
+    result = result * i;
+}
+-
+for (int i = 2; i <= N; i++)
+{
+    checked(result *= i);
+}
+-
+В формуле расчета факториала лучше добавить переполнение типа int.
+Во втором случае будет выброшено исключение при переполнении
+
+9.
+string existedKey = dto.UserVariables.Keys.FirstOrDefault(key => key.Contains(option.Name.ToUpper())) ?? string.Empty;
+-
+string existedKey = dto.UserVariables.Keys.FirstOrDefault(key => key.Contains(option.Name.ToUpper(CultureInfo.InvariantCulture))) ?? string.Empty;
+-
+Делаю приведение к верхнему регистру независимым от культуры с помощью CultureInfo.InvariantCulture
+
+10.
+var fieldToUpdate = instance.BoInstanceFields.FirstOrDefault(f => f.BoTemplateFieldName.Equals(clientField.Name));
+-
+var fieldToUpdate = instance.BoInstanceFields.FirstOrDefault(f => f.BoTemplateFieldName.Equals(clientField.Name, StringComparison.InvariantCultureIgnoreCase));
+-
+в сравнение значений добавлено игнорирование культуры и регистра
+
+11.
+IEnumerable<string> fieldTitles = boTemplate.BoTemplateFields.Where(p => fieldNames.Any(t => string.Equals(t, p.Name))).Select(p => $"\"{p.Title}\"");
+-
+IEnumerable<string> fieldTitles = boTemplate.BoTemplateFields.Where(p => fieldNames.Any(t => string.Equals(t, p.Name, StringComparison.InvariantCultureIgnoreCase))).Select(p => $"\"{p.Title}\"");
+-
+В сравнение строк добавлено игнорирование культуры
+
+12.
+if (!Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) {
+...
+}
+-
+if (!Name.Equals(name, StringComparison.OrdinalIgnoreCase)) {
+...
+}
+-
+InvariantCultureIgnoreCase заменено на OrdinalIgnoreCase по подсказке компилятора, как более быстрый способ
+сравнения строк
+
+
