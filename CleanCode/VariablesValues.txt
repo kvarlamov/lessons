@@ -1,0 +1,275 @@
+1. Specify type explicitly
+
+***
+1.
+var boTemplates = await _boTemplateService.GetAllVersionsAsync(...);
+-
+List<BoTemplateDto> boTemplates = ...
+-
+Явно указываем тип переменной в соответствии с рекомендацией.
+В проекте разрешено использовать var если из правой части явно понятен тип переменной.
+Такую настройку можно выполнить в файле .editorconfig для компилятора:
+csharp_style_var_when_type_is_apparent = true
+
+2.
+// ... - много кода
+
+int day=0;
+...
+while (allFields > counter){
+    for(int i = 0; i < toInvade.Count - 1; i+=2)
+    {
+        foreach(var d in directions) 
+        {
+        ...
+        if (day > 0)
+        ...
+}
+-
+...
+int day=0;
+while (allFields > counter){
+    for(int i = 0; i < toInvade.Count - 1; i+=2)
+    {
+        foreach(var d in directions) 
+        {
+        ...
+        if (day > 0)
+        ...
+}
+-
+Переносим переменную day поближе к месту использования, поскольку изначально стояла в начале функции.
+Еще ближе положить в данном алгоритме не можем (без рефакторинга алгоритма в данном случае)
+
+3.
+int counter = 0;
+...
+while (allFields > counter){
+...
+}
+-
+...
+int counter = 0;
+while (allFields > counter){
+...
+}
+-
+Аналогично, в той же функции ипользуется также переменная counter, которая стоит вначале, но используется только
+в цикле.
+
+4.
+int k = 0;
+for (int i = 0; i < row; i++)
+{
+    for (int j = 0; j < column && k < s1.Length; j++)
+    {
+        arr[i, j] = s1[k++];
+    }
+}
+// using k
+-
+int counter = 0;
+for (int i = 0; i < row; i++)
+{
+    for (int j = 0, k = 0; j < column && k < s1.Length; j++)
+    {
+        arr[i, j] = s1[k++];
+    }
+    counter = k;
+}
+// using counter
+-
+В первоначальном варианте k использовался за пределами цикла, чего делать нельзя.
+Поэтому заменяем k на переменную и далее используем ее. Объявление и использование k остается в цикле
+
+5.
+int res = 0;
+...
+
+foreach (var ch in Line)
+{
+    if (!tonerCost.TryGetValue(ch, out int cost))
+        res += CostDefault;
+    
+    res += cost;
+}
+
+return res;
+-
+int res = 0;
+foreach (char ch in Line) {
+...
+}
+-
+Переносим объявление аккумулятора res непосредственно перед циклом.
+
+6.
+const int CostDefault = 23;
+-
+int costDefault = 23;
+-
+В функции не используем константу и заменяем ее на обычную переменную, поскольку значение использовано разово
+
+7.
+public static bool SherlockValidString(string s)
+{
+    if (s.Length == 2)
+        return true;
+    
+    Dictionary<char, int> dic = new Dictionary<char, int>();
+
+    int maxFreq = 0;
+
+    foreach (var ch in s)
+...
+-
+public static bool SherlockValidString(string s)
+{
+    if (s.Length == 2)
+        return true;
+    
+    Dictionary<char, int> dic = new Dictionary<char, int>();
+
+    foreach (var ch in s)
+...
+-
+Удалена неиспользуемая в коде переменная maxFreq.
+
+8.
+var indices = await GetTemplatesIndices();
+...
+foreach (BoTemplateFieldFacadeDto field in fields) {
+...
+    foreach (BoTemplateFieldPropertyFacadeDto fieldProperty in field.FieldProperties)
+    {
+        List<IndicesInfoDto> fieldIndices = field.Kind == FieldKind.LinkedSystemCollection
+            ? new List<IndicesInfoDto>()
+            : indices;
+            
+        ...    
+    }
+...
+}
+-
+...
+foreach (BoTemplateFieldFacadeDto field in fields) {
+...
+    var indices = await GetTemplatesIndices();
+    foreach (BoTemplateFieldPropertyFacadeDto fieldProperty in field.FieldProperties)
+    {
+        List<IndicesInfoDto> fieldIndices = field.Kind == FieldKind.LinkedSystemCollection
+            ? new List<IndicesInfoDto>()
+            : indices;
+            
+        ...    
+    }
+...
+}
+-
+В первоначальной версии в функции переменная indices находится в начале, 
+а ее использование можно увидеть после очень объемного куска кода - двигаем ее ближе к месту применения
+
+9.
+List<IndexDto> bulkElements = new ();
+...
+foreach (BoInstanceDto instance in bulkInstanceList)
+{
+    ...
+    bulkElements.Add(indexDto);
+}
+-
+...
+List<IndexDto> bulkElements = new ();
+foreach (BoInstanceDto instance in bulkInstanceList)
+{
+    ...
+    bulkElements.Add(indexDto);
+}
+-
+Перенесли список-накопитель непосредственно перед методом, где он используется
+
+10.
+...
+PrepareEntitiesForUpdate(newEntity, currentEntity, isImport);
+EntityEntry<BoTemplate> addResult = await _dbContext.AddAsync(newEntity);
+await _dbContext.SaveChangesAsync();
+...
+-
+...
+PrepareEntitiesForUpdate(newEntity, currentEntity, isImport);
+EntityEntry<BoTemplate> addResult = await _dbContext.AddAsync(newEntity);
+await _dbContext.SaveChangesAsync();
+newEntity = null; currentEntity = null;
+...
+-
+Явно присваиваем ссылочным типам null после завершения работы с ними в методе (т.к. метод еще имеет логику)
+
+11.
+var searchResult = isForWidget
+                ? await GetSearchResultForWidgetAsync(dto)
+                : await GetSearchResultAsync(dto, actualTemplate, requestKind);
+-
+BoInstanceFacadeElasticSearchResult searchResult = isForWidget
+                ? await GetSearchResultForWidgetAsync(dto)
+                : await GetSearchResultAsync(dto, actualTemplate, requestKind);
+-
+В данном случае var использован неудачно, поскольку сложно понять тип переменной - меняем на явный тип
+
+12.
+foreach (var prop in  GetTreeNodes(Model).OfType<Property>().Where(p => p.CustomValidation).ToList())
+-
+foreach (Property prop in  GetTreeNodes(Model).OfType<Property>().Where(p => p.CustomValidation).ToList())
+-
+В данном случае в цикле использовано var и чтобы понять тип переменной prop нужно смотреть весь код
+Меняем на явное обозначение переменной
+
+13.
+var currentData = new CurrentData();
+if {...}
+foreach (FormEventEngineEventCalculationLineDto calculationLine in calculationLines)
+{
+    if(...) 
+    {
+         string currentValue = FormEventHelper.GetCalculationLineValue(calculationLine, eventVariables, currentData);
+    }
+...
+-
+if {...}
+foreach (FormEventEngineEventCalculationLineDto calculationLine in calculationLines)
+{
+    if(...) 
+    {
+         var currentData = new CurrentData();
+         string currentValue = FormEventHelper.GetCalculationLineValue(calculationLine, eventVariables, currentData);
+    }
+...
+-
+В данном случае currentData инициализировалась в самом начале метода, а использовалась только в конце,
+более того более нигде не фигурировала, так что безболезненно переносим непосредственно перед использованием.
+
+14.
+foreach (var t in Tables.Values.OrderBy(tbl => tbl.IsProviderSpecific).ThenBy(tbl => tbl.TypeName))
+-
+foreach (Table t in Tables.Values.OrderBy(tbl => tbl.IsProviderSpecific).ThenBy(tbl => tbl.TypeName))
+-
+в foreach часто используется var и если справа Linq, то часто бывает сложно понять тип.
+Поэтому в данном случае определяем тип явно
+
+15.
+...
+if (fieldNamesFromExcel.Length > 1 && FieldConstants.CollectionFieldKinds.Contains(templateField.Kind))
+{
+    ...
+}
+...
+-
+...
+if (fieldNamesFromExcel.Length > 1 && FieldConstants.CollectionFieldKinds.Contains(templateField.Kind))
+{
+    ...
+}
+fieldNamesFromExcel = null;
+...
+-
+Переменная fieldNamesFromExcel используется только в блоке if, но далее после него еще много кода.
+Поэтому явно присваиваем ей null, т.к. нет нужды использовать ее дальше
