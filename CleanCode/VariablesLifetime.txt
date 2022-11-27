@@ -1,0 +1,305 @@
+1.
+foreach (string fileName in fileNames)
+{
+    ...
+    string filePath = Path.Combine(extractFilesDir, fileName);
+    if (!File.Exists(filePath))
+    {
+        throw new IncorrectFileStructureException($"В файле импорта Excel в полях с типом \"Файл\" и \"Список файлов\" указано некорректное название файла {fileName} (не соответствующее файлу в архиве).");
+    }
+
+    // Если файл ранее не был добавлен в систему - добавляем
+    FileInfoDto savedFile = await _manageFileService.SaveFileAsync(new FileContentInfoDto {
+        Name = Path.GetFileNameWithoutExtension(fileName),
+        Ext = fileName.GetFileExtensionWithoutDot(),
+        FileData = File.ReadAllBytes(filePath)
+    });
+
+    // И записываем информацию в хранилище
+    savedFiles.Add(savedFile);
+    _fileInfoStorage[fileName] = savedFile;
+}
+-
+foreach (string fileName in fileNames)
+{
+    ...
+    FileInfoDto savedFile = await SaveFileToStorage(fileName, extractFilesDir);
+    
+    // И записываем информацию в хранилище
+    savedFiles.Add(savedFile);
+    _fileInfoStorage[fileName] = savedFile;
+}
+
+SaveFileToStorage(string fileName, string extractFilesDir) {
+    string filePath = Path.Combine(extractFilesDir, fileName);
+    if (!File.Exists(filePath))
+    {
+        throw new IncorrectFileStructureException($"В файле импорта Excel в полях с типом \"Файл\" и \"Список файлов\" указано некорректное название файла {fileName} (не соответствующее файлу в архиве).");
+    }
+
+    // Если файл ранее не был добавлен в систему - добавляем
+    FileInfoDto savedFile = await _manageFileService.SaveFileAsync(new FileContentInfoDto {
+        Name = Path.GetFileNameWithoutExtension(fileName),
+        Ext = fileName.GetFileExtensionWithoutDot(),
+        FileData = File.ReadAllBytes(filePath)
+    });
+}
+-
+Выносим в отдельный метод функционал сохранения файла из большого метода, при этом также
+выносится и переменная
+
+2.
+if (template.BoTemplateFields.Any(s => s.Kind == FieldKind.File || s.Kind == FieldKind.FileList))
+{
+    // Проверка на наличие директории с файлами. Директория с файлами только одна
+    IReadOnlyCollection<ZipArchiveEntry> directories = GetZipDirectories(zip);
+
+    if (directories.Count == 0)
+        return "В архиве не найдено папки с файлами";
+
+    // Сделано специально для того, чтобы была возможность обрабатывать импорт
+    // с пропущенными данными в полях с типом 'файл' / 'список файлов'
+    if (directories.Count > 1)
+        return "Найдено более 1 папки для файлов в архиве";
+
+    // Проверка на наличие файлов в директории
+    if (directories.Count == 1 && !HasFilesIntoDirectory(zip, directories.First()))
+        return "В папке отсутствуют файлы";
+}
+-
+if (template.BoTemplateFields.Any(s => s.Kind == FieldKind.File || s.Kind == FieldKind.FileList))
+{
+    string validateDirectotiesErrorMessage = ValidateDirectories();
+    if (!string.IsNullOrEmpty(validateDirectotiesErrorMessage))
+        return validateDirectotiesErrorMessage; 
+}
+-
+Выносим получение и проверку директорий в отдельный метод
+
+3.
+internal class ImportExcelOptions {
+    public int StepSendingToFacade { get; set; } = 50;
+    
+    public string NameDirForFiles { get; set; } = "ImportExcelFiles";
+} 
+-
+public -> internal
+-
+Свойства имели модификатор доступа public в классе internal. Меняем модификатор на более строгий в соотвествии с классом
+
+4.
+internal abstract class BaseBackgroundServiceOptions
+{
+    public int DelayInExecution { get; set; } = 5000;
+}
+-
+internal abstract class BaseBackgroundServiceOptions
+{
+    internal int DelayInExecution { get; set; } = 5000;
+}
+-
+Меняем модификатор доступа на internal
+
+5.
+BoForeignTemplatesOwnerDto templateOwnerDto = await _boTemplateService.GetBoForeignTemplateOwnersByNameAsync(ownerServiceName);
+
+if (templateOwnerDto == null)
+{
+    templateOwnerDto = new BoForeignTemplatesOwnerDto()
+    {
+        OwnerName = ownerServiceName,
+        BoTemplateId = templateFromDb.Id
+    };
+    templateOwnerDto = await _boTemplateService.CreateBoForeignTemplateOwnersAsync(templateOwnerDto);
+}
+else if (!templateOwnerDto.BoTemplates.Any(t => t.Id == templateFromDb.Id))
+{
+    templateOwnerDto.BoTemplateId = templateFromDb.Id;
+    await _boTemplateService.UpdateBoForeignTemplateOwnersAsync(templateOwnerDto);
+}
+-
+CreateOrUpdateBoForeignTemplateOwners(ownerServiceName, templateFromDb)
+-
+Выносим всю логику в отдельный метод и уже в нем обновляем или создаем новый объект.
+Этим повышаем читабельность и сужаем область видимости переменной templateOwnerDto рамками метода, поскольку
+в конце этого участка кода ее применение закончилось
+
+6.
+...
+HashSet<long> longIds = new HashSet<long>();
+...
+
+foreach (BoInstanceFieldDto instanceField in GetCollectionFields(instanceFields))
+{
+...
+longIds.Add(id);
+}
+List<BoInstanceDto> currentLevelInstances = (await GetInstancesFromDatabase(longIds)).ToList();
+...
+-
+List<BoInstanceDto> currentLevelInstances = GetCurrentLevelInstances(...)
+-
+Выносим логику получения инстансов в отдельный метод, т.о. выносим из крупного метода часть логики,
+облегчая его понимание, и избавляемся от 1 переменной longIds (которая переместилась в новый метод)
+
+7.
+в дополнение к п.6
+В логике первого цикла foreach также наполнял значениями
+List<string> nextLevelPlaceholderNames = new List<string>();
+И поскольку вынесли в отдельный метод ту логику, чтобы не дублировать прохождение по цикле, можем решить это
+например возвращая из метода кортеж с 2-мя значениями:
+(List<BoInstanceDto> currentLevelInstances, List<string> nextLevelPlaceholderNames) GetCurrentLevelInstances(...) {}
+и с помощью декомпозиции получить в главном методе вот так:
+var (currentLevelInstances, nextLevelPlaceholderNames) = GetCurrentLevelInstances();
+или
+Вместо кортежа можем создать новый тип и в него класть нужные наборы данных объектов
+
+8.
+IEnumerable<string> businessProcessKeys = boTemplates
+    .Where(...)
+    .Select(...).Distinct();
+
+IEnumerable<BpmEngineTaskInfoDto> tasks = await _bpmEngineService.GetAllCurrentTaskByBusinessProcessKeysAsync(businessProcessKeys);
+
+long currentUserId = _identityService.GetCurrentUserFromRequest();
+Dictionary<BpmEngineTaskInfoDto, bool> permissionsCheckResults = await _boInstanceActionPermissionManager
+    .GetBpActionsUserPermissionsCheckResultsAsync(tasks, currentUserId);
+-
+Dictionary<BpmEngineTaskInfoDto, bool> permissionsCheckResults = GetPermissionCheckResults(...);
+-
+Убираем переменные businessProcessKeys и tasks в новый метод GetPermissionCheckResults(...), поскольку они нужны
+лишь для заполнения словаря и далее в главном методе не используются
+
+9.
+List<string> bpInstanceIds = new List<string>();
+foreach (KeyValuePair<BpmEngineTaskInfoDto, bool> permissionsCheckResult in permissionsCheckResults) {
+...
+}
+IEnumerable<BpmEngineBusinessProcessInstanceDto> bpInstances = await _bpmEngineService
+                .GetBusinessProcessInstancesByIds(bpInstanceIds.Distinct());
+-
+IEnumerable<BpmEngineBusinessProcessInstanceDto> bpInstances = await GetBusinessProcessInstancesByIds(...);
+-
+В продолжение п.8 можно еще больше сгруппировать переменные, т.к. переменная permissionsCheckResults из п.8
+нужна лишь для заполнения списка bpInstanceIds, который в свою очередь нужен для переменной bpInstances.
+Объединив логику в один метод GetBusinessProcessInstancesByIds, в который перенесем метод из п.8 GetPermissionCheckResults,
+удастся существенно сократить размер (а следовательно сложность) первоначального метода.
+
+10.
+using (FileStream inputFile = new FileStream(InputFile, FileMode.Open))
+{
+    byte[] buffer;
+    ...
+
+    while (inputFile.Position < fileLenght && !Stopped)
+    {
+        ...
+        buffer = new byte[bytesRead];
+        ...
+    }
+}
+-
+using (FileStream inputFile = new FileStream(InputFile, FileMode.Open))
+{
+    ...
+
+    while (inputFile.Position < fileLenght && !Stopped)
+    {
+        ...
+        byte[] buffer = new byte[bytesRead];
+        ...
+    }
+} 
+-
+Переменная buffer изначально была объевлена вне зоны видимости цикла, по факту используется только внутри,
+поэтому переносим объявление и объединяем с инициализацией
+
+11.
+Dictionary<string, BoTemplateDto> actualTemplatesCache = new ();
+Dictionary<long, FormFieldPropertiesDto> fieldPropertiesCache = new () { { boTemplateDto.Id, fieldPropertiesDto } };
+
+foreach (BoTemplateFieldDto parentField in boTemplateDto.BoTemplateFields.Where(f => FieldConstants.LinkedFieldKinds.Contains(f.Kind)).ToList())
+{
+    actualTemplatesCache.Add(...)
+    ...
+    fieldPropertiesCache.Add(...)
+    ...
+    await CreateOrUpdateRelation(...)    
+}
+...
+-
+CreateOrUpdateRelation(...)
+-
+В первоначальном методе объявлялось 2 словаря, кот. использовались только внутри foreach. foreach выполняет
+модификацию состояния объектов, а когда цикл завершается то выполняется еще другая логика, где словари не используются. 
+Поэтому можно вынести локигу foreach в отдельный метод тем самым уменьшив длину первоначального метода и 
+сузив область видимости словарей новым методом CreateOrUpdateRelation()
+
+12.
+...
+BoTemplateDto serviceDto = await GetByIdAsync(entityId);
+EntityDescriptionDto descriptionDto = new EntityDescriptionDto(serviceDto.Title) {
+    Description = serviceDto.Description,
+    Name = serviceDto.Name
+};
+
+foreach (BoTemplateFieldDto serviceDtoBoTemplateField in serviceDto.BoTemplateFields)
+{
+    descriptionDto.Fields.Add(
+        new EntityFieldDescriptionDto {
+            Name = serviceDtoBoTemplateField.Name,
+            FieldType = serviceDtoBoTemplateField.Kind,
+            Label = serviceDtoBoTemplateField.Title,
+            Description = serviceDtoBoTemplateField.Description,
+            PlaceHolder = serviceDtoBoTemplateField.Title
+        });
+}
+...
+-
+EntityDescriptionDto descriptionDto = GetDescriptionDtoWithFields(entityId);
+-
+Показанный кусок кода в методе занимается лишь формированием и наполнением полей descriptionDto,
+а далее переменная serviceDto не используется. Поэтому группируем всю вышеописанную логику в один метод
+GetDescriptionDtoWithFields, передавая ему лишь параметр из главного метода
+
+13.
+byte[] signedDataBytes = Encoding.UTF8.GetBytes(dto.SignedData);
+SignatureValidationResult signatureValidationResult = await _cryptoServiceClient.ValidateSignature(Encoding.Unicode.GetString(signedDataBytes), dto.Sign);
+
+if (!signatureValidationResult.IsValid)
+{
+    throw new BpmEngineFacadeSignatureNotValidException(
+        signatureValidationResult.ErrorMessage);
+}
+...
+-
+Validate(dto)
+-
+Данный метод кроме создания занимается валидацией. И переменные которые нужны для валидации (signedDataBytes, signatureValidationResult)
+видны всему методы. Поэтому выносим валидацию в отдельный метод.
+
+14.
+string jobId = context.BackgroundJob?.Id;
+
+if (string.IsNullOrEmpty(jobId))
+    return null;
+
+string recurringJobId = context.Connection.GetJobParameter(jobId, JobParameterNames.RecurringJobId);
+...
+-
+string recurringJobId = GetRecurringJobId(context);
+-
+Группируем переменные в метод, т.к. jobId нужна только для получения recurringJobId
+
+15.
+internal class LabelMatch {
+    public string LabelIdentifier { get; }
+}
+-
+internal class LabelMatch {
+    internal string LabelIdentifier { get; }
+}
+-
+Изменяем модификатор доступа на более строгий
+
+

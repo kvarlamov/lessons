@@ -47,6 +47,7 @@
         <Content Include="Names3.txt" />
         <Content Include="OopAndInterfaces.txt" />
         <Content Include="Types Casting.txt" />
+        <Content Include="VariablesLifetime.txt" />
         <Content Include="VariablesValues.txt" />
         <Content Include="WrongNames.txt" />
     </ItemGroup>
