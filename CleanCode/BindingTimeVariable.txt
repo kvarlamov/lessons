@@ -1,0 +1,62 @@
+﻿1.
+private async Task<long> SaveFileToPersistentStorage(Guid fileGuid, string fileExtension)
+{
+    FileInfoDto fileInfo = await _manageFileService.CreateAsync(new FileInfoDto {
+        FileTempStorageGuid = fileGuid,
+        Name = Constants.NameFileForSaveFileToPersistentStorage,
+        Description = Constants.DescriptionFileForSaveFileToPersistentStorage,
+        Ext = fileExtension
+    });
+
+    return fileInfo.Id;
+}
+-
+Constants.NameFileForSaveFileToPersistentStorage = "BackgroundWorkerFile";
+
+В данном случае имя файла связывается со значением константы в методе.
+В данном методе происходит сохранение файла во временное хранилище с названием, которое далее будет использоваться в логике.
+Поскольку имя файла не меняется, но такая операция может повторяться многократно и при этом название файла используется в разных местах кода,
+было принято решение поместить имя файла в константу, а не читать ее из конфигурации.
+
+2.
+private const string AppSettingsFileName = "appsettings.json";
+private const string SelfUrlConfigSectionName = ConfigExtensions.ConfigurationExtensions.ServiceSelfUrl;
+
+private static IHostBuilder CreateWebHostBuilder(string[] args)
+{
+    IConfigurationRoot config = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile(AppSettingsFileName, false)
+        .AddEnvironmentVariables()
+        .AddCommandLine(args)
+        .Build();
+        
+    Uri selfUri = new Uri(config.GetValue<string>(SelfUrlConfigSectionName));
+...
+}
+-
+Файл program - стартовая точка программы.
+public const string ServiceSelfUrl = "SelfUrl";
+AppSettingsFileName - значение константы сразу связывается с именем конфигурационного файла, имя которого не будет 
+меняться почти никогда. Поэтому - раннее связывание.
+selfUri - значение переменной связывается через константу SelfUrlConfigSectionName со значение в конфиге.
+Выбрано позднее связывание, поскольку позволяет оперативно менять настройки, и данный метод запускается один раз при старте
+программы.
+
+3.
+private static readonly Dictionary<string, Action<string[], IConfigurationRoot>> AvailableActions =
+    new Dictionary<string, Action<string[], IConfigurationRoot>>
+    {
+        { "/inittestdata", InitTestData },
+        { "/updateallindices", SeedWithIndicesUpdate },
+        { "/initquadradata", InitQuadraData },
+        { "/createuser", CreateUser },
+        { "/fillboinstancecollectionrelations", FillBoInstanceCollectionRelations },
+        { "/formatnumbers", FormatNumbers }
+    };
+-
+Максимально раннее связывание - значения связываются с методами посредством литералов.
+В данном случае словарь определяет зависимость значения аргумента из командной строки и метода, который выполнится.
+Поскольку он определен во входной точке программы (метод main, class program), а аргументы командной строки определятся
+пользователем / разработчиком при запуске, удобнее наглядно в коде показать какой метод при каком аргументе выполняется.
+Поэтому использовано такое решение.
