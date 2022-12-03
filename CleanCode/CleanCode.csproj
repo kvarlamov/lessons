@@ -38,6 +38,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="Arrays.txt" />
         <Content Include="BindingTimeVariable.txt" />
         <Content Include="ClassNames.txt" />
         <Content Include="Constants.txt" />

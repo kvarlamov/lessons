@@ -1,0 +1,99 @@
+1.
+if (args.Length > 0)
+{
+    if (!AvailableActions.ContainsKey(args[0]))
+    {
+        Console.WriteLine($"Wrong argument {args[0]}");
+        return;
+    }
+
+    AvailableActions[args[0]](args, config);
+}
+-
+if (args.Length > 0)
+{
+    var action = args.First();
+    ...
+}
+-
+В данном случае массив заменить на другую структуру не можем, т.к. по умолчанию аргументы командной строки
+в виде массива. Однако можем заменить обращение к первому элементу по индексу вызовом метода Linq. И также
+выносим в отдельную переменную, т.к. обращение дублировалось целых 3 раза
+
+2.
+public IEnumerable<FieldKind> FieldKinds => new FieldKind[] {
+            FieldKind.Hidden,
+            FieldKind.GroupLabel,
+            FieldKind.LinkedSystemCollection,
+            FieldKind.Hyperlink
+        };
+-
+public IEnumerable<FieldKind> FieldKinds => new HashSet<FieldKind> {
+...
+}
+-
+Первоначально для стратегии использовался массив. Заменяем его на HashSet (хэш-таблицу),
+дополнительно получаем бонус - не допускаем наличие дубликатов в структуре, т.к. по замыслу они
+должны быть уникальны
+
+3.
+SeedSearch seedSearch = new SeedSearch(true) {
+                SeedingElements = new string[] { "users", "roles", "_NotExistingTemplate" }
+            };
+-
+SeedSearch seedSearch = new SeedSearch(true) {
+                SeedingElements = new HashSet<string> { "users", "roles", "_NotExistingTemplate" }
+            };
+-
+В классе SeedSearch в качестве структуры для свойства SeedingElenents использовался массив с заранее
+инициализированными значениями. При этом при использовании проверялось только наличие элементов
+и итерирование по элементам. Поэтому можно заменять на HashSet или даже на List (чтобы избежать
+расходов на создание HashSet). Хотя List и позволяет произвольный доступ по индексу, 
+в реальности никто (не видел ни разу) не использует его т.о., а массив подразумевает доступ по индексу.
+
+4.
+string[] splitRowFieldValue = GetFieldValues(rowFieldValue);
+foreach (var value in splitRowFieldValue) {...}
+-
+List<string> splitRowFieldValue = ...
+-
+Избавляемся от массива - хотя меняем на тот же массив (по сути), явное применение массива
+здесь совсем не нужно и более того заставляет задуматься, зачем? нужен ли доступ по индексу?
+Хэш-таблицу не можем применять т.к. необязательно условие уникальности значений
+
+5.
+public async Task<FieldKindPropertiesDto> GetCombinedFieldSettingsByFieldKind(List<FieldKind> fieldKinds)
+{
+    FieldKindPropertiesDto result = await GetOrLoadAndGetFieldSettingsFromCache(fieldKinds[0]);
+    IEnumerable<FieldPropertyDto> fields = result.Fields;
+
+    for (int i = 1; i < fieldKinds.Count; i++)
+    {
+        FieldKindPropertiesDto dto = await GetOrLoadAndGetFieldSettingsFromCache(fieldKinds[i]);
+        fields = fields.UnionBy(dto.Fields, p => p.Name);
+    }
+
+    return new FieldKindPropertiesDto() {
+        FieldKind = fieldKinds[0],
+        Fields = fields.ToList()
+    };
+}
+-
+public async Task<FieldKindPropertiesDto> GetCombinedFieldSettingsByFieldKind(List<FieldKind> fieldKinds)
+{
+    IEnumerable<FieldPropertyDto> fields = new List<FieldPropertyDto>();
+
+    foreach (var kind in fieldKinds)
+    {
+        FieldKindPropertiesDto dto = await GetOrLoadAndGetFieldSettingsFromCache(kind);
+        fields = fields.UnionBy(dto.Fields, p => p.Name);
+    }
+
+    return new FieldKindPropertiesDto() {
+        FieldKind = fieldKinds.First(),
+        Fields = fields.ToList()
+    };
+}
+-
+Первоначально использовалось обращение по индексу к элементу и далее работа также с индексами.
+Заменяем на простое итерирование по списку, а первый элемент получаем с помощью Linq.
