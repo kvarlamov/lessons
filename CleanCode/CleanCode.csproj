@@ -41,6 +41,7 @@
         <Content Include="Arrays.txt" />
         <Content Include="BindingTimeVariable.txt" />
         <Content Include="ClassNames.txt" />
+        <Content Include="Comments.txt" />
         <Content Include="Constants.txt" />
         <Content Include="FunctionNaming.txt" />
         <Content Include="Names.txt" />

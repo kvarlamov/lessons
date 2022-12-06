@@ -1,0 +1,123 @@
+Допустимые комментарии
+1.
+try
+{
+    templateFromDb = await _boTemplateFacadeService.GetByNameIfExists(boTemplateConfiguration.Name);
+}
+catch
+{
+    // Если шаблон в БД повреждён, попробуем исправить его
+    templateFromDb = _mapper.Map<BoTemplateFacadeDto>(await _boTemplateService.GetByNameIfExistsAsync(boTemplateConfiguration.Name));
+    templateFromDb.Tabs = CreateDefaultTabs();
+    templateFromDb.FilterImmutableFieldSettings = CreateDefaultFilterFieldSettings();
+    templateFromDb.FieldLocationKind = FieldLocationKind.OneColumn;
+} 
+-
+В блоке catch комментарий описывает нижеидущую логику и помогает быстро понять ее назначение. 
+В идеале вынести логику в отдельный метод
+
+2.
+// Если шаблон удален, необходимо его восстановить, иначе возникнет исключение в BoTemplateFacadeService.UpdateAsync
+if (templateFromDb.Deleted)
+    await _boTemplateFacadeService.RestoreAsync(templateFromDb.Id);
+-
+Комментарий поясняет необходимость нижеидущего действия
+
+3.
+// Если тип вычисляемого поля равен "Число с плавающей запятой, то нужно задать кол-во знаков после запятой"
+if (resultKind == FieldKind.Double)
+{
+    string numberOfDecimalPlacesValue = calculationDto.CalculationFields.Where(field => field.Name == fieldName).Select(y => y.NumberOfDecimalPlaces)
+        .FirstOrDefault();
+    if (int.TryParse(numberOfDecimalPlacesValue, out int _))
+    {
+        formatResult = $"N{numberOfDecimalPlacesValue}";
+    }
+    else formatResult = CultureConstants.FormatG;
+}
+-
+Комментарий, поясняющий действие при определенном типе поля, при этом код в блоке if надо вынести в функцию
+
+4.
+// Очищаем поля с типом список файлов в которых отсутствуют файлы
+foreach (BoInstanceFieldDto instanceFileListField in boInstanceFields.Where(f => f.Kind == FieldKind.FileList))
+{
+    if (facadeDto.BoInstanceFiles.Any(f => f.BoTemplateFieldName != instanceFileListField.BoTemplateFieldName))
+    {
+        instanceFileListField.FieldValue = string.Empty;
+    }
+}
+-
+Комментарий можно оставить как пояснение, а код вынести в функцию ClearFieldsWithFileListFieldKinds(,,,)
+
+5.
+// создаем запись по правилам отправки по БП
+await _sendToBpRuleService.CreateAsync(new SendToBpRuleDto { BoTemplateGuid = importBoTemplate.BoTemplate.ImmutabilityId });
+-
+В данном случае комментарий позволяет разработчику не идти в имплементацию сервиса и быстро понять что делает данный метод
+
+6.
+// добавляем дополнительные свойства для справочных типов
+if (_mapper.Map<CombinedElementTypeKind>(field.Kind) == CombinedElementTypeKind.Dictionary)
+{
+    ...
+}
+-
+В данном случае указываем, что для конкретного типа необходимо добавить дополнительный свойства
+
+7.
+// формируем список полей, у которых изменился тип
+foreach (BoTemplateFieldDto boField in actualTemplate.BoTemplateFields)
+{
+...
+}
+-
+Перед циклом пишем пояснение логики, происходящей в цикле для быстрого понимания при беглом изучении метода
+
+*************
+
+Избыточные, лишние комментарии
+1.
+// Проверяем наличие шаблона бизнес-объекта
+BoTemplateDto template = await _botemplateService.GetActualByNameAsync(task.TemplateName);
+if (template == null)
+{
+    throw new BoTemplateNotFoundException("Некорректное наименование шаблона");
+}
+-
+Здесь комментарий можно удалить, поскольку он описывает логику, которая итак очевидно из названия метода и последующего кода
+
+2.
+// Загружаем файл из постоянного хранилища
+FileContentInfoDto fileContentInfo = await _manageFileService.GetFileContentAsync(task.FileId.Value);
+if (fileContentInfo == null)
+{
+    throw new FileNotFoundException("Не найден файл в сервисе файлов");
+}
+-
+Избыточный комментарий - логика не сложная, но может измениться и коммент устареет.
+Здесь можно изменить название метода GetFileContentAsync на GetFileContentFromPersistentStorage чтобы однозначно
+было понятно что и откуда загружается
+
+3.
+// закомментировано, так как падает ошибка авторизации при создании BoInstanceFacadeService
+// ImportInstance(scope, templateName, templateKeyFieldName, dto, businessStatus == BusinessStatus.Actual);
+CustomImportInstance(scope, templateName, templateKeyFieldName, dto, actual != "false");
+-
+Недопустимый комментарий - кто-то закомментил код и оставил. В итоге непонятно это временное решение или постоянное
+Из комментария непонятно ничего
+
+4.
+public void ConfigureServices(IServiceCollection services)
+{
+    // Add services to the collection
+    RegisterNbtServices(services);
+}
+-
+Аблолютно лишний комментарий - метод однозначно показывает что будет сделано
+
+5.
+// Заполним свойства для инстансов системных шаблонов
+await _boForeignInstanceFieldsFiller.FillForeignFields(mappedResult);
+-
+Также лишний комментарий, можно откорректировать название метода: FillFieldsForForeignTemplates
