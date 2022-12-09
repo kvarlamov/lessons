@@ -44,6 +44,7 @@
         <Content Include="Comments.txt" />
         <Content Include="Constants.txt" />
         <Content Include="FunctionNaming.txt" />
+        <Content Include="GoodComment.txt" />
         <Content Include="Names.txt" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Content Include="Names2.txt" />
