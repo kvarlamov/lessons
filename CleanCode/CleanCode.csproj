@@ -39,6 +39,7 @@
     </ItemGroup>
     <ItemGroup>
         <Content Include="Arrays.txt" />
+        <Content Include="BadComments.txt" />
         <Content Include="BindingTimeVariable.txt" />
         <Content Include="ClassNames.txt" />
         <Content Include="Comments.txt" />

@@ -1,0 +1,149 @@
+1.
+// получаем данные об операциях фасадного сервиса
+IEnumerable<ServiceOperationDto> operationsInfo = ServiceOperationInfoHelper.GetServiceOperationInfo(service);
+-
+(п.4 - ШУМ) Комментарий убираем, поскольку он утверждает очевидное - название ф-ии вполне очевидно говорит о ее назначении
+
+2.
+// Добавляем индекс для пользователя
+CreateUserServiceIndex(scope);
+-
+(п.4 - ШУМ) Избыточный комментарий - удаляем, поскольку имя ф-ии утверждает тоже самое.
+
+3.
+// закомментировано, так как падает ошибка авторизации при создании BoInstanceFacadeService
+// ImportInstance(scope, templateName, templateKeyFieldName, dto, businessStatus == BusinessStatus.Actual);
+-
+(п.11 - Закомментированный код) - удаляем код вместе с комментарием. Очень плохая практика
+
+4.
+/// <summary>
+/// Вернуть наименование файла без идентификатора задачи
+/// </summary>
+/// <param name="fileName">Наименование файла</param>
+/// <returns>Отформатированное наименование</returns>
+private string GetFileNameWithoutId(string fileName) =>
+    fileName.Substring(fileName.IndexOf('_') + 1, fileName.Length - fileName.IndexOf('_') - 1);
+-
+(п.10 - Обязательные комментарии) - В данном случае имеем специфичный для Framework комментарий ф-ии,
+в некоторых случаях полезный, но в данном ф-ия очень короткая и дольше читать описание. Дополнительно изменив
+GetFileNameWithoutId -> GetFileNameWithoutTaskId можно избавиться от комментария совсем
+
+5.
+// Регистрация фабрики
+services.AddTransient<IFieldComparisonFactory, FieldComparisonFactory>();
+-
+(п.4 - ШУМ) Совершенно избыточный комментарий - удаляем
+
+6.
+// Regular expression: OID\.1\.2\.840\.113549\.1\.9\.2\s*=\s*\"?(INN\s*=\s*)*(?<inn>\d+)\s*((\\|/)\s*(KPP\s*=\s*)*(?<kpp>\d+)\s*)?(\\|/)\s*(OGRN\s*=\s*)*(?<ogrn>\d+)
+if (string.IsNullOrEmpty(INN) || string.IsNullOrEmpty(KPP) || string.IsNullOrEmpty(OGRN))
+{
+    Match m = Regex.Match(c.Subject, "OID\\.1\\.2\\.840\\.113549\\.1\\.9\\.2\\s*=\\s*\\\"?(INN\\s*=\\s*)*(?<inn>\\d+)\\s*((\\\\|/)\\s*(KPP\\s*=\\s*)*(?<kpp>\\d+)\\s*)?(\\\\|/)\\s*(OGRN\\s*=\\s*)*(?<ogrn>\\d+)");
+-
+(п.4 - шум) - регулярное выражение зачем-то продублировано в комментарии, более того при изменении чего-то
+создаст вопрос- что правда? удаляем!
+
+7.
+/// Проверяет, имеется ли в БД запись ColorRule для указанного гуида шаблона БО
+/// </summary>
+/// <param name="boTemplateGuid">Guid шаблона БО</param>
+/// <returns>True, если запись существует. False, если не существует</returns>
+private async Task<bool> CheckColorRuleExists(Guid boTemplateGuid) => ...
+-
+(п.7 - Избыточные комментарии) - избыточный комментарий - чтение коммента отнимает больше времени чем чтение кода,
+в данном случае безболезненно удаляем, т.к. внутри однострочная функция
+
+8.
+//// Если в стеке операций есть элементы и если приоритет текущего оператора
+//// меньше или равен приоритету оператора на вершине стека,
+//// то добавляем оператор из стека в список с выражением
+while (operationStack.Count > 0
+       && GetOperationPriority(currentOperation) <= GetOperationPriority(operationStack.Peek()))
+    expression.Add(operationStack.Pop().ToString());
+-
+(п.12 - Не используйте комментарии там, где можно использовать функцию или переменную)
+В данном случае комментарий больше чем сам код к которому он написан.
+Поэтому лучше вынести данный код в функцию с соответствующим названием
+например AddOperationsToExpression(...)
+
+9.
+// Регистрация сервиса.
+services.TryAddTransient<IFieldSecurityConditionEngineService, FieldSecurityConditionEngineService>();
+-
+(п.4 - ШУМ) - Ненужный комментарий не несущий полезных функций
+
+10.
+// Кэширование БО в список. Решает проблему, когда после применения сортировки в некоторых случаях не подгружаются поля БО
+List<Entities.BoInstance> instancesOrderList = await Queries.GetInstanceWithFieldsQuery(this)...
+-
+(п1 - Неочевидные комментарии, п2 - Бормотание, п8 - Слишком много информации) - Данный комментарий имеет несколько проблем.
+Описано много информации, поэтому не очевидно, что он делает. Вторая часть похожа на комментарий на скорую руку.
+Можно попробовать сделать более информативный комментарий, например:
+"Данный список решает проблему потери полей БО после применения сортировки", но в идеале отрефакторить код и вынести в
+функцию
+
+11.
+// Заполним свойства для инстансов системных шаблонов
+await _boForeignInstanceFieldsFiller.FillForeignFields(mappedResult);
+-
+(п.4 - ШУМ) - Описано очевидное действие - удаляем комментарий
+
+12.
+IEnumerable<BoInstanceFacadeHistoryFieldsInfoDto> changes = new List<BoInstanceFacadeHistoryFieldsInfoDto>();
+...
+try
+{
+    changes = JsonConvert.DeserializeObject<IEnumerable<BoInstanceFacadeHistoryFieldsInfoDto>>(source.Changes);
+}
+catch (Exception)
+{
+    // если не получилось десериазировать изменения полей, возвращаем пустой список
+}
+-
+(п.1 - Неочевидные комментарии, п.3 - Недостоверные комментарии)
+Пустой catch - c комментарием - непонятно что он тут делает, был ли удален код и коммент остался ...
+Пока не посмотришь весь метод неочевидно, и получается возможно недостоверно.
+Решение:
+IEnumerable<BoInstanceFacadeHistoryFieldsInfoDto> changes;
+try
+{
+    changes = JsonConvert.DeserializeObject<IEnumerable<BoInstanceFacadeHistoryFieldsInfoDto>>(source.Changes);
+}
+catch (Exception)
+{
+    changes = new List<BoInstanceFacadeHistoryFieldsInfoDto>();
+}
+Убираем полностью комментарий и заменяем инициализацией в catch
+
+13.
+/// <summary>
+/// Фильтрует поля БО
+/// </summary>
+/// <param name="boInstaceFieldsWithRepresentsInfo">Поля БО с дополнительной информацией</param>
+/// <param name="filter">Фильтр для отбора полей сущностей</param>
+/// <returns>Отфильтрованные поля БО</returns>
+private IReadOnlyCollection<BoInstanceFieldDto> FilterBoInstanceFields(){...}
+-
+(п.10 - Обязательные комментарии) Избыточный обязательный комментарий framework-style, при этом функция
+целиком описывает выполняемые действия, удаляем
+
+14.
+// Получаем бизнес-объект
+BoInstanceDto instance = await _boInstanceService.GetByIdAsync(dto.BoInstanceId);
+-
+(п.4 - ШУМ) - бесполезный комментарий - удаляем
+
+15.
+// На клиент
+CreateMap<BoTemplateDto, BoTemplateFacadeDto>(MemberList.None)
+    .ForMember(p => p.Fields, m => m.MapFrom(t => t.BoTemplateFields));
+CreateMap<BoTemplateFieldDto, BoTemplateFieldFacadeDto>(MemberList.None);
+CreateMap<TabSettingsDto, BoTemplateTabFacadeDto>(MemberList.None);
+CreateMap<FilterFieldSettingsDto, FilterFieldSettingsFacadeDto>(MemberList.None);
+-
+(п.1 - Неочевидные комментарии, п.2 - Бормотание) - В профиле автомаппера комментарий неочевиден и похоже сделан
+на скорую руку, совершенно непонятно его назначение
+Обычно маппер не нуждается в комментариях, но при большом желании можно заменить на более хороший, например:
+"// Маппинг ДТО, передаваемых на клиентскую часть"
+
