@@ -19,8 +19,10 @@
                 return true;
 
             bool isPalindrome = s[left].Equals(s[right]);
+            if (!isPalindrome)
+                return false;
             
-            return isPalindrome && IsPal(s, left + 1, right - 1);
+            return IsPal(s, left + 1, right - 1);
         }
     }
 }
