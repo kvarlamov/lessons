@@ -44,6 +44,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="ExponentionTests.cs" />
+        <Compile Include="FindSecondMaxTests.cs" />
         <Compile Include="IsPalindromeTests.cs" />
         <Compile Include="ListLenTests.cs" />
         <Compile Include="PrintOnlyEvenIndicesTests.cs" />
