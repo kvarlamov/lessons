@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Recursion
 {
@@ -10,42 +9,53 @@ namespace Recursion
         {
             if (list == null || list.Count == 0)
                 throw new ArgumentException("Wrong argument");
-            
-            int max = list.GetMax();
 
-            return GetSecondMax(list, max, 0);
+            return GetSecondMax(list, new List<int>(), 0);
         }
         
-        private static int GetSecondMax(List<int> list, int max, int curIndex, bool isSecond = false)
+        private static int GetSecondMax(List<int> list, List<int> maxIndices, int curIndex, int max = 0)
         {
-            // if not found
-            if (curIndex > list.Count - 1)
+            //if list finished and found 2 max
+            if (curIndex > list.Count - 1 && maxIndices.Count > 1)
+                return maxIndices[1];
+            
+            // if list finished and not found 2 max
+            if (curIndex > list.Count - 1 && maxIndices.Count <= 1)
                 return -1;
 
-            // return second max
-            if (isSecond && list[curIndex] == max)
-                return list[curIndex];
-            
-            // find first max, set flag to true
-            if (list[curIndex] == max)
-                isSecond = true;
-
-            return GetSecondMax(list, max, curIndex + 1, isSecond);
-        }
-    }
-
-    public static class ListExtensions
-    {
-        public static int GetMax(this List<int> list)
-        {
-            int max = list[0];
-            for (int i = 1; i < list.Count; i++)
+            if (list[curIndex] > max)
             {
-                if (list[i] > max)
-                    max = list[i];
+                maxIndices.Clear();
+                max = list[curIndex];
             }
 
-            return max;
+            if (list[curIndex] >= max)
+            {
+                maxIndices.Add(curIndex);
+            }
+
+            return GetSecondMax(list, maxIndices, curIndex + 1, max);
+        }
+
+        private static int GetSecondMaxNoRec(List<int> list)
+        {
+            int max = 0;
+            var maxIndexes = new List<int>();
+            for (var i = 0; i < list.Count; i++)
+            {
+                if (list[i] < max)
+                    continue;
+                
+                if (list[i] > max)
+                {
+                    maxIndexes.Clear();
+                    max = list[i];
+                }
+
+                maxIndexes.Add(i);
+            }
+            
+            return maxIndexes.Count > 1 ? maxIndexes[1] : -1;
         }
     }
 }
