@@ -13,34 +13,34 @@ namespace Recursion
             return GetSecondMax(list, new List<int>(), 0);
         }
         
-        private static int GetSecondMax(List<int> list, List<int> maxIndices, int curIndex, int max = 0)
+        private static int GetSecondMax(List<int> list, List<int> maxValues, int curIndex, int max = 0)
         {
             //if list finished and found 2 max
-            if (curIndex > list.Count - 1 && maxIndices.Count > 1)
-                return maxIndices[1];
+            if (curIndex > list.Count - 1 && maxValues.Count > 1)
+                return maxValues[1];
             
             // if list finished and not found 2 max
-            if (curIndex > list.Count - 1 && maxIndices.Count <= 1)
+            if (curIndex > list.Count - 1 && maxValues.Count <= 1)
                 return -1;
 
             if (list[curIndex] > max)
             {
-                maxIndices.Clear();
+                maxValues.Clear();
                 max = list[curIndex];
             }
 
             if (list[curIndex] >= max)
             {
-                maxIndices.Add(curIndex);
+                maxValues.Add(list[curIndex]);
             }
 
-            return GetSecondMax(list, maxIndices, curIndex + 1, max);
+            return GetSecondMax(list, maxValues, curIndex + 1, max);
         }
 
         private static int GetSecondMaxNoRec(List<int> list)
         {
             int max = 0;
-            var maxIndexes = new List<int>();
+            var maxValues = new List<int>();
             for (var i = 0; i < list.Count; i++)
             {
                 if (list[i] < max)
@@ -48,14 +48,14 @@ namespace Recursion
                 
                 if (list[i] > max)
                 {
-                    maxIndexes.Clear();
+                    maxValues.Clear();
                     max = list[i];
                 }
 
-                maxIndexes.Add(i);
+                maxValues.Add(list[i]);
             }
             
-            return maxIndexes.Count > 1 ? maxIndexes[1] : -1;
+            return maxValues.Count > 1 ? maxValues[1] : -1;
         }
     }
 }
