@@ -10,52 +10,48 @@ namespace Recursion
             if (list == null || list.Count == 0)
                 throw new ArgumentException("Wrong argument");
 
-            return GetSecondMax(list, new List<int>(), 0);
+            return GetSecondMax(list);
         }
         
-        private static int GetSecondMax(List<int> list, List<int> maxValues, int curIndex, int max = 0)
+        private static int GetSecondMax(List<int> list, int i = 0, int maxFirst = -1, int maxSecond = -1)
         {
-            //if list finished and found 2 max
-            if (curIndex > list.Count - 1 && maxValues.Count > 1)
-                return maxValues[1];
+            //if list finished
+            if (i > list.Count - 1)
+                return maxSecond;
+
+            if (list[i] == maxFirst)
+                maxSecond = maxFirst;
             
-            // if list finished and not found 2 max
-            if (curIndex > list.Count - 1 && maxValues.Count <= 1)
-                return -1;
-
-            if (list[curIndex] > max)
+            if (list[i] > maxFirst)
             {
-                maxValues.Clear();
-                max = list[curIndex];
+                maxSecond = -1;
+                maxFirst = list[i];
             }
 
-            if (list[curIndex] >= max)
-            {
-                maxValues.Add(list[curIndex]);
-            }
-
-            return GetSecondMax(list, maxValues, curIndex + 1, max);
+            return GetSecondMax(list, i + 1, maxFirst, maxSecond);
         }
 
         private static int GetSecondMaxNoRec(List<int> list)
         {
-            int max = 0;
-            var maxValues = new List<int>();
+            int maxFirst = -1;
+            int maxSecond = -1;
+            
             for (var i = 0; i < list.Count; i++)
             {
-                if (list[i] < max)
+                if (list[i] < maxFirst)
                     continue;
                 
-                if (list[i] > max)
+                if (list[i] == maxFirst)
+                    maxSecond = maxFirst;
+                
+                if (list[i] > maxFirst)
                 {
-                    maxValues.Clear();
-                    max = list[i];
+                    maxSecond = -1;
+                    maxFirst = list[i];
                 }
-
-                maxValues.Add(list[i]);
             }
             
-            return maxValues.Count > 1 ? maxValues[1] : -1;
+            return maxSecond;
         }
     }
 }
