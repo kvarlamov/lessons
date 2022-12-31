@@ -41,6 +41,7 @@
     <ItemGroup>
         <Compile Include="DigitNumberSumm.cs" />
         <Compile Include="exponentiation.cs" />
+        <Compile Include="FileFinder.cs" />
         <Compile Include="FindSecondMax.cs" />
         <Compile Include="IsPalindrome.cs" />
         <Compile Include="MyListLength.cs" />
