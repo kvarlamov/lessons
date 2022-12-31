@@ -12,13 +12,12 @@ namespace Recursion
             if (!Directory.Exists(path))
                 throw new ArgumentException("there is no such directory");
 
-            var files = new List<FileInfo>();
-            GetFiles(path, files);
-            return files;
+            return GetFiles(path);
         }
 
-        private static void GetFiles(string currentDirPath, List<FileInfo> files)
+        private static List<FileInfo> GetFiles(string currentDirPath)
         {
+            List <FileInfo> files = new List<FileInfo>();
             DirectoryInfo currentFolder = new DirectoryInfo(currentDirPath);
 
             //get all files in current directory
@@ -30,8 +29,10 @@ namespace Recursion
             //get all files from subDirectories
             foreach (var dir in dirs)
             {
-                GetFiles(dir.FullName, files);
+                files.AddRange(GetFiles(dir.FullName));
             }
+
+            return files;
         }
     }
     
