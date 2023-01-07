@@ -1,0 +1,911 @@
+﻿using AlgorithmsDataStructures2;
+using NUnit.Framework;
+
+namespace AlgorithmDataStructures2Tests
+{
+    [TestFixture]
+    public class BstTests
+    {
+        #region Find
+
+        [Test]
+        public void NotFoundLeft()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            // Act
+            var result = tree.FindNodeByKey(-1);
+            
+            // Assert
+            Assert.IsFalse(result.NodeHasKey);
+            Assert.IsTrue(result.ToLeft);
+            Assert.That(result.Node.NodeKey, Is.EqualTo(1));
+            
+        }
+
+        [Test]
+        public void NotFoundRight()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            // Act
+            var result = tree.FindNodeByKey(16);
+            
+            // Assert
+            Assert.IsFalse(result.NodeHasKey);
+            Assert.IsFalse(result.ToLeft);
+            Assert.That(result.Node.NodeKey, Is.EqualTo(15));
+        }
+
+        [Test]
+        [TestCase(8)]
+        [TestCase(4)]
+        [TestCase(2)]
+        [TestCase(6)]
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(7)]
+        [TestCase(12)]
+        [TestCase(10)]
+        [TestCase(9)]
+        [TestCase(11)]
+        [TestCase(14)]
+        [TestCase(13)]
+        [TestCase(15)]
+        public void FindNormal(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            // Act
+            var result = tree.FindNodeByKey(key);
+            
+            // Assert
+            Assert.IsTrue(result.NodeHasKey);
+            Assert.That(result.Node.NodeValue, Is.EqualTo(key));
+        }
+
+        [Test]
+        public void NotFound()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(null);
+
+            var result = tree.FindNodeByKey(5);
+            
+            Assert.IsNull(result.Node);
+        }
+        
+        [Test]
+        public void NotFoundLeftroot()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+
+            var result = tree.FindNodeByKey(4);
+            
+            // Assert
+            Assert.IsFalse(result.NodeHasKey);
+            Assert.IsTrue(result.ToLeft);
+            Assert.That(result.Node.NodeKey, Is.EqualTo(8));
+        }
+        
+        [Test]
+        public void NotFoundRightroot()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+
+            var result = tree.FindNodeByKey(10);
+            
+            // Assert
+            Assert.IsFalse(result.NodeHasKey);
+            Assert.IsFalse(result.ToLeft);
+            Assert.That(result.Node.NodeKey, Is.EqualTo(8));
+        }
+
+        #endregion
+
+        #region Add
+
+        [Test]
+        public void Add_OnlyRoot_Left()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+
+            var result = tree.AddKeyValue(4, 4);
+            
+            Assert.IsTrue(result);
+            var newNode = tree.FindNodeByKey(4);
+            
+            Assert.IsNotNull(newNode.Node);
+            Assert.That(newNode.Node.Parent.NodeValue, Is.EqualTo(8));
+            Assert.That(newNode.Node.Parent.LeftChild.NodeValue, Is.EqualTo(4));
+        }
+        
+        [Test]
+        public void Add_OnlyRoot_Right()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+
+            var result = tree.AddKeyValue(12, 12);
+            
+            Assert.IsTrue(result);
+            var newNode = tree.FindNodeByKey(12);
+            
+            Assert.IsNotNull(newNode.Node);
+            Assert.That(newNode.Node.Parent.NodeValue, Is.EqualTo(8));
+            Assert.That(newNode.Node.Parent.RightChild.NodeValue, Is.EqualTo(12));
+        }
+
+        [Test]
+        [TestCase(8)]
+        [TestCase(4)]
+        [TestCase(2)]
+        [TestCase(6)]
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(7)]
+        [TestCase(12)]
+        [TestCase(10)]
+        [TestCase(9)]
+        [TestCase(11)]
+        [TestCase(14)]
+        [TestCase(13)]
+        [TestCase(15)]
+        public void Add_ExistingKey(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            //act
+            var res = tree.AddKeyValue(key, key);
+            
+            //assert
+            Assert.IsFalse(res);
+        }
+
+        #endregion
+
+        #region MaxMin
+
+        [Test]
+        public void GetMin_OnlyRoot()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+
+            var min = tree.FinMinMax(root, false);
+            
+            Assert.IsNotNull(min);
+            Assert.That(min.NodeValue, Is.EqualTo(8));
+        }
+
+        [Test]
+        public void GetMax_OnlyRoot()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+
+            var min = tree.FinMinMax(root, true);
+            
+            Assert.IsNotNull(min);
+            Assert.That(min.NodeValue, Is.EqualTo(8));
+        }
+
+        [Test]
+        public void GetMin()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var min = tree.FinMinMax(root, false);
+            
+            Assert.That(min.NodeValue, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetMax()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var min = tree.FinMinMax(root, true);
+            
+            Assert.That(min.NodeValue, Is.EqualTo(15));
+        }
+
+        [Test]
+        public void Min_SubTree()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var min = tree.FinMinMax(child12, false);
+            
+            Assert.That(min.NodeValue, Is.EqualTo(9));
+        }
+        
+        [Test]
+        public void Min_SubTree2()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var min = tree.FinMinMax(child9, false);
+            
+            Assert.That(min.NodeValue, Is.EqualTo(9));
+        }
+        
+        [Test]
+        public void Min_SubTree3()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var min = tree.FinMinMax(child12, true);
+            
+            Assert.That(min.NodeValue, Is.EqualTo(15));
+        }
+        
+        [Test]
+        public void Min_SubTree4()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var min = tree.FinMinMax(child10, true);
+            
+            Assert.That(min.NodeValue, Is.EqualTo(11));
+        }
+
+        #endregion
+
+        #region Delete
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(9)]
+        [TestCase(13)]
+        public void Delete_LeafLeft(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            //Act
+            var res = tree.DeleteNodeByKey(key);
+            
+            Assert.IsTrue(res);
+            var deleted = tree.FindNodeByKey(key);
+            
+            Assert.IsFalse(deleted.NodeHasKey);
+        }
+
+        [Test]
+        [TestCase(3)]
+        [TestCase(7)]
+        [TestCase(11)]
+        [TestCase(15)]
+        public void Delete_LeafRight(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            //Act
+            var res = tree.DeleteNodeByKey(key);
+            
+            Assert.IsTrue(res);
+            var deleted = tree.FindNodeByKey(key);
+            
+            Assert.IsFalse(deleted.NodeHasKey);
+        }
+
+        [Test]
+        public void Delete_LeftNode()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            // act
+            var res = tree.DeleteNodeByKey(4);
+            
+            Assert.IsTrue(res);
+
+            var deleted = tree.FindNodeByKey(4);
+            
+            Assert.IsFalse(deleted.NodeHasKey);
+            Assert.That(root.LeftChild.NodeKey, Is.EqualTo(5));
+            Assert.That(child5.LeftChild.NodeKey, Is.EqualTo(2));
+            Assert.That(child5.RightChild.NodeKey, Is.EqualTo(6));
+            Assert.That(child6.Parent.NodeKey, Is.EqualTo(5));
+            Assert.That(child2.Parent.NodeKey, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void Delete_RightNode()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            // act
+            var res = tree.DeleteNodeByKey(12);
+            
+            Assert.IsTrue(res);
+
+            var deleted = tree.FindNodeByKey(12);
+            
+            Assert.IsFalse(deleted.NodeHasKey);
+            Assert.That(root.RightChild.NodeKey, Is.EqualTo(13));
+            Assert.That(child13.LeftChild.NodeKey, Is.EqualTo(10));
+            Assert.That(child13.RightChild.NodeKey, Is.EqualTo(14));
+            Assert.That(child10.Parent.NodeKey, Is.EqualTo(13));
+            Assert.That(child14.Parent.NodeKey, Is.EqualTo(13));
+        }
+
+        [Test]
+        [TestCase(17)]
+        [TestCase(-1)]
+        public void Delete_NotFound(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+
+            var res = tree.DeleteNodeByKey(key);
+            
+            Assert.IsFalse(res);
+        }
+        
+        [Test]
+        public void Delete_LeftNode_WithoutLeaf()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child13 = new BSTNode<int>(13, 13, child14);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.LeftChild = child13;
+            child14.RightChild = child15;
+            
+            // act
+            var res = tree.DeleteNodeByKey(4);
+            
+            Assert.IsTrue(res);
+
+            var deleted = tree.FindNodeByKey(4);
+            
+            Assert.IsFalse(deleted.NodeHasKey);
+            Assert.That(root.LeftChild.NodeKey, Is.EqualTo(6));
+            Assert.That(child6.LeftChild.NodeKey, Is.EqualTo(2));
+            Assert.That(child6.RightChild.NodeKey, Is.EqualTo(7));
+            Assert.That(child2.Parent.NodeKey, Is.EqualTo(6));
+            Assert.That(child7.Parent.NodeKey, Is.EqualTo(6));
+        }
+        
+        [Test]
+        public void Delete_RightNode_WithoutLeaf()
+        {
+            // Arrange
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(root);
+            var child4 = new BSTNode<int>(4, 4, root);
+            var child12 = new BSTNode<int>(12, 12, root);
+            var child2 = new BSTNode<int>(2, 2, child4);
+            var child6 = new BSTNode<int>(6, 6, child4);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode<int>(3, 3, child2);
+            var child5 = new BSTNode<int>(5, 5, child6);
+            var child7 = new BSTNode<int>(7, 7, child6);
+            var child10 = new BSTNode<int>(10, 10, child12);
+            var child14 = new BSTNode<int>(14, 14, child12);
+            var child9 = new BSTNode<int>(9, 9, child10);
+            var child11 = new BSTNode<int>(11, 11, child10);
+            var child15 = new BSTNode<int>(15, 15, child14);
+            root.LeftChild = child4;
+            root.RightChild = child12;
+            child4.LeftChild = child2;
+            child4.RightChild = child6;
+            child2.LeftChild = child1;
+            child2.RightChild = child3;
+            child6.LeftChild = child5;
+            child6.RightChild = child7;
+            child12.LeftChild = child10;
+            child12.RightChild = child14;
+            child10.LeftChild = child9;
+            child10.RightChild = child11;
+            child14.RightChild = child15;
+            
+            // act
+            var res = tree.DeleteNodeByKey(12);
+            
+            Assert.IsTrue(res);
+
+            var deleted = tree.FindNodeByKey(12);
+            
+            Assert.IsFalse(deleted.NodeHasKey);
+            Assert.That(root.RightChild.NodeKey, Is.EqualTo(14));
+            Assert.That(child14.LeftChild.NodeKey, Is.EqualTo(10));
+            Assert.That(child14.RightChild.NodeKey, Is.EqualTo(15));
+            Assert.That(child10.Parent.NodeKey, Is.EqualTo(14));
+            Assert.That(child15.Parent.NodeKey, Is.EqualTo(14));
+        }
+
+        #endregion
+
+        #region Count
+
+        
+
+        #endregion
+    }
+}
