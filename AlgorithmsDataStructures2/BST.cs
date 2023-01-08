@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AlgorithmsDataStructures2
 {
@@ -141,7 +142,28 @@ namespace AlgorithmsDataStructures2
 
         public int Count()
         {
-            return 0; // количество узлов в дереве
+            if (Root == null)
+                return 0;
+            
+            return GetAllNodes(Root).Count;
+        }
+
+        private List<BSTNode<T>> GetAllNodes(BSTNode<T> currentNode)
+        {
+            var list = new List<BSTNode<T>>();
+            list.Add(currentNode);
+
+            if (currentNode.LeftChild != null)
+            {
+                list.AddRange(GetAllNodes(currentNode.LeftChild));
+            }
+
+            if (currentNode.RightChild != null)
+            {
+                list.AddRange(GetAllNodes(currentNode.RightChild));
+            }
+
+            return list;
         }
 
         private BSTFind<T> FindByKey(BSTNode<T> currentNode, int key)
