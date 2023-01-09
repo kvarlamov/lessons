@@ -86,57 +86,76 @@ namespace AlgorithmsDataStructures2
             var node = FindNodeByKey(key);
             if (!node.NodeHasKey)
                 return false; // если узел не найден
-           
+
+            var parent = node.Node.Parent;
+            // если удаляем корень
+            if (parent == null)
+            {
+                Root = null;
+                return true;
+            }
+            
             // флаг каким был у родителя - правым или левым
-            bool deletedWasLeft = key < node.Node.Parent.NodeKey;
+            bool deletedWasLeft = key < parent.NodeKey;
             var leftChild = node.Node.LeftChild;
             var rightChild = node.Node.RightChild;
-            
+
             // находим узел-преемник, который встает вместо удаляемого
             var nodeToChange = GetNodeToChange(node.Node);
             
             if (deletedWasLeft)
-                node.Node.Parent.LeftChild = nodeToChange;
+                parent.LeftChild = nodeToChange;
             else
-                node.Node.Parent.RightChild = nodeToChange;
+                parent.RightChild = nodeToChange;
             
             node.Node = nodeToChange;
 
+            // если удаляем лист
+            if (nodeToChange == null)
+                return true;
+
             // Если мы находим лист, то его и надо поместить вместо удаляемого узла.
             // делаем узел-приемник потомком родителя удаляемого узла
-            if (nodeToChange == null || (nodeToChange.LeftChild == null && nodeToChange.RightChild == null))
+            if (nodeToChange.LeftChild == null && nodeToChange.RightChild == null)
             {
-                if (leftChild != null)
+                if (leftChild != null  && !nodeToChange.Equals(leftChild))
                     leftChild.Parent = nodeToChange;
-                if (rightChild != null)
+                if (rightChild != null && !nodeToChange.Equals(rightChild))
                     rightChild.Parent = nodeToChange;
                 
-                if (nodeToChange != null)
-                {
+                nodeToChange.Parent.LeftChild = null;
+                nodeToChange.Parent = parent;
+              
+                if (!nodeToChange.Equals(leftChild))
                     nodeToChange.LeftChild = leftChild;
+                if (!nodeToChange.Equals(rightChild))
                     nodeToChange.RightChild = rightChild;
-                }
-                
+
                 return true;
             }
 
             // Если мы находим узел, у которого есть только правый потомок,
             // то преемником берём этот узел, а вместо него помещаем его правого потомка.
             // делаем узел-приемник потомком родителя удаляемого узла
-
             if (leftChild != null)
                 leftChild.Parent = nodeToChange;
             
-            nodeToChange.LeftChild = leftChild;
+            if (!nodeToChange.Equals(leftChild))
+                nodeToChange.LeftChild = leftChild;
+            nodeToChange.Parent = parent;
             return true;
         }
 
         private BSTNode<T> GetNodeToChange(BSTNode<T> node)
         {
             // значит мы удаляем leaf
-            if (node.RightChild == null)
+            if (node.RightChild == null && node.LeftChild == null)
                 return null;
 
+            // значит есть только левые потомки
+            if (node.RightChild == null)
+                return FinMinMax(node.LeftChild, true); 
+            
             return FinMinMax(node.RightChild, false);
         }
 
@@ -177,7 +196,7 @@ namespace AlgorithmsDataStructures2
             
             if (currentNode.LeftChild == null && currentNode.RightChild == null)
             {
-                // не найден - пишем кому присваиваем
+                // ключ не найден - пишем кому присваиваем
                 if (currentNode.NodeKey > key)
                     return new BSTFind<T>()
                     {
@@ -194,23 +213,44 @@ namespace AlgorithmsDataStructures2
                 };
             }
             
-            if (currentNode.LeftChild == null || currentNode.RightChild == null)
+            // если только один потомок - сразу сравниваем его ключ
+            // if (currentNode.LeftChild == null || currentNode.RightChild == null)
+            // {
+            //     if (currentNode.LeftChild == null && currentNode.RightChild.NodeKey.Equals(key))
+            //         return new BSTFind<T>()
+            //         {
+            //             Node = currentNode.RightChild,
+            //             NodeHasKey = true
+            //         };
+            //     
+            //     if (currentNode.RightChild == null && currentNode.LeftChild.NodeKey.Equals(key))
+            //         return new BSTFind<T>()
+            //         {
+            //             Node = currentNode.LeftChild,
+            //             NodeHasKey = true
+            //         };
+            //     
+            //     if (currentNode.NodeKey > key)
+            //         return new BSTFind<T>()
+            //         {
+            //             Node = currentNode,
+            //             NodeHasKey = false,
+            //             ToLeft = true
+            //         };
+            //     
+            //     return new BSTFind<T>()
+            //     {
+            //         Node = currentNode,
+            //         NodeHasKey = false,
+            //         ToLeft = false
+            //     };
+            // }
+
+            if (currentNode.NodeKey > key && currentNode.LeftChild != null)
+                return FindByKey(currentNode.LeftChild, key);
+
+            if (currentNode.RightChild == null && currentNode.NodeKey < key)
             {
-                if (currentNode.LeftChild == null && currentNode.RightChild.NodeKey.Equals(key))
-                    return new BSTFind<T>()
-                    {
-                        Node = currentNode.RightChild,
-                        NodeHasKey = true
-                    };
-                
-                if (currentNode.RightChild == null && currentNode.LeftChild.NodeKey.Equals(key))
-                    return new BSTFind<T>()
-                    {
-                        Node = currentNode.LeftChild,
-                        NodeHasKey = true
-                    };
-                
-                // не найден - пишем кому присваиваем
                 if (currentNode.NodeKey > key)
                     return new BSTFind<T>()
                     {
@@ -226,9 +266,6 @@ namespace AlgorithmsDataStructures2
                     ToLeft = false
                 };
             }
-
-            if (currentNode.NodeKey > key)
-                return FindByKey(currentNode.LeftChild, key);
             
             return FindByKey(currentNode.RightChild, key);
         }
