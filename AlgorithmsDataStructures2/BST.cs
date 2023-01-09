@@ -65,6 +65,13 @@ namespace AlgorithmsDataStructures2
             if (node.NodeHasKey)
                 return false; // если ключ уже есть
 
+            // добавляем корень
+            if (node.Node == null)
+            {
+                Root = new BSTNode<T>(key, val, null);
+                return true;
+            }
+            
             var newNode = new BSTNode<T>(key, val, node.Node);
             if (node.ToLeft)
                 node.Node.LeftChild = newNode;
@@ -212,39 +219,6 @@ namespace AlgorithmsDataStructures2
                     ToLeft = false
                 };
             }
-            
-            // если только один потомок - сразу сравниваем его ключ
-            // if (currentNode.LeftChild == null || currentNode.RightChild == null)
-            // {
-            //     if (currentNode.LeftChild == null && currentNode.RightChild.NodeKey.Equals(key))
-            //         return new BSTFind<T>()
-            //         {
-            //             Node = currentNode.RightChild,
-            //             NodeHasKey = true
-            //         };
-            //     
-            //     if (currentNode.RightChild == null && currentNode.LeftChild.NodeKey.Equals(key))
-            //         return new BSTFind<T>()
-            //         {
-            //             Node = currentNode.LeftChild,
-            //             NodeHasKey = true
-            //         };
-            //     
-            //     if (currentNode.NodeKey > key)
-            //         return new BSTFind<T>()
-            //         {
-            //             Node = currentNode,
-            //             NodeHasKey = false,
-            //             ToLeft = true
-            //         };
-            //     
-            //     return new BSTFind<T>()
-            //     {
-            //         Node = currentNode,
-            //         NodeHasKey = false,
-            //         ToLeft = false
-            //     };
-            // }
 
             if (currentNode.NodeKey > key && currentNode.LeftChild != null)
                 return FindByKey(currentNode.LeftChild, key);

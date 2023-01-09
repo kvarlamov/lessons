@@ -1,4 +1,5 @@
 ﻿using System.Net.NetworkInformation;
+using System.Reflection;
 using AlgorithmsDataStructures2;
 using NUnit.Framework;
 
@@ -241,6 +242,20 @@ namespace AlgorithmDataStructures2Tests
         #endregion
 
         #region Add
+
+        [Test]
+        public void AddEmpty()
+        {
+            var root = new BSTNode<int>(8, 8, null);
+            var tree = new BST<int>(null);
+
+            var res = tree.AddKeyValue(8,8);
+            
+            Assert.IsTrue(res);
+            var added = tree.FindNodeByKey(8);
+            Assert.IsTrue(added.NodeHasKey);
+            Assert.That(added.Node.NodeValue, Is.EqualTo(8));
+        }
 
         [Test]
         public void Add_OnlyRoot_Left()
