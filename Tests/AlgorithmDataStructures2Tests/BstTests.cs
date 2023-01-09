@@ -239,6 +239,87 @@ namespace AlgorithmDataStructures2Tests
             Assert.That(result.Node.NodeKey, Is.EqualTo(8));
         }
 
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(6)]
+        public void FoundOther1(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(6, 6, null);
+            var tree = new BST<int>(root);
+            var child3 = new BSTNode<int>(3, 3, root); 
+            var child2 = new BSTNode<int>(2, 2, child3);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            root.LeftChild = child3;
+            child3.LeftChild = child2;
+            child2.LeftChild = child1;
+
+            var res = tree.FindNodeByKey(key);
+            
+            Assert.IsTrue(res.NodeHasKey);
+        }
+
+        [Test]
+        [TestCase(6)]
+        [TestCase(2)]
+        [TestCase(8)]
+        [TestCase(1)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(7)]
+        [TestCase(9)]
+        public void FoundAnother1(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(6, 6, null);
+            var tree = new BST<int>(root);
+            var child2 = new BSTNode<int>(2, 2, root);
+            var child8 = new BSTNode<int>(8, 8, root);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child4 = new BSTNode<int>(4, 4, child2);
+            var child5 = new BSTNode<int>(5, 5, child4);
+            var child7 = new BSTNode<int>(7, 7, child8);
+            var child9 = new BSTNode<int>(9, 9, child8);
+            root.LeftChild = child2;
+            root.RightChild = child8;
+            child2.LeftChild = child1;
+            child2.RightChild = child4;
+            child4.RightChild = child5;
+            child8.LeftChild = child7;
+            child8.RightChild = child9;
+
+            var res = tree.FindNodeByKey(key);
+            
+            Assert.IsTrue(res.NodeHasKey);
+        }
+
+        [Test]
+        [TestCase(5)]
+        [TestCase(2)]
+        [TestCase(1)]
+        [TestCase(4)]
+        [TestCase(3)]
+        public void CrazyTreeFind(int key)
+        {
+            // Arrange
+            var root = new BSTNode<int>(5, 5, null);
+            var tree = new BST<int>(root);
+            var child2 = new BSTNode<int>(2, 2, root);
+            var child1 = new BSTNode<int>(1, 1, child2);
+            var child4 = new BSTNode<int>(4, 4, child2);
+            var child3 = new BSTNode<int>(3, 3, child4);
+            var child8 = new BSTNode<int>(8, 8, child4);
+            root.LeftChild = child2;
+            child2.LeftChild = child1;
+            child2.RightChild = child4;
+            child4.LeftChild = child3;
+            child4.RightChild = child8;
+            
+            Assert.IsTrue(tree.FindNodeByKey(key).NodeHasKey);
+        }
+
         #endregion
 
         #region Add

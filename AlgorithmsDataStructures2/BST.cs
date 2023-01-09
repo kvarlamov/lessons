@@ -55,7 +55,7 @@ namespace AlgorithmsDataStructures2
             }
 
             // ищем в дереве узел и сопутствующую информацию по ключу
-            return FindByKey(Root, key);
+            return FindByKey(Root, null, key);
         }
 	
         public bool AddKeyValue(int key, T val)
@@ -192,56 +192,38 @@ namespace AlgorithmsDataStructures2
             return list;
         }
 
-        private BSTFind<T> FindByKey(BSTNode<T> currentNode, int key)
+        private BSTFind<T> FindByKey(BSTNode<T> current, BSTNode<T> parent, int key)
         {
-            if (currentNode.NodeKey.Equals(key))
-                return new BSTFind<T>()
-                {
-                    Node = currentNode,
-                    NodeHasKey = true
-                };
-            
-            if (currentNode.LeftChild == null && currentNode.RightChild == null)
+            if (current == null)
             {
                 // ключ не найден - пишем кому присваиваем
-                if (currentNode.NodeKey > key)
+                if (parent.NodeKey > key)
                     return new BSTFind<T>()
                     {
-                        Node = currentNode,
+                        Node = parent,
                         NodeHasKey = false,
                         ToLeft = true
                     };
                 
                 return new BSTFind<T>()
                 {
-                    Node = currentNode,
-                    NodeHasKey = false,
-                    ToLeft = false
-                };
-            }
-
-            if (currentNode.NodeKey > key && currentNode.LeftChild != null)
-                return FindByKey(currentNode.LeftChild, key);
-
-            if (currentNode.RightChild == null && currentNode.NodeKey < key)
-            {
-                if (currentNode.NodeKey > key)
-                    return new BSTFind<T>()
-                    {
-                        Node = currentNode,
-                        NodeHasKey = false,
-                        ToLeft = true
-                    };
-                
-                return new BSTFind<T>()
-                {
-                    Node = currentNode,
+                    Node = parent,
                     NodeHasKey = false,
                     ToLeft = false
                 };
             }
             
-            return FindByKey(currentNode.RightChild, key);
+            if (current.NodeKey.Equals(key))
+                return new BSTFind<T>()
+                {
+                    Node = current,
+                    NodeHasKey = true
+                };
+
+            if (current.NodeKey > key)
+                return FindByKey(current.LeftChild, current, key);
+            else
+                return FindByKey(current.RightChild, current, key);
         }
 
         public BSTNode<T> GetMinMax(BSTNode<T> currentNode, bool findMax)
