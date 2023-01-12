@@ -4,9 +4,14 @@ using System.Runtime.InteropServices;
 
 namespace AlgorithmsDataStructures2
 {
-    public class BSTNode<T>
+    public abstract class BSTNode
     {
         public int NodeKey; // ключ узла
+    }
+
+    public class BSTNode<T>: BSTNode
+    {
+        //public int NodeKey; // ключ узла
         public T NodeValue; // значение в узле
         public BSTNode<T> Parent; // родитель или null для корня
         public BSTNode<T> LeftChild; // левый потомок
@@ -174,6 +179,34 @@ namespace AlgorithmsDataStructures2
             return GetAllNodes(Root).Count;
         }
 
+        public List<BSTNode> WideAllNodes()
+        {
+            if (Root == null)
+                return new List<BSTNode>();
+            
+            return WideAllNodes(Root);
+        }
+
+        public List<BSTNode> DeepAllNodes(int o)
+        {
+            if (Root == null)
+                return new List<BSTNode>();
+            
+            //левое поддерево, корень, правое поддерево
+            if (o == 0)
+                return InOrder(Root);
+
+            //левое поддерево, правое поддерево, корень
+            if (o == 1)
+                return PostOrder(Root);
+
+            //корень, левое поддерево, правое поддерево
+            if (o == 2)
+                return PreOrder(Root);
+
+            throw new ArgumentException("Param should be 0, 1 or 2");
+        }
+        
         private List<BSTNode<T>> GetAllNodes(BSTNode<T> currentNode)
         {
             var list = new List<BSTNode<T>>();
@@ -238,6 +271,76 @@ namespace AlgorithmsDataStructures2
                 return GetMinMax(currentNode.RightChild, findMax);
             
             return GetMinMax(currentNode.LeftChild, findMax);
+        }
+
+        private List<BSTNode> InOrder(BSTNode<T> current)
+        {
+            var nodes = new List<BSTNode>();
+
+            if (current.LeftChild != null) 
+                nodes.AddRange(InOrder(current.LeftChild));
+
+            nodes.Add(current);
+            
+            if (current.RightChild != null)
+                nodes.AddRange(InOrder(current.RightChild));
+
+            return nodes;
+        }
+        
+        // текущий узел (корень) проверяем в последнюю очередь
+        private List<BSTNode> PostOrder(BSTNode<T> current)
+        {
+            var nodes = new List<BSTNode>();
+            
+            if (current.LeftChild != null)
+                nodes.AddRange(PostOrder(current.LeftChild));
+            
+            if (current.RightChild != null)
+                nodes.AddRange(PostOrder(current.RightChild));
+            
+            nodes.Add(current);
+            
+            return nodes;
+        }
+        
+        // текущий узел (корень) проверяем в первую очередь
+        private List<BSTNode> PreOrder(BSTNode<T> current)
+        {
+            var nodes = new List<BSTNode>();
+
+            nodes.Add(current);
+            
+            if (current.LeftChild != null)
+                nodes.AddRange(PreOrder(current.LeftChild));
+            
+            if (current.RightChild != null)
+                nodes.AddRange(PreOrder(current.RightChild));
+
+            return nodes;
+        }
+
+        private List<BSTNode> WideAllNodes(BSTNode<T> root)
+        {
+            var queue = new Queue<BSTNode>();
+            queue.Enqueue(root);
+            var allNodes = new List<BSTNode>();
+
+            while (queue.Count != 0)
+            {
+                BSTNode current = queue.Dequeue();
+                if (!(current is BSTNode<T> currentT))
+                    throw new Exception();
+                
+                allNodes.Add(currentT);
+
+                if (currentT.LeftChild != null)
+                    queue.Enqueue(currentT.LeftChild);
+                if (currentT.RightChild != null)
+                    queue.Enqueue(currentT.RightChild);
+            }
+            
+            return allNodes;
         }
     }
 }
