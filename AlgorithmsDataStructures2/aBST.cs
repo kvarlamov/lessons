@@ -18,9 +18,6 @@ namespace AlgorithmsDataStructures2
         public int? FindKeyIndex(int key)
         {
             // ищем в массиве индекс ключа
-            if (Tree == null || (Tree.Length == 1 && Tree[0] == null))
-                return null;
-
             return FindKeyIndex(0, key);
         }
 	

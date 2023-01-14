@@ -13,8 +13,10 @@ namespace AlgorithmDataStructures2Tests
         public void FindInEmptyTree()
         {
             var tree = new aBST(0);
+
+            var res = tree.FindKeyIndex(50);
             
-            Assert.IsNull(tree.FindKeyIndex(1));
+            Assert.That(res, Is.EqualTo(0));
         }
         
         [Test]
@@ -81,7 +83,35 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void AddEmpty()
         {
+            var tree = new aBST(3);
+
+            var res = tree.AddKey(50);
             
+            Assert.That(res, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void AddOne()
+        {
+            var tree = new aBST(1);
+            tree.Tree[0] = 50;
+
+            var res = tree.AddKey(25);
+            Assert.That(res, Is.EqualTo(1));
+            var res2 = tree.AddKey(75);
+            Assert.That(res2, Is.EqualTo(2));
+
+            var res3 = tree.AddKey(25);
+            Assert.That(res3, Is.EqualTo(1));
+
+            var res4 = tree.AddKey(75);
+            Assert.That(res4, Is.EqualTo(2));
+
+            var res5 = tree.AddKey(100);
+            Assert.That(res5, Is.EqualTo(-1));
+
+            var res6 = tree.AddKey(1);
+            Assert.That(res6, Is.EqualTo(-1));
         }
 
         [Test]
