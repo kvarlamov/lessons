@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures2
             if (findResult == null)
                 return -1;
             
-            if (findResult >= 0)
+            if (findResult > 0)
                 return findResult.Value;
 
             int newIndex = Math.Abs(findResult.Value); 
