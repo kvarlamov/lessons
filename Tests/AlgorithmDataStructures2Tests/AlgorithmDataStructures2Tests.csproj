@@ -44,6 +44,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="aBSTTests.cs" />
+        <Compile Include="BalancedBSTTests.cs" />
         <Compile Include="BstTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="SimpleTreeTests.cs" />
