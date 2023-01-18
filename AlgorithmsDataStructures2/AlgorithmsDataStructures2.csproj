@@ -39,7 +39,8 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="aBST.cs" />
-        <Compile Include="BalancedBST.cs" />
+        <Compile Include="BalandedBST.cs" />
+        <Compile Include="sBalancedBST.cs" />
         <Compile Include="BST.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="SimpleTree.cs" />

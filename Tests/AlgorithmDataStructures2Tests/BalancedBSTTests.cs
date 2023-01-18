@@ -10,7 +10,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void EmptyArr()
         {
-            Assert.IsNull(BalancedBST.GenerateBBSTArray(null));
+            Assert.IsNull(sBalancedBST.GenerateBBSTArray(null));
         }
 
         [Test]
@@ -20,7 +20,7 @@ namespace AlgorithmDataStructures2Tests
             var copy = new int[arrayInitial.Length];
             Array.Copy(arrayInitial, copy, arrayInitial.Length);
             
-            var res = BalancedBST.GenerateBBSTArray(copy);
+            var res = sBalancedBST.GenerateBBSTArray(copy);
             
             CollectionAssert.AreEqual(arrayInitial, res);
         }
@@ -32,7 +32,7 @@ namespace AlgorithmDataStructures2Tests
             var copy = new int[arrayInitial.Length];
             Array.Copy(arrayInitial, copy, arrayInitial.Length);
             
-            var res = BalancedBST.GenerateBBSTArray(copy);
+            var res = sBalancedBST.GenerateBBSTArray(copy);
             
             CollectionAssert.AreEqual(arrayInitial, res);
         }
@@ -44,7 +44,7 @@ namespace AlgorithmDataStructures2Tests
             var copy = new int[arrayInitial.Length];
             Array.Copy(arrayInitial, copy, arrayInitial.Length);
 
-            var res = BalancedBST.GenerateBBSTArray(copy);
+            var res = sBalancedBST.GenerateBBSTArray(copy);
             
             CollectionAssert.AreEqual(arrayInitial, res);
         }
@@ -56,7 +56,7 @@ namespace AlgorithmDataStructures2Tests
             var copy = new int[arrayInitial.Length];
             Array.Copy(arrayInitial, copy, arrayInitial.Length);
 
-            var res = BalancedBST.GenerateBBSTArray(copy);
+            var res = sBalancedBST.GenerateBBSTArray(copy);
             
             CollectionAssert.AreEqual(arrayInitial, res);
         }
@@ -68,7 +68,7 @@ namespace AlgorithmDataStructures2Tests
             var copy = new int[arrayInitial.Length];
             Array.Copy(arrayInitial, copy, arrayInitial.Length);
 
-            var res = BalancedBST.GenerateBBSTArray(copy);
+            var res = sBalancedBST.GenerateBBSTArray(copy);
             
             CollectionAssert.AreEqual(arrayInitial, res);
         }

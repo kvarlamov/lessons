@@ -15,22 +15,22 @@ namespace AlgorithmDataStructures2Tests
         public void NotFoundLeft()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -60,11 +60,11 @@ namespace AlgorithmDataStructures2Tests
         public void FoundStrange()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child11 = new BSTNode<int>(11, 11, child10);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child11 = new BSTNode_<int>(11, 11, child10);
             root.RightChild = child12;
             child12.LeftChild = child10;
             child10.RightChild = child11;
@@ -80,11 +80,11 @@ namespace AlgorithmDataStructures2Tests
         public void FoundStrangeNotFound()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child11 = new BSTNode<int>(15, 15, child10);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child11 = new BSTNode_<int>(15, 15, child10);
             root.RightChild = child12;
             child12.LeftChild = child10;
             child10.RightChild = child11;
@@ -100,22 +100,22 @@ namespace AlgorithmDataStructures2Tests
         public void NotFoundRight()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -159,22 +159,22 @@ namespace AlgorithmDataStructures2Tests
         public void FindNormal(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -202,7 +202,7 @@ namespace AlgorithmDataStructures2Tests
         public void NotFound()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(null);
 
             var result = tree.FindNodeByKey(5);
@@ -214,7 +214,7 @@ namespace AlgorithmDataStructures2Tests
         public void NotFoundLeftroot()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var result = tree.FindNodeByKey(4);
@@ -229,7 +229,7 @@ namespace AlgorithmDataStructures2Tests
         public void NotFoundRightroot()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var result = tree.FindNodeByKey(10);
@@ -248,11 +248,11 @@ namespace AlgorithmDataStructures2Tests
         public void FoundOther1(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child3 = new BSTNode<int>(3, 3, root); 
-            var child2 = new BSTNode<int>(2, 2, child3);
-            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, root); 
+            var child2 = new BSTNode_<int>(2, 2, child3);
+            var child1 = new BSTNode_<int>(1, 1, child2);
             root.LeftChild = child3;
             child3.LeftChild = child2;
             child2.LeftChild = child1;
@@ -274,15 +274,15 @@ namespace AlgorithmDataStructures2Tests
         public void FoundAnother1(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child5 = new BSTNode<int>(5, 5, child4);
-            var child7 = new BSTNode<int>(7, 7, child8);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child5 = new BSTNode_<int>(5, 5, child4);
+            var child7 = new BSTNode_<int>(7, 7, child8);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.LeftChild = child2;
             root.RightChild = child8;
             child2.LeftChild = child1;
@@ -305,13 +305,13 @@ namespace AlgorithmDataStructures2Tests
         public void CrazyTreeFind(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(5, 5, null);
+            var root = new BSTNode_<int>(5, 5, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child3 = new BSTNode<int>(3, 3, child4);
-            var child8 = new BSTNode<int>(8, 8, child4);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child3 = new BSTNode_<int>(3, 3, child4);
+            var child8 = new BSTNode_<int>(8, 8, child4);
             root.LeftChild = child2;
             child2.LeftChild = child1;
             child2.RightChild = child4;
@@ -328,7 +328,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void AddEmpty()
         {
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(null);
 
             var res = tree.AddKeyValue(8,8);
@@ -343,7 +343,7 @@ namespace AlgorithmDataStructures2Tests
         public void Add_OnlyRoot_Left()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var result = tree.AddKeyValue(4, 4);
@@ -360,7 +360,7 @@ namespace AlgorithmDataStructures2Tests
         public void Add_OnlyRoot_Right()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var result = tree.AddKeyValue(12, 12);
@@ -392,22 +392,22 @@ namespace AlgorithmDataStructures2Tests
         public void Add_ExistingKey(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -438,7 +438,7 @@ namespace AlgorithmDataStructures2Tests
         public void GetMin_OnlyRoot()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var min = tree.FinMinMax(root, false);
@@ -451,7 +451,7 @@ namespace AlgorithmDataStructures2Tests
         public void GetMax_OnlyRoot()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var min = tree.FinMinMax(root, true);
@@ -464,22 +464,22 @@ namespace AlgorithmDataStructures2Tests
         public void GetMin()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -504,22 +504,22 @@ namespace AlgorithmDataStructures2Tests
         public void GetMax()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -544,22 +544,22 @@ namespace AlgorithmDataStructures2Tests
         public void Min_SubTree()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -584,22 +584,22 @@ namespace AlgorithmDataStructures2Tests
         public void Min_SubTree2()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -624,22 +624,22 @@ namespace AlgorithmDataStructures2Tests
         public void Min_SubTree3()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -664,22 +664,22 @@ namespace AlgorithmDataStructures2Tests
         public void Min_SubTree4()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -717,7 +717,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void Delete_RootTree()
         {
-            var root = new BSTNode<int>(8, 8, null); 
+            var root = new BSTNode_<int>(8, 8, null); 
             var tree = new BST<int>(root);
 
             var res = tree.DeleteNodeByKey(8);
@@ -734,22 +734,22 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_LeafLeft(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -778,9 +778,9 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_LeafLeftOne()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
+            var child4 = new BSTNode_<int>(4, 4, root);
             root.LeftChild = child4;
 
             var res = tree.DeleteNodeByKey(4);
@@ -797,9 +797,9 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_LeafRightOne()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child12 = new BSTNode<int>(12, 12, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
             root.RightChild = child12;
             
             var res = tree.DeleteNodeByKey(12);
@@ -820,22 +820,22 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_LeafRight(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -864,22 +864,22 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_LeftNode()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -914,22 +914,22 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_RightNode()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -966,22 +966,22 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_NotFound(int key)
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1006,21 +1006,21 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_LeftNode_WithoutLeaf()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1054,21 +1054,21 @@ namespace AlgorithmDataStructures2Tests
         public void Delete_RightNode_WithoutLeaf()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1106,22 +1106,22 @@ namespace AlgorithmDataStructures2Tests
         public void CountFirst()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1146,16 +1146,16 @@ namespace AlgorithmDataStructures2Tests
         public void AnotherTree_DeleteLeaf()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child3 = new BSTNode<int>(3, 3, child4);
-            var child5 = new BSTNode<int>(5, 5, child4);
-            var child7 = new BSTNode<int>(7, 7, child8);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child3 = new BSTNode_<int>(3, 3, child4);
+            var child5 = new BSTNode_<int>(5, 5, child4);
+            var child7 = new BSTNode_<int>(7, 7, child8);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.LeftChild = child2;
             root.RightChild = child8;
             child2.LeftChild = child1;
@@ -1180,16 +1180,16 @@ namespace AlgorithmDataStructures2Tests
         public void AnotherTree_DeleteLeaf2()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child3 = new BSTNode<int>(3, 3, child4);
-            var child5 = new BSTNode<int>(5, 5, child4);
-            var child7 = new BSTNode<int>(7, 7, child8);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child3 = new BSTNode_<int>(3, 3, child4);
+            var child5 = new BSTNode_<int>(5, 5, child4);
+            var child7 = new BSTNode_<int>(7, 7, child8);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.LeftChild = child2;
             root.RightChild = child8;
             child2.LeftChild = child1;
@@ -1215,16 +1215,16 @@ namespace AlgorithmDataStructures2Tests
         public void AnotherTree_Delete4()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child3 = new BSTNode<int>(3, 3, child4);
-            var child5 = new BSTNode<int>(5, 5, child4);
-            var child7 = new BSTNode<int>(7, 7, child8);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child3 = new BSTNode_<int>(3, 3, child4);
+            var child5 = new BSTNode_<int>(5, 5, child4);
+            var child7 = new BSTNode_<int>(7, 7, child8);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.LeftChild = child2;
             root.RightChild = child8;
             child2.LeftChild = child1;
@@ -1250,16 +1250,16 @@ namespace AlgorithmDataStructures2Tests
         public void AnotherTree_Delete2()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child3 = new BSTNode<int>(3, 3, child4);
-            var child5 = new BSTNode<int>(5, 5, child4);
-            var child7 = new BSTNode<int>(7, 7, child8);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child3 = new BSTNode_<int>(3, 3, child4);
+            var child5 = new BSTNode_<int>(5, 5, child4);
+            var child7 = new BSTNode_<int>(7, 7, child8);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.LeftChild = child2;
             root.RightChild = child8;
             child2.LeftChild = child1;
@@ -1289,15 +1289,15 @@ namespace AlgorithmDataStructures2Tests
         public void AnotherTree_Mod_Delete2()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child4 = new BSTNode<int>(4, 4, child2);
-            var child5 = new BSTNode<int>(5, 5, child4);
-            var child7 = new BSTNode<int>(7, 7, child8);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child4 = new BSTNode_<int>(4, 4, child2);
+            var child5 = new BSTNode_<int>(5, 5, child4);
+            var child7 = new BSTNode_<int>(7, 7, child8);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.LeftChild = child2;
             root.RightChild = child8;
             child2.LeftChild = child1;
@@ -1326,10 +1326,10 @@ namespace AlgorithmDataStructures2Tests
         public void OtherTree_Mod_Delete2()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
             root.LeftChild = child2;
             child2.LeftChild = child1;
 
@@ -1348,10 +1348,10 @@ namespace AlgorithmDataStructures2Tests
         public void OtherTree_Mod_Delete1()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child2 = new BSTNode<int>(2, 2, root);
-            var child1 = new BSTNode<int>(1, 1, child2);
+            var child2 = new BSTNode_<int>(2, 2, root);
+            var child1 = new BSTNode_<int>(1, 1, child2);
             root.LeftChild = child2;
             child2.LeftChild = child1;
 
@@ -1371,11 +1371,11 @@ namespace AlgorithmDataStructures2Tests
         public void OtherTree_Mod_OnlyLeftLong()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child3 = new BSTNode<int>(3, 3, root); 
-            var child2 = new BSTNode<int>(2, 2, child3);
-            var child1 = new BSTNode<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, root); 
+            var child2 = new BSTNode_<int>(2, 2, child3);
+            var child1 = new BSTNode_<int>(1, 1, child2);
             root.LeftChild = child3;
             child3.LeftChild = child2;
             child2.LeftChild = child1;
@@ -1396,10 +1396,10 @@ namespace AlgorithmDataStructures2Tests
         public void OtherTree_Mod_OnlyRight()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child9 = new BSTNode<int>(9, 9, child8);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child9 = new BSTNode_<int>(9, 9, child8);
             root.RightChild = child8;
             child8.RightChild = child9;
 
@@ -1418,11 +1418,11 @@ namespace AlgorithmDataStructures2Tests
         public void OtherTree_Mod_OnlyRightLong()
         {
             // Arrange
-            var root = new BSTNode<int>(6, 6, null);
+            var root = new BSTNode_<int>(6, 6, null);
             var tree = new BST<int>(root);
-            var child8 = new BSTNode<int>(8, 8, root);
-            var child9 = new BSTNode<int>(9, 9, child8);
-            var child10 = new BSTNode<int>(10, 10, child9);
+            var child8 = new BSTNode_<int>(8, 8, root);
+            var child9 = new BSTNode_<int>(9, 9, child8);
+            var child10 = new BSTNode_<int>(10, 10, child9);
             root.RightChild = child8;
             child8.RightChild = child9;
             child9.RightChild = child10;
@@ -1442,7 +1442,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void Count_One()
         {
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var res = tree.Count();
@@ -1467,7 +1467,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void InOrder_OnlyOne()
         {
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var res = tree.DeepAllNodes(0);
@@ -1480,22 +1480,22 @@ namespace AlgorithmDataStructures2Tests
         public void InOrder_Full1()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1513,7 +1513,7 @@ namespace AlgorithmDataStructures2Tests
 
             var res = tree.DeepAllNodes(0);
 
-            var expected = new List<BSTNode>()
+            var expected = new List<BSTNode_>()
             {
                 child1, child2, child3, child4, child5, child6, child7,
                 root, child9, child10, child11, child12, child13, child14, child15
@@ -1536,7 +1536,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void PostOrder_OnlyOne()
         {
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var res = tree.DeepAllNodes(1);
@@ -1549,22 +1549,22 @@ namespace AlgorithmDataStructures2Tests
         public void PostOrder_Full1()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1582,7 +1582,7 @@ namespace AlgorithmDataStructures2Tests
 
             var res = tree.DeepAllNodes(1);
 
-            var expected = new List<BSTNode>()
+            var expected = new List<BSTNode_>()
             {
                 child1, child3, child2, child5, child7, child6, child4,
                 child9, child11, child10, child13, child15, child14, child12, root
@@ -1605,7 +1605,7 @@ namespace AlgorithmDataStructures2Tests
         [Test]
         public void PreOrder_OnlyOne()
         {
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
 
             var res = tree.DeepAllNodes(2);
@@ -1618,22 +1618,22 @@ namespace AlgorithmDataStructures2Tests
         public void PreOrder_Full1()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1651,7 +1651,7 @@ namespace AlgorithmDataStructures2Tests
 
             var res = tree.DeepAllNodes(2);
 
-            var expected = new List<BSTNode>()
+            var expected = new List<BSTNode_>()
             {
                 root, child4, child2, child1, child3, child6, child5, child7,
                 child12, child10, child9, child11, child14, child13, child15
@@ -1669,22 +1669,22 @@ namespace AlgorithmDataStructures2Tests
         public void Wide_Full1()
         {
             // Arrange
-            var root = new BSTNode<int>(8, 8, null);
+            var root = new BSTNode_<int>(8, 8, null);
             var tree = new BST<int>(root);
-            var child4 = new BSTNode<int>(4, 4, root);
-            var child12 = new BSTNode<int>(12, 12, root);
-            var child2 = new BSTNode<int>(2, 2, child4);
-            var child6 = new BSTNode<int>(6, 6, child4);
-            var child1 = new BSTNode<int>(1, 1, child2);
-            var child3 = new BSTNode<int>(3, 3, child2);
-            var child5 = new BSTNode<int>(5, 5, child6);
-            var child7 = new BSTNode<int>(7, 7, child6);
-            var child10 = new BSTNode<int>(10, 10, child12);
-            var child14 = new BSTNode<int>(14, 14, child12);
-            var child9 = new BSTNode<int>(9, 9, child10);
-            var child11 = new BSTNode<int>(11, 11, child10);
-            var child13 = new BSTNode<int>(13, 13, child14);
-            var child15 = new BSTNode<int>(15, 15, child14);
+            var child4 = new BSTNode_<int>(4, 4, root);
+            var child12 = new BSTNode_<int>(12, 12, root);
+            var child2 = new BSTNode_<int>(2, 2, child4);
+            var child6 = new BSTNode_<int>(6, 6, child4);
+            var child1 = new BSTNode_<int>(1, 1, child2);
+            var child3 = new BSTNode_<int>(3, 3, child2);
+            var child5 = new BSTNode_<int>(5, 5, child6);
+            var child7 = new BSTNode_<int>(7, 7, child6);
+            var child10 = new BSTNode_<int>(10, 10, child12);
+            var child14 = new BSTNode_<int>(14, 14, child12);
+            var child9 = new BSTNode_<int>(9, 9, child10);
+            var child11 = new BSTNode_<int>(11, 11, child10);
+            var child13 = new BSTNode_<int>(13, 13, child14);
+            var child15 = new BSTNode_<int>(15, 15, child14);
             root.LeftChild = child4;
             root.RightChild = child12;
             child4.LeftChild = child2;
@@ -1702,7 +1702,7 @@ namespace AlgorithmDataStructures2Tests
 
             var res = tree.WideAllNodes();
 
-            var expected = new List<BSTNode>()
+            var expected = new List<BSTNode_>()
             {
                 root, child4, child12, child2, child6, child10, child14, child1, child3, child5, child7, child9,
                 child11, child13, child15

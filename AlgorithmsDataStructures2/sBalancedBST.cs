@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures2
 {
-    public static class BalancedBST
+    public static class sBalancedBST
     {
         public static int[] GenerateBBSTArray(int[] a)
         {

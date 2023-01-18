@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures2
 {
-    public abstract class BSTNode
+    public abstract class BSTNode_
     {
         public int NodeKey; // ключ узла
     }
 
-    public class BSTNode<T>: BSTNode
+    public class BSTNode_<T>: BSTNode_
     {
         //public int NodeKey; // ключ узла
         public T NodeValue; // значение в узле
-        public BSTNode<T> Parent; // родитель или null для корня
-        public BSTNode<T> LeftChild; // левый потомок
-        public BSTNode<T> RightChild; // правый потомок	
+        public BSTNode_<T> Parent; // родитель или null для корня
+        public BSTNode_<T> LeftChild; // левый потомок
+        public BSTNode_<T> RightChild; // правый потомок	
 	
-        public BSTNode(int key, T val, BSTNode<T> parent)
+        public BSTNode_(int key, T val, BSTNode_<T> parent)
         {
             NodeKey = key;
             NodeValue = val;
@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures2
     public class BSTFind<T>
     {
         // null если в дереве вообще нету узлов
-        public BSTNode<T> Node;
+        public BSTNode_<T> Node;
 	
         // true если узел найден
         public bool NodeHasKey;
@@ -43,9 +43,9 @@ namespace AlgorithmsDataStructures2
 
     public class BST<T>
     {
-        BSTNode<T> Root; // корень дерева, или null
+        BSTNode_<T> Root; // корень дерева, или null
 	
-        public BST(BSTNode<T> node)
+        public BST(BSTNode_<T> node)
         {
             Root = node;
         }
@@ -72,11 +72,11 @@ namespace AlgorithmsDataStructures2
             // добавляем корень
             if (node.Node == null)
             {
-                Root = new BSTNode<T>(key, val, null);
+                Root = new BSTNode_<T>(key, val, null);
                 return true;
             }
             
-            var newNode = new BSTNode<T>(key, val, node.Node);
+            var newNode = new BSTNode_<T>(key, val, node.Node);
             if (node.ToLeft)
                 node.Node.LeftChild = newNode;
             else
@@ -85,7 +85,7 @@ namespace AlgorithmsDataStructures2
             return true;
         }
 	
-        public BSTNode<T> FinMinMax(BSTNode<T> FromNode, bool FindMax)
+        public BSTNode_<T> FinMinMax(BSTNode_<T> FromNode, bool FindMax)
         {
             // ищем максимальный/минимальный ключ в поддереве
             return GetMinMax(FromNode, FindMax);
@@ -157,7 +157,7 @@ namespace AlgorithmsDataStructures2
             return true;
         }
 
-        private BSTNode<T> GetNodeToChange(BSTNode<T> node)
+        private BSTNode_<T> GetNodeToChange(BSTNode_<T> node)
         {
             // значит мы удаляем leaf
             if (node.RightChild == null && node.LeftChild == null)
@@ -178,18 +178,18 @@ namespace AlgorithmsDataStructures2
             return GetAllNodes(Root).Count;
         }
 
-        public List<BSTNode> WideAllNodes()
+        public List<BSTNode_> WideAllNodes()
         {
             if (Root == null)
-                return new List<BSTNode>();
+                return new List<BSTNode_>();
             
             return WideAllNodes(Root);
         }
 
-        public List<BSTNode> DeepAllNodes(int o)
+        public List<BSTNode_> DeepAllNodes(int o)
         {
             if (Root == null)
-                return new List<BSTNode>();
+                return new List<BSTNode_>();
             
             //левое поддерево, корень, правое поддерево
             if (o == 0)
@@ -206,9 +206,9 @@ namespace AlgorithmsDataStructures2
             throw new ArgumentException("Param should be 0, 1 or 2");
         }
         
-        private List<BSTNode<T>> GetAllNodes(BSTNode<T> currentNode)
+        private List<BSTNode_<T>> GetAllNodes(BSTNode_<T> currentNode)
         {
-            var list = new List<BSTNode<T>>();
+            var list = new List<BSTNode_<T>>();
             list.Add(currentNode);
 
             if (currentNode.LeftChild != null)
@@ -224,7 +224,7 @@ namespace AlgorithmsDataStructures2
             return list;
         }
 
-        private BSTFind<T> FindByKey(BSTNode<T> current, BSTNode<T> parent, int key)
+        private BSTFind<T> FindByKey(BSTNode_<T> current, BSTNode_<T> parent, int key)
         {
             if (current == null)
             {
@@ -258,7 +258,7 @@ namespace AlgorithmsDataStructures2
                 return FindByKey(current.RightChild, current, key);
         }
 
-        public BSTNode<T> GetMinMax(BSTNode<T> currentNode, bool findMax)
+        public BSTNode_<T> GetMinMax(BSTNode_<T> currentNode, bool findMax)
         {
             if (currentNode.RightChild == null && findMax)
                 return currentNode;
@@ -272,9 +272,9 @@ namespace AlgorithmsDataStructures2
             return GetMinMax(currentNode.LeftChild, findMax);
         }
 
-        private List<BSTNode> InOrder(BSTNode<T> current)
+        private List<BSTNode_> InOrder(BSTNode_<T> current)
         {
-            var nodes = new List<BSTNode>();
+            var nodes = new List<BSTNode_>();
 
             if (current.LeftChild != null) 
                 nodes.AddRange(InOrder(current.LeftChild));
@@ -288,9 +288,9 @@ namespace AlgorithmsDataStructures2
         }
         
         // текущий узел (корень) проверяем в последнюю очередь
-        private List<BSTNode> PostOrder(BSTNode<T> current)
+        private List<BSTNode_> PostOrder(BSTNode_<T> current)
         {
-            var nodes = new List<BSTNode>();
+            var nodes = new List<BSTNode_>();
             
             if (current.LeftChild != null)
                 nodes.AddRange(PostOrder(current.LeftChild));
@@ -304,9 +304,9 @@ namespace AlgorithmsDataStructures2
         }
         
         // текущий узел (корень) проверяем в первую очередь
-        private List<BSTNode> PreOrder(BSTNode<T> current)
+        private List<BSTNode_> PreOrder(BSTNode_<T> current)
         {
-            var nodes = new List<BSTNode>();
+            var nodes = new List<BSTNode_>();
 
             nodes.Add(current);
             
@@ -319,16 +319,16 @@ namespace AlgorithmsDataStructures2
             return nodes;
         }
 
-        private List<BSTNode> WideAllNodes(BSTNode<T> root)
+        private List<BSTNode_> WideAllNodes(BSTNode_<T> root)
         {
-            var queue = new Queue<BSTNode>();
+            var queue = new Queue<BSTNode_>();
             queue.Enqueue(root);
-            var allNodes = new List<BSTNode>();
+            var allNodes = new List<BSTNode_>();
 
             while (queue.Count != 0)
             {
-                BSTNode current = queue.Dequeue();
-                if (!(current is BSTNode<T> currentT))
+                BSTNode_ current = queue.Dequeue();
+                if (!(current is BSTNode_<T> currentT))
                     throw new Exception();
                 
                 allNodes.Add(currentT);
