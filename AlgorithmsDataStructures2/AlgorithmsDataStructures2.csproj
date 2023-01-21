@@ -40,6 +40,7 @@
     <ItemGroup>
         <Compile Include="aBST.cs" />
         <Compile Include="BalandedBST.cs" />
+        <Compile Include="Heap.cs" />
         <Compile Include="sBalancedBST.cs" />
         <Compile Include="BST.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
