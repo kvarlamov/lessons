@@ -69,6 +69,78 @@ namespace AlgorithmDataStructures2Tests
         }
 
         [Test]
+        public void Delete_Array_Short1()
+        {
+            Heap heap = new Heap()
+            {
+                HeapArray = new int[1]
+            };
+            
+            Assert.That(heap.GetMax(), Is.EqualTo(-1));
+        }
+        
+        [Test]
+        public void Delete_Array_Short2()
+        {
+            Heap heap = new Heap()
+            {
+                HeapArray = new int[1]
+            };
+
+            heap.Add(11);
+            
+            Assert.That(heap.GetMax(), Is.EqualTo(11));
+        }
+        
+        [Test]
+        public void Delete_Array_Short3()
+        {
+            Heap heap = new Heap()
+            {
+                HeapArray = new int[2]
+            };
+
+            heap.Add(11);
+            
+            Assert.That(heap.GetMax(), Is.EqualTo(11));
+            Assert.That(heap.GetMax(), Is.EqualTo(-1));
+        }
+        
+        [Test]
+        public void Delete_Array_Short4()
+        {
+            Heap heap = new Heap()
+            {
+                HeapArray = new int[2]
+            };
+
+            heap.Add(11);
+            heap.Add(9);
+            
+            Assert.That(heap.GetMax(), Is.EqualTo(11));
+            Assert.That(heap.GetMax(), Is.EqualTo(9));
+            Assert.That(heap.GetMax(), Is.EqualTo(-1));
+        }
+        
+        [Test]
+        public void Delete_Array_Short5()
+        {
+            Heap heap = new Heap()
+            {
+                HeapArray = new int[3]
+            };
+
+            heap.Add(11);
+            heap.Add(9);
+            heap.Add(4);
+            
+            Assert.That(heap.GetMax(), Is.EqualTo(11));
+            Assert.That(heap.GetMax(), Is.EqualTo(9));
+            Assert.That(heap.GetMax(), Is.EqualTo(4));
+            Assert.That(heap.GetMax(), Is.EqualTo(-1));
+        }
+
+        [Test]
         public void Delete_ArrayEmpty()
         {
             Heap heap = new Heap()

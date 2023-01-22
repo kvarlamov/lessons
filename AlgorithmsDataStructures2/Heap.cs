@@ -67,11 +67,11 @@ namespace AlgorithmsDataStructures2
                 int max = i;
                 
                 // если левый больше максимума делаем его максимумом
-                if (HeapArray[left] > HeapArray[max] && left < lastPointer)
+                if (left < lastPointer && HeapArray[left] > HeapArray[max])
                     max = left;
                 
                 // если правый больше максимума делаем его максимумом
-                if (HeapArray[right] > HeapArray[max] && right < lastPointer)
+                if (right < lastPointer && HeapArray[right] > HeapArray[max])
                     max = right;
                 
                 // останавливаемся, когда у родителя будет больший ключ, а у двух наследников -- меньшие.
