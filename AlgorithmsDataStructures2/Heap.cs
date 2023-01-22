@@ -28,7 +28,7 @@ namespace AlgorithmsDataStructures2
         public int GetMax()
         {
             // вернуть значение корня и перестроить кучу
-            if (HeapArray == null || HeapArray.Length == 0)
+            if (HeapArray == null || HeapArray.Length == 0 || lastPointer == 0)
                 return -1; // если куча пуста
 
             // сохраняем корень перед перемещением

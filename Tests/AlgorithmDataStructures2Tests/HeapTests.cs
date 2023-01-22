@@ -61,9 +61,20 @@ namespace AlgorithmDataStructures2Tests
         #region Delete
 
         [Test]
-        public void Delete_Empty()
+        public void Delete_ArrayNull()
         {
             Heap heap = new Heap();
+            
+            Assert.That(heap.GetMax(), Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void Delete_ArrayEmpty()
+        {
+            Heap heap = new Heap()
+            {
+                HeapArray = new int[15]
+            };
             
             Assert.That(heap.GetMax(), Is.EqualTo(-1));
         }
