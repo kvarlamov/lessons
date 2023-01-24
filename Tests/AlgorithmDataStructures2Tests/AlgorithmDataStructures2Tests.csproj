@@ -49,6 +49,7 @@
         <Compile Include="BstTests.cs" />
         <Compile Include="HeapTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="SimpleGraphTests.cs" />
         <Compile Include="SimpleTreeTests.cs" />
     </ItemGroup>
     <ItemGroup>
