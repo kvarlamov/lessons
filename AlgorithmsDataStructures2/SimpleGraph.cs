@@ -14,9 +14,9 @@ namespace AlgorithmsDataStructures2
   
     public class SimpleGraph
     {
-        public Vertex [] vertex;
+        public Vertex [] vertex; // список, хранящий вершины
         public int [,] m_adjacency; // матрица смежности
-        public int max_vertex; // список, хранящий вершины (Индексы соответствуют индексам матрицы)
+        public int max_vertex; 
 	
         public SimpleGraph(int size)
         {
@@ -31,13 +31,14 @@ namespace AlgorithmsDataStructures2
             // с значением value 
             // в свободную позицию массива vertex
 
-            for (int i = 0; i < vertex.Length; i++)
+            for (int i = 0; i < max_vertex; i++)
             {
                 if (vertex[i] != null)
                     continue;
                 
                 var newVertex = new Vertex(value);
                 vertex[i] = newVertex;
+                break;
             }
         }
 
