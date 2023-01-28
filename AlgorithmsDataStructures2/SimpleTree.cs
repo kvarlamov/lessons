@@ -117,6 +117,30 @@ namespace AlgorithmsDataStructures2
                 node.Level = node.Parent.Level + 1;
             }
         }
+        
+        public List<T> EvenTrees()
+        {
+            var res = new List<T>();
+            if (Root == null || Root.Children == null)
+                return res;
+            
+            // 1. берем корневой узел
+            // 2. идем по его потомкам (children)
+            foreach (var node in Root.Children)
+            {
+                // если потомков нет - мы точно не получим чётное дерево 
+                if (node.Children == null || node.Children.Count == 0)
+                    continue;
+                
+                // если потомки есть - проверяем что их количество (всех в текущем поддереве) - чётное
+                if (GetChildrens(node).Count % 2 == 0)
+                    res.AddRange(new []{ Root.NodeValue, node.NodeValue });
+            }
+
+            return res;
+        }
+
+        
 
         private List<SimpleTreeNode<T>> GetChildrens(SimpleTreeNode<T> currentNode)
         {
