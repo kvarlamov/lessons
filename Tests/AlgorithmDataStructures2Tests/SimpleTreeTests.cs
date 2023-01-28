@@ -430,7 +430,7 @@ namespace AlgorithmDataStructures2Tests
             CollectionAssert.AreEqual(expected, res);
         }
         
-        [Test, Description("убираем узел 4 из EvenTrees_Test1, на 1 дерево меньше")]
+        [Test, Description("убираем узел 4 из EvenTrees_Test1, нет четных")]
         public void EvenTrees_Test2()
         {
             var root = new SimpleTreeNode<int>(1, null);
@@ -453,9 +453,8 @@ namespace AlgorithmDataStructures2Tests
             tree.AddChild(child8, child10);
 
             var res = tree.EvenTrees();
-            var expected = new List<int>() { 1,6 };
             
-            CollectionAssert.AreEqual(expected, res);
+            Assert.That(res.Count, Is.EqualTo(0));
         }
         
         [Test, Description("убираем узел 4 из EvenTrees_Test1, добавляем его в другое дерево")]
@@ -483,7 +482,9 @@ namespace AlgorithmDataStructures2Tests
             tree.AddChild(child8, child10);
 
             var res = tree.EvenTrees();
-            var expected = new List<int>() { 1,2,1,6 };
+            res.Sort();
+            var expected = new List<int>() { 1,2, 2,5,1,6 };
+            expected.Sort();
             
             CollectionAssert.AreEqual(expected, res);
         }
@@ -507,9 +508,8 @@ namespace AlgorithmDataStructures2Tests
             tree.AddChild(child8, child10);
 
             var res = tree.EvenTrees();
-            var expected = new List<int>() { 1,2 };
             
-            CollectionAssert.AreEqual(expected, res);
+            Assert.That(res.Count, Is.EqualTo(0));
         }
         
         [Test]
@@ -531,6 +531,84 @@ namespace AlgorithmDataStructures2Tests
             var child9 = new SimpleTreeNode<int>(9, child8);
             tree.AddChild(child6, child8);
             tree.AddChild(child8, child9);
+
+            var res = tree.EvenTrees();
+            res.Sort();
+            var expected = new List<int>(){6,8};
+            expected.Sort();
+            
+            CollectionAssert.AreEqual(expected, res);
+        }
+        
+        [Test]
+        public void EvenTrees_Test6()
+        {
+            var root = new SimpleTreeNode<int>(1, null);
+            var tree = new SimpleTree<int>(root);
+            var child2 = new SimpleTreeNode<int>(2, root);
+            tree.AddChild(root, child2);
+            var child7 = new SimpleTreeNode<int>(7, child2);
+            tree.AddChild(child2, child7);
+            var child8 = new SimpleTreeNode<int>(8, child7);
+            tree.AddChild(child7, child8);
+
+            var res = tree.EvenTrees();
+            res.Sort();
+            var expected = new List<int>() { 2,7 };
+            expected.Sort();
+            
+            CollectionAssert.AreEqual(expected, res);
+        }
+        
+        [Test]
+        public void EvenTrees_Test7()
+        {
+            var root = new SimpleTreeNode<int>(1, null);
+            var tree = new SimpleTree<int>(root);
+            var child2 = new SimpleTreeNode<int>(2, root);
+            tree.AddChild(root, child2);
+            var child7 = new SimpleTreeNode<int>(7, child2);
+            tree.AddChild(child2, child7);
+            var child5 = new SimpleTreeNode<int>(5, child2);
+            tree.AddChild(child2, child5);
+
+            var res = tree.EvenTrees();
+            
+            Assert.That(res.Count, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void EvenTrees_Test8()
+        {
+            var root = new SimpleTreeNode<int>(1, null);
+            var tree = new SimpleTree<int>(root);
+            var child2 = new SimpleTreeNode<int>(2, root);
+            tree.AddChild(root, child2);
+
+            var res = tree.EvenTrees();
+            
+            Assert.That(res.Count, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void EvenTrees_Test9()
+        {
+            var root = new SimpleTreeNode<int>(1, null);
+            var tree = new SimpleTree<int>(root);
+            var child2 = new SimpleTreeNode<int>(2, root);
+            var child3 = new SimpleTreeNode<int>(3, root);
+            var child6 = new SimpleTreeNode<int>(6, root);
+            tree.AddChild(root, child2);
+            tree.AddChild(root, child3);
+            tree.AddChild(root, child6);
+            var child5 = new SimpleTreeNode<int>(5, child2);
+            var child7 = new SimpleTreeNode<int>(7, child2);
+            tree.AddChild(child2, child5);
+            tree.AddChild(child2, child7);
+            var child8 = new SimpleTreeNode<int>(8, child6);
+            var child9 = new SimpleTreeNode<int>(9, child6);
+            tree.AddChild(child6, child8);
+            tree.AddChild(child6, child9);
 
             var res = tree.EvenTrees();
             

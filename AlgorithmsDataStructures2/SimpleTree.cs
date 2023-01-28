@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Proxies;
 
 namespace AlgorithmsDataStructures2
 {
@@ -121,30 +122,61 @@ namespace AlgorithmsDataStructures2
         public List<T> EvenTrees()
         {
             var res = new List<T>();
-            if (Root == null || Root.Children == null)
+            // если количество всех узлов нечётное - значит мы не может получить четных деревьев
+            if (Root == null || Root.Children == null || GetChildrens(Root).Count % 2 != 0)
                 return res;
             
-            // 1. берем корневой узел
-            // 2. идем по его потомкам (children)
-            foreach (var node in Root.Children)
+            return GetEvenTrees(Root);
+        }
+
+        private List<T> GetEvenTrees(SimpleTreeNode<T> currentNode)
+        {
+            var res = new List<T>();
+            
+            if (currentNode.Children == null || currentNode.Children.Count == 0)
+                return res;
+            
+            // если потомки есть - проверяем что их количество (всех в текущем поддереве) - чётное
+            if (GetChildrens(currentNode).Count % 2 == 0 && currentNode.Parent != null && GetChildrensSkipNode(Root, currentNode).Count % 2 == 0)
+                res.AddRange(new []{ currentNode.Parent.NodeValue, currentNode.NodeValue });
+
+            foreach (var node in currentNode.Children)
             {
-                // если потомков нет - мы точно не получим чётное дерево 
-                if (node.Children == null || node.Children.Count == 0)
-                    continue;
-                
-                // если потомки есть - проверяем что их количество (всех в текущем поддереве) - чётное
-                if (GetChildrens(node).Count % 2 == 0)
-                    res.AddRange(new []{ Root.NodeValue, node.NodeValue });
+                res.AddRange(GetEvenTrees(node));
             }
 
             return res;
         }
 
-        
-
+        /// <summary>
+        /// Получает узлы начиная с текущего (и включая его в результирующий набор)
+        /// </summary>
+        /// <param name="currentNode"></param>
+        /// <returns></returns>
         private List<SimpleTreeNode<T>> GetChildrens(SimpleTreeNode<T> currentNode)
         {
             var list = new List<SimpleTreeNode<T>>();
+            list.Add(currentNode);
+            
+            if (currentNode.Children == null || currentNode.Children.Count == 0)
+            {
+                return list;
+            }
+
+            foreach (var child in currentNode.Children)
+            {
+                list.AddRange(GetChildrens(child));
+            }
+
+            return list;
+        }
+        
+        private List<SimpleTreeNode<T>> GetChildrensSkipNode(SimpleTreeNode<T> currentNode, SimpleTreeNode<T> nodeToSkip)
+        {
+            var list = new List<SimpleTreeNode<T>>();
+            if (currentNode == null || nodeToSkip == null || currentNode.Equals(nodeToSkip))
+                return list;
+            
             list.Add(currentNode);
             
             if (currentNode.Children == null || currentNode.Children.Count == 0)
