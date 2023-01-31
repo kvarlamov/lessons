@@ -171,6 +171,7 @@ namespace AlgorithmsDataStructures2
             return list;
         }
         
+        // Получить узлы пропустив ноду со всеми потомками
         private List<SimpleTreeNode<T>> GetChildrensSkipNode(SimpleTreeNode<T> currentNode, SimpleTreeNode<T> nodeToSkip)
         {
             var list = new List<SimpleTreeNode<T>>();
