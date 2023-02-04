@@ -506,5 +506,344 @@ namespace AlgorithmDataStructures2Tests
         }
         
         #endregion
+
+        #region BreadthFirstSearch
+
+        [Test]
+        public void Test_NoEdges_ReturnEmptyList()
+        {
+            var graph = new SimpleGraph<int>(5);
+            graph.AddVertex(1);
+            graph.AddVertex(2);
+            graph.AddVertex(3);
+            graph.AddVertex(4);
+            graph.AddVertex(5);
+
+            var res0 = graph.BreadthFirstSearch(0, 1);
+            var res1 = graph.BreadthFirstSearch(0, 2);
+            var res2 = graph.BreadthFirstSearch(0, 3);
+            var res3 = graph.BreadthFirstSearch(0, 4);
+            var res4 = graph.BreadthFirstSearch(1, 4);
+            var res5 = graph.BreadthFirstSearch(2, 4);
+            
+            Assert.That(res0.Count, Is.EqualTo(0));
+            Assert.That(res1.Count, Is.EqualTo(0));
+            Assert.That(res2.Count, Is.EqualTo(0));
+            Assert.That(res3.Count, Is.EqualTo(0));
+            Assert.That(res4.Count, Is.EqualTo(0));
+            Assert.That(res5.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestW2()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,2);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,4);
+            graph.AddEdge(2,3);
+            graph.AddEdge(3,4);
+
+            var res = graph.BreadthFirstSearch(0, 4);
+            var resInt = res.Select(x => x.Value);
+            var expected = new List<string>() {"A", "B", "E"};
+            
+            Assert.That(res.Count, Is.EqualTo(3));
+            CollectionAssert.AreEqual(expected, resInt);
+        }
+
+        [Test]
+        public void TestW3()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,2);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,4);
+            graph.AddEdge(2,3);
+            graph.AddEdge(3,4);
+
+            var res = graph.BreadthFirstSearch(0, 3);
+            var resInt = res.Select(x => x.Value);
+            var expected = new List<string>() {"A", "D"};
+            
+            Assert.That(res.Count, Is.EqualTo(2));
+            CollectionAssert.AreEqual(expected, resInt);
+        }
+        
+        [Test]
+        public void TestW6_NotFound()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,4);
+            graph.AddEdge(3,4);
+            
+            var res = graph.BreadthFirstSearch(0, 2);
+            Assert.That(res.Count, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void TestW7()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,2);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,3);
+            graph.AddEdge(2,3);
+            
+            var res = graph.BreadthFirstSearch(0, 4);
+            Assert.That(res.Count, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void TestW8()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,2);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,4);
+            graph.AddEdge(2,3);
+            graph.AddEdge(3,4);
+
+            var res = graph.BreadthFirstSearch(0, 1);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"A", "B"};
+            
+            Assert.That(res.Count, Is.EqualTo(2));
+            CollectionAssert.AreEqual(expected, resMod);
+        }
+        
+        [Test]
+        public void Test12W()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,2);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,4);
+            graph.AddEdge(2,3);
+            graph.AddEdge(3,4);
+
+            var res = graph.BreadthFirstSearch(2, 4);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"C", "D", "E"};
+            
+            Assert.That(res.Count, Is.EqualTo(3));
+            CollectionAssert.AreEqual(expected, resMod);
+        }
+
+        [Test]
+        public void TestW9()
+        {
+            var graph = new SimpleGraph<string>(6);
+            graph.AddVertex("F");
+            graph.AddVertex("E");
+            graph.AddVertex("B");
+            graph.AddVertex("D");
+            graph.AddVertex("A");
+            graph.AddVertex("C");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,2);
+            graph.AddEdge(2,4);
+            graph.AddEdge(3,4);
+            graph.AddEdge(3,5);
+            graph.AddEdge(4,5);
+
+            var res = graph.BreadthFirstSearch(0, 4);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"F", "D", "A"};
+            
+            Assert.That(res.Count, Is.EqualTo(3));
+            CollectionAssert.AreEqual(expected, resMod);
+        }
+        
+        [Test]
+        public void TestW10()
+        {
+            var graph = new SimpleGraph<string>(6);
+            graph.AddVertex("F");
+            graph.AddVertex("E");
+            graph.AddVertex("B");
+            graph.AddVertex("D");
+            graph.AddVertex("A");
+            graph.AddVertex("C");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,2);
+            graph.AddEdge(2,4);
+            graph.AddEdge(3,4);
+            graph.AddEdge(3,5);
+            graph.AddEdge(4,5);
+
+            var res = graph.BreadthFirstSearch(4, 0);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"A", "D", "F"};
+            
+            Assert.That(res.Count, Is.EqualTo(3));
+            CollectionAssert.AreEqual(expected, resMod);
+        }
+        
+        [Test]
+        public void Test11W()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("C");
+            graph.AddVertex("B");
+            graph.AddVertex("E");
+            graph.AddVertex("D");
+            graph.AddVertex("A");
+
+            graph.AddEdge(0,4);
+            graph.AddEdge(0,3);
+            graph.AddEdge(3,4);
+            graph.AddEdge(1,4);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,2);
+            graph.AddEdge(2,3);
+
+            var res = graph.BreadthFirstSearch(0, 2);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"C", "D", "E"};
+            
+            Assert.That(res.Count, Is.EqualTo(3));
+            CollectionAssert.AreEqual(expected, resMod);
+
+            var res2 = graph.BreadthFirstSearch(2, 0);
+            var resMod2 = res2.Select(x => x.Value).ToList();
+            var expected2 = new List<string>() {"E", "D", "C"};
+            Assert.That(res2.Count, Is.EqualTo(3));
+            CollectionAssert.AreEqual(expected2, resMod2);
+        }
+        
+        [Test]
+        public void Test13W()
+        {
+            var graph = new SimpleGraph<string>(5);
+            graph.AddVertex("C");
+            graph.AddVertex("B");
+            graph.AddVertex("E");
+            graph.AddVertex("D");
+            graph.AddVertex("A");
+
+            graph.AddEdge(0,4);
+            graph.AddEdge(0,3);
+            graph.AddEdge(3,4);
+            graph.AddEdge(1,4);
+            graph.AddEdge(1,3);
+            graph.AddEdge(1,2);
+            graph.AddEdge(2,3);
+
+            var res = graph.BreadthFirstSearch(3, 4);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() { "D", "A"};
+            
+            Assert.That(res.Count, Is.EqualTo(expected.Count));
+            CollectionAssert.AreEqual(expected, resMod);
+        }
+        
+        [Test]
+        public void TestW14()
+        {
+            var graph = new SimpleGraph<string>(6);
+            graph.AddVertex("F");
+            graph.AddVertex("E");
+            graph.AddVertex("B");
+            graph.AddVertex("D");
+            graph.AddVertex("A");
+            graph.AddVertex("C");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,3);
+            graph.AddEdge(1,2);
+            graph.AddEdge(2,4);
+            graph.AddEdge(3,4);
+            graph.AddEdge(3,5);
+            graph.AddEdge(4,5);
+
+            var res = graph.DepthFirstSearch(5, 2);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"C","D", "F", "E","B"};
+            
+            Assert.That(res.Count, Is.EqualTo(expected.Count));
+            CollectionAssert.AreEqual(expected, resMod);
+            
+            var res2 = graph.BreadthFirstSearch(5, 2);
+            var resMod2 = res2.Select(x => x.Value).ToList();
+            var expected2 = new List<string>() {"C","A","B"};
+            
+            Assert.That(res2.Count, Is.EqualTo(expected2.Count));
+            CollectionAssert.AreEqual(expected2, resMod2);
+        }
+        
+        [Test]
+        public void Test15()
+        {
+            var graph = new SimpleGraph<string>(3);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(1,2);
+            graph.AddEdge(0,2);
+
+            var res = graph.BreadthFirstSearch(0, 2);
+            var resMod = res.Select(x => x.Value).ToList();
+            var expected = new List<string>() {"A", "C"};
+            
+            Assert.That(res.Count, Is.EqualTo(expected.Count));
+            CollectionAssert.AreEqual(expected, resMod);
+        }
+
+        #endregion
     }
 }

@@ -20,6 +20,9 @@ namespace AlgorithmsDataStructures2
         public int [,] m_adjacency; // матрица смежности
         public int max_vertex;
         private Stack<Vertex<T>> _stack;
+        private Queue<Vertex<T>> _queue;
+        private int _operationLimit;
+        private List<List<Vertex<T>>> _pathes;
 
         public SimpleGraph(int size)
         {
@@ -27,6 +30,8 @@ namespace AlgorithmsDataStructures2
             m_adjacency = new int [size,size];
             vertex = new Vertex<T> [size];
             _stack = new Stack<Vertex<T>>();
+            _queue = new Queue<Vertex<T>>();
+            _pathes = new List<List<Vertex<T>>>();
         }
 	
         public void AddVertex(T value)
@@ -106,7 +111,7 @@ namespace AlgorithmsDataStructures2
             ClearDataStructures();
             
             // 1. Выбираем текущую вершину
-            var res = GetPath(VFrom, VTo);
+            var res = GetPathDepth(VFrom, VTo);
             Array.Reverse(res);
 
             foreach (var el in res)
@@ -116,8 +121,120 @@ namespace AlgorithmsDataStructures2
 
             return path;
         }
+        
+        public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
+        {
+            // узлы задаются позициями в списке vertex.
+            // возвращает список узлов -- путь из VFrom в VTo
+            // или пустой список, если пути нету
+            var path = new List<Vertex<T>>();
+            if (!IsIndexCorrect(VFrom) || !IsIndexCorrect(VTo))
+                return path;
+            
+            ClearDataStructures();
 
-        private Vertex<T>[] GetPath(int X, int VTo)
+            vertex[VFrom].Hit = true;
+            // если false - путь не найден, возвращаем пустой массив
+            if (!GetPathWidth(VFrom, VTo))
+                return path;
+
+            return CalculatePath(VFrom, VTo);
+        }
+
+        // Рассчитаем путь
+        private List<Vertex<T>> CalculatePath(int VFrom, int VTo)
+        {
+            foreach (var path in _pathes)
+            {
+                if (path[0] == vertex[VFrom] && path[path.Count - 1] == vertex[VTo])
+                    return path;
+            }
+
+            return new List<Vertex<T>>();
+        }
+
+        /// <summary>
+        /// False if path not found, else - true
+        /// </summary>
+        /// <param name="X"></param>
+        /// <param name="VTo"></param>
+        /// <returns></returns>
+        private bool GetPathWidth(int X, int VTo)
+        {
+            bool initial = true;
+            
+            while (_operationLimit > 0)
+            {
+                // 2) Из всех смежных с X вершин выбираем любую (например первую) непосещённую Y
+                var Y = GetNotVisited(X);
+
+                // Если выбранная вершина равна искомой, значит цель найдена, заканчиваем работу
+                if (Y == VTo)
+                {
+                    AddToPathOrCreateNew(vertex[X], vertex[Y], initial);
+                    return true;
+                }
+
+                if (Y != -1)
+                {
+                    // 3) Помечаем найденную смежную вершину как посещённую, помещаем в очередь. Переходим к п.2
+                    vertex[Y].Hit = true;
+                    _queue.Enqueue(vertex[Y]);
+                    AddToPathOrCreateNew(vertex[X], vertex[Y], initial);
+                    continue;
+                }
+                
+                //Если таких вершин нет, проверяем очередь:
+                // Если очередь пуста, заканчиваем работу (путь до цели не найден).
+                if (_queue.Count == 0)
+                    return false;
+                
+                // извлекаем из очереди очередной элемент, делаем его текущим X, и переходим обратно к данному п.2.
+                var nextToCheck = _queue.Dequeue();
+                X = Array.IndexOf(vertex, nextToCheck);
+                _operationLimit--;
+                initial = false;
+            }
+
+            return false;
+        }
+
+        private void AddToPathOrCreateNew(Vertex<T> x, Vertex<T> y, bool initial)
+        {
+            if (initial)
+            {
+                _pathes.Add(new List<Vertex<T>>() {x, y});
+                return;
+            }
+
+            // находим путь, у которого последний элемент == x (ранее добавленный y) и добавляем новый y
+            foreach (var path in _pathes)
+            {
+                var index = path.IndexOf(x);
+                
+                // если элемент - последний, добавляем в текущий путь
+                if (index == path.Count - 1)
+                {
+                    path.Add(y);
+                    return;
+                }
+                
+                // если элемент есть, но он не последний, значит пути в данном месте расходятся (уже был добавлен элемент в нужный путь)
+                // поэтому нужно добавить новый путь в список путей
+                if (index != -1)
+                {
+                    // создаем новый путь, копируя старый до нужного элемента включительно
+                    var newPath = path.GetRange(0, index + 1);
+                    // добавляем y в новый путь
+                    newPath.Add(y);
+                    // и добавляем новый путь в список путей
+                    _pathes.Add(newPath);
+                    return;
+                }
+            }
+        }
+
+        private Vertex<T>[] GetPathDepth(int X, int VTo)
         {
             // 2. Фиксируем вершину X как посещённую.
             vertex[X].Hit = true;
@@ -139,7 +256,7 @@ namespace AlgorithmsDataStructures2
                 // Если целевой вершины среди смежных нету, то выбираем среди смежных такую вершину, которая ещё не была посещена. Если такая вершина найдена, делаем её текущей X и переходим к п. 2.
                 X = GetNotVisited(X);
                 if (X != -1)
-                    return GetPath(X, VTo);
+                    return GetPathDepth(X, VTo);
             
                 _stack.Pop();
                 if (_stack.Count == 0)
@@ -157,7 +274,7 @@ namespace AlgorithmsDataStructures2
         {
             for (int i = 0; i < max_vertex; i++)
             {
-                if (m_adjacency[currentV, i] == 1 && !vertex[i].Hit)
+                if (i != currentV && m_adjacency[currentV, i] == 1 && !vertex[i].Hit)
                     return i;
             }
 
@@ -170,10 +287,16 @@ namespace AlgorithmsDataStructures2
         private void ClearDataStructures()
         {
             _stack.Clear();
+            _queue.Clear();
             foreach (var v in vertex)
             {
-                v.Hit = false;
+                if (v != null)
+                    v.Hit = false;
             }
+
+            _pathes.Clear();
+
+            _operationLimit = 500;
         }
 
         private bool IsIndexCorrect(int i) =>
