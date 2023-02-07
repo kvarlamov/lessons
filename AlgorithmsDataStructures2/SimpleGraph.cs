@@ -140,6 +140,72 @@ namespace AlgorithmsDataStructures2
 
             return CalculatePath(VFrom, VTo);
         }
+        
+        public List<Vertex<T>> WeakVertices()
+        {
+            // возвращает список узлов вне треугольников
+            var list = new List<Vertex<T>>();
+
+            // 0. начинаем итерацию по всем узлам vertex, для каждого:
+            foreach (var v in vertex)
+            {
+                if (IsWeak(v))
+                    list.Add(v);
+            }
+
+            return list;
+        }
+
+        private bool IsWeak(Vertex<T> current)
+        {
+            // 1. получить все узлы соседи текущего
+            var neighbours = GetNeighbours(current);
+
+            // 2. если узлов меньше 2 - сразу возвращаем true
+            if (neighbours.Count < 2)
+                return true;
+
+            // 3. для каждого узла из п.1 проверяем, есть ли сосед из списка 1, связанный ребром. Если есть - возвращаем false и передаем в эту ф-ию новый узел
+            foreach (var n in neighbours)
+            {
+                if (HaveLink(neighbours, n))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private List<Vertex<T>> GetNeighbours(Vertex<T> current)
+        {
+            var list = new List<Vertex<T>>();
+            var currentIndex = Array.IndexOf(vertex, current);
+            if (currentIndex == -1)
+                return list;
+            
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (i != currentIndex && m_adjacency[currentIndex, i] == 1)
+                    list.Add(vertex[i]);
+            }
+
+            return list;
+        }
+
+        private bool HaveLink(List<Vertex<T>> neighboors, Vertex<T> current)
+        {
+            var currentIndex = Array.IndexOf(vertex, current);
+            if (currentIndex == -1)
+                return false;
+
+            for (int i = 0; i < max_vertex; i++)
+            {
+                // если текущий имеет ребро и neighbours содержит этот узел - значит треугольник есть
+                if (i != currentIndex && m_adjacency[currentIndex, i] == 1 && neighboors.Contains(vertex[i]))
+                    return true;
+            }
+
+            return false;
+        }
 
         // Рассчитаем путь
         private List<Vertex<T>> CalculatePath(int VFrom, int VTo)

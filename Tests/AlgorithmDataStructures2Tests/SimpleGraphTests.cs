@@ -845,5 +845,111 @@ namespace AlgorithmDataStructures2Tests
         }
 
         #endregion
+
+        #region WeakVertices
+
+        [Test]
+        public void WeakVertices_Initial()
+        {
+            var graph = new SimpleGraph<string>(9);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+            graph.AddVertex("D");
+            graph.AddVertex("E");
+            graph.AddVertex("F");
+            graph.AddVertex("G");
+            graph.AddVertex("X");
+            graph.AddVertex("Z");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(0,2);
+            graph.AddEdge(1,2);
+            graph.AddEdge(1,3);
+            graph.AddEdge(2,3);
+            graph.AddEdge(3,4);
+            graph.AddEdge(2,6);
+            graph.AddEdge(4,6);
+            graph.AddEdge(5,6);
+            graph.AddEdge(5,7);
+            graph.AddEdge(6,7);
+            graph.AddEdge(7,8);
+
+            var res = graph.WeakVertices();
+            var resSel = res.Select(x => x.Value).ToList();
+            var expexted = new List<string>() {"E", "Z"};
+            
+            CollectionAssert.AreEqual(expexted, resSel);
+        }
+        
+        [Test]
+        public void WeakVertices_Triangle()
+        {
+            var graph = new SimpleGraph<string>(3);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(1,2);
+            graph.AddEdge(0,2);
+
+            var res = graph.WeakVertices();
+            
+            Assert.That(res.Count, Is.EqualTo(0));
+        }
+        
+        [Test]
+        public void WeakVertices_Triangle_WithoutEdge()
+        {
+            var graph = new SimpleGraph<string>(3);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+            graph.AddVertex("C");
+
+            graph.AddEdge(0,1);
+            graph.AddEdge(1,2);
+
+            var res = graph.WeakVertices();
+            
+            var resSel = res.Select(x => x.Value).ToList();
+            var expexted = new List<string>() {"A", "B", "C"};
+            
+            CollectionAssert.AreEqual(expexted, resSel);
+        }
+        
+        [Test]
+        public void WeakVertices_Two()
+        {
+            var graph = new SimpleGraph<string>(2);
+            graph.AddVertex("A");
+            graph.AddVertex("B");
+
+            graph.AddEdge(0,1);
+
+            var res = graph.WeakVertices();
+            
+            var resSel = res.Select(x => x.Value).ToList();
+            var expexted = new List<string>() {"A", "B"};
+            
+            CollectionAssert.AreEqual(expexted, resSel);
+        }
+        
+        [Test]
+        public void WeakVertices_One()
+        {
+            var graph = new SimpleGraph<string>(1);
+            graph.AddVertex("A");
+
+
+            var res = graph.WeakVertices();
+            
+            var resSel = res.Select(x => x.Value).ToList();
+            var expexted = new List<string>() {"A"};
+            
+            CollectionAssert.AreEqual(expexted, resSel);
+        }
+
+        #endregion
     }
 }
