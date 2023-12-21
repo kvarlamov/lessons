@@ -71,7 +71,7 @@ namespace DeclarativeParadigm
         }
     }
 
-    public static class GetFunc
+    public static class CycleAbstractions
     {
         public static void UsageExample()
         {
@@ -80,8 +80,20 @@ namespace DeclarativeParadigm
             int[] arr = new[] {1, 2, 3, 4, 5};
             var sumRes = FoldR(arr, Sum, 0);
             var multyRes = FoldR(arr, Multy, 1);
+            var accForAll = ForAllAcc(arr, Sum, 0);
             Console.WriteLine(sumRes);
             Console.WriteLine(multyRes);
+        }
+
+        public static int ForAllAcc(int[] Ls, Func<int, int, int> F, int Acc)
+        {
+            if (Ls.Any() is false)
+                return Acc;
+
+            Acc = F(Ls[0], Acc);
+            var tail = Ls[1..];
+
+            return ForAllAcc(tail, F, Acc);
         }
         
         public static int FoldR(int[] list, Func<int, int, int> f, int res)
