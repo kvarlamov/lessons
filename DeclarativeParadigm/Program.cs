@@ -8,6 +8,8 @@ namespace DeclarativeParadigm
         {
             var result = FactorialControlAbstractionImpl.Calculate();
             Console.WriteLine(string.Join(",", result));
+            
+            GetFunc.UsageExample();
         }
     }
 }
