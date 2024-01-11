@@ -4,11 +4,11 @@ public abstract class BoundedStack<T>
 {
     protected const int DefaultMaxSize = 32;
     
-    public const int POP_NIL = 0; // pop() ещё не вызывалась
+    public const int POP_NIL = 0; // push() ещё не вызывалась
     public const int POP_OK = 1;  // последняя pop() отработала нормально
     public const int POP_ERR = 2; // стек пуст
 
-    public const int PEEK_NIL = 0;  // peek() ещё не вызывалась
+    public const int PEEK_NIL = 0;  // push() ещё не вызывалась
     public const int PEEK_OK = 1;   // последняя peek() отработала нормально
     public const int PEEK_ERR = 2; // стек пуст
 
