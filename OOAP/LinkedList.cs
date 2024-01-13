@@ -137,4 +137,12 @@ public abstract class LinkedList<T>
     public abstract bool IsValue();
 
     #endregion
+    
+    public abstract int Get_Head_Status();
+    public abstract int Get_Tail_Status();
+    public abstract int Get_Right_Status();
+    public abstract int Get_Remove_Status();
+    public abstract int Get_Replace_Status();
+    public abstract int Get_Find_Status();
+    public abstract int Get_RemoveAll_Status();
 }
