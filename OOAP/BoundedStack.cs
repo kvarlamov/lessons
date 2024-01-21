@@ -1,5 +1,6 @@
 ﻿namespace OOAP;
 
+// отличие от обычного стэка - ограниченный размер
 public abstract class BoundedStack<T>
 {
     protected const int DefaultMaxSize = 32;
