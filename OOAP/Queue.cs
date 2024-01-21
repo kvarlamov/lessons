@@ -102,6 +102,7 @@ public class QueueImpl<T> : Queue<T>
             return;
         }
         
+        dequeue_status = DEQUEUE_OK;
         _queue.RemoveAt(_queue.Count - 1);
     }
 
