@@ -2,8 +2,8 @@
 
 public abstract class HashTable<T>
 {
-    public const int PUT_OK = 1; // значение добавлено
-    public const int PUT_ERR = 2; // ошибка добавления 
+    protected const int PUT_OK = 1; // значение добавлено
+    protected const int PUT_ERR = 2; // ошибка добавления 
 
     public const int REMOVE_OK = 1; // значение удалено
     public const int REMOVE_ERR = 2; // значение не найдено
