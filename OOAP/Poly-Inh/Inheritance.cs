@@ -23,18 +23,18 @@ public class BaseHuman
 
 public class Patient : BaseHuman
 {
-    public void HealMe(Doctor doctor)
+    public void HealMe(DoctorBase doctor)
     {
         doctor.Heal();
     }
 }
 
-public abstract class Doctor : BaseHuman
+public abstract class DoctorBase : BaseHuman
 {
     public abstract void Heal();
 }
 
-public class Psychiatrist : Doctor
+public class Psychiatrist : DoctorBase
 {
     public override void Heal()
     {
@@ -42,11 +42,11 @@ public class Psychiatrist : Doctor
     }
 }
 
-public class Surgeon : Doctor
+public class Surgeоn : DoctorBase
 {
     private readonly Tool _tool;
 
-    public Surgeon(Tool tool)
+    public Surgeоn(Tool tool)
     {
         _tool = tool;
     }
