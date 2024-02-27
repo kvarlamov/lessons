@@ -1,4 +1,4 @@
-﻿namespace OOAP.Poly_Inh;
+﻿namespace OOAP.Poly_Inh1;
 /*
  * Пример наследования - класс BaseHuman - от него наследуются Patient и Doctor.
  * При этом в C# отсутствует множественное наследование от нескольких классов, но можно реализовывать несколько интерфейсов.
@@ -23,18 +23,18 @@ public class BaseHuman
 
 public class Patient : BaseHuman
 {
-    public void HealMe(DoctorBase doctor)
+    public void HealMe(Doctor doctor)
     {
         doctor.Heal();
     }
 }
 
-public abstract class DoctorBase : BaseHuman
+public abstract class Doctor : BaseHuman
 {
     public abstract void Heal();
 }
 
-public class Psychiatrist : DoctorBase
+public class Psychiatrist : Doctor
 {
     public override void Heal()
     {
@@ -42,7 +42,7 @@ public class Psychiatrist : DoctorBase
     }
 }
 
-public class Surgeоn : DoctorBase
+public class Surgeоn : Doctor
 {
     private readonly Tool _tool;
 
