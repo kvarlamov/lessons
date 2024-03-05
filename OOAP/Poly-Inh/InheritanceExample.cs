@@ -14,18 +14,18 @@ public class Human
 
 // расширение класса-родителя - Doctor расширяет функционал базового класса Human, добавляя новые доступные свойства и поведение
 // т.е. все доктора - люди, но не все люди - доктора
-public abstract class Doctor : Human
+public abstract class Doctor<T> : Human
 {
     public int WorkExperience { get; set; }
 
-    public abstract void Heal();
+    public abstract void Heal<T>();
 }
 
 // специализация класса родителя - определяем специальность через переопределение базового метода
 // более частный случай доктора - все хирурги - доктора, но не все доктора - хирурги
-public class Surgeon : Doctor
+public class Surgeon<T> : Doctor<T>
 {
-    public override void Heal()
+    public override void Heal<T>()
     {
         // operation
     }
