@@ -7,7 +7,7 @@ public class Test
         // пример статического связывания
         string staticText = string.Empty;
         // на строке ниже - compile-time error, у объекта staticText нет свойства Size
-        Console.WriteLine(staticText.Size);
+        // Console.WriteLine(staticText.Size);
 
         // пример динамического связывания
         dynamic dynamicText = staticText;
