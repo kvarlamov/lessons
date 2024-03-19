@@ -7,48 +7,11 @@ public class General : Object
 {
     // https://code-maze.com/csharp-deep-copy-of-object/
     // копирует содержимое одного объекта
-    public void DeepCopyTo<T>(T objToCopy)
-    {
-        objToCopy = GetCopy<T>();
-        // var type = this.GetType();
-        // var props = type.GetProperties();
-        //
-        // foreach (var property in props)
-        // {
-        //     if (!property.CanWrite) 
-        //         continue;
-        //     
-        //     object value = property.GetValue(this);
-        //     if (value != null && value.GetType().IsClass && !value.GetType().FullName.StartsWith("System."))
-        //     {
-        //         property.SetValue(objToCopy, DeepCopyTo(value));
-        //     }
-        //     else
-        //     {
-        //         property.SetValue(objToCopy, value);
-        //     }
-        // }
-        //
-        // return default;
-    }
+    public void DeepCopyTo<T>(T? copyTarget) => copyTarget = GetCopy<T>();
 
-    private T GetCopy<T>()
-    {
-        // todo - check speed by using
-        var current = JsonSerializer.Serialize(this);
-        return JsonSerializer.Deserialize<T>(current);
-    }
+    public T? Clone<T>() => GetCopy<T>();
 
-    public T? Clone<T>()
-    {
-        var current = JsonSerializer.Serialize(this);
-        return JsonSerializer.Deserialize<T>(current);
-    }
-
-    public General FastClone<T>()
-    {
-        return DeepCopier.Copy(this);
-    }
+    public T FastClone<T>(T input) => DeepCopier.Copy(input);
 
     public string Serialize() => JsonSerializer.Serialize(this);
 
@@ -83,9 +46,12 @@ public class General : Object
 
 
     // При необходимости потомок может переопределить данный метод
-    public virtual string ToString()
+    public virtual string ToString() => base.ToString();
+
+    private T? GetCopy<T>()
     {
-        return base.ToString();
+        var current = JsonSerializer.Serialize(this);
+        return JsonSerializer.Deserialize<T>(current);
     }
 }
 
