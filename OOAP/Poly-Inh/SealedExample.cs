@@ -18,7 +18,7 @@ namespace OOAP.Poly_Inh;
  * не можем переопределить его ниже по иерархии наследования в SubAny - ошибка компиляции
  * При этом Clone не запечатан - и может быть переопределен
  */
-public class Base
+public class SealedExample
 {
     public virtual void DeepCopyTo<T>(T? copyTarget) => copyTarget = GetCopy<T>();
 
@@ -31,7 +31,7 @@ public class Base
     }
 }
 
-public class AnySealed : Base
+public class AnySealed : SealedExample
 {
     public sealed override void DeepCopyTo<T>(T? copyTarget) where T : default
     {
