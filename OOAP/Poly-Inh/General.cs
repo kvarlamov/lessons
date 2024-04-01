@@ -53,9 +53,21 @@ public class General : Object
         var current = JsonSerializer.Serialize(this);
         return JsonSerializer.Deserialize<T>(current);
     }
+    
+    public static void AssignmentAttempt<T>(General target, T source)
+    {
+        target = source is General src 
+            ? src 
+            : new None();
+    }
 }
 
 public class Any : General
 {
-    
+    public static void AssignmentAttempt<T>(Any target, T source)
+    {
+        target = source is Any src 
+            ? src 
+            : new None();
+    }
 }

@@ -46,10 +46,11 @@ public class AnySealed : SealedExample
 
 public class SubAny : AnySealed
 {
-    public override void DeepCopyTo<T>(T? copyTarget) where T : default
-    {
-        base.DeepCopyTo(copyTarget);
-    }
+    // cannot override because base is sealed
+    // public override void DeepCopyTo<T>(T? copyTarget) where T : default
+    // {
+    //     base.DeepCopyTo(copyTarget);
+    // }
     
     public override T? Clone<T>() where T : default
     {
