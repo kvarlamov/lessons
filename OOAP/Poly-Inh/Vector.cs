@@ -2,31 +2,38 @@
 
 internal sealed class Vector<T> : AnySum<T>
 {
-    private T[] items;
-    private int length;
+    private T[] _items;
+    private int _length;
 
     public Vector(T[] items)
     {
-        items = items;
-        length = items.Length;
+        _items = items;
+        _length = items.Length;
     }
 
     public Vector(int length)
     {
-        items = new T[length];
-        this.length = length;
+        _items = new T[length];
+        this._length = length;
     }
 
-    public void Add(Vector<T> other)
+    public void Add(Vector<T>? other)
     {
-        if (items.Length != other.items.Length)
+        if (other != null && _items.Length != other._items.Length)
         {
             return;
         }
 
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < _length; i++)
         {
-            items[i] = Sum(items[i], other.items[i]);
+            if (other!._items[i]?.GetType() == typeof(Vector<T>))
+            {
+                (_items[i] as Vector<T>)?.Add((other._items[i] as Vector<T>));
+            }
+            else
+            {
+                _items[i] = Sum(_items[i], other._items[i]);
+            }
         }
     }
 }
