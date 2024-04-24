@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using DeepCopy;
 
 namespace OOAP.Poly_Inh;
@@ -57,16 +58,6 @@ public class General : Object
     public static void AssignmentAttempt<T>(General target, T source)
     {
         target = source is General src 
-            ? src 
-            : new None();
-    }
-}
-
-public class Any : General
-{
-    public static void AssignmentAttempt<T>(Any target, T source)
-    {
-        target = source is Any src 
             ? src 
             : new None();
     }
