@@ -2,12 +2,6 @@
 
 public class Any : General
 {
-    private object _value;
-
-    public Any(object value)
-    {
-        _value = value;
-    }
     
     public static void AssignmentAttempt<T>(Any target, T source)
     {
@@ -15,23 +9,30 @@ public class Any : General
             ? src 
             : new None();
     }
+}
 
-    public Any Add(Any other)
+public class AnySum<T> : Any
+{
+    public T Sum(T one, T two)
     {
-        if (_value is int && other._value is int)
+        T res = default;
+        if (one is int && two is int)
         {
-            int sum = (int)_value + (int)other._value;
-            return new Any(sum);
+            res = sumInt(one,two);
         }
         else
         {
             throw new NotImplementedException("Операция не реализована");
         }
+        
+        //todo - implement other types of sum
+
+        return res;
     }
 
-
-    public static Any operator +(Any first, Any second)
+    private T sumInt(T one, T two)
     {
-        return first.Add(second);
+        int sum = (int)(object)one + (int)(object)one;
+        return (T)(object)sum;
     }
 }

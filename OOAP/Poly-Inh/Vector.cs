@@ -1,33 +1,32 @@
 ﻿namespace OOAP.Poly_Inh;
 
-internal sealed class Vector<T> : General
-    where T : Any
+internal sealed class Vector<T> : AnySum<T>
 {
     private T[] items;
+    private int length;
+
+    public Vector(T[] items)
+    {
+        items = items;
+        length = items.Length;
+    }
 
     public Vector(int length)
     {
         items = new T[length];
+        this.length = length;
     }
 
-    public Any Add(Vector<T> other)
+    public void Add(Vector<T> other)
     {
         if (items.Length != other.items.Length)
         {
-            return null;
-        }
-    
-        Any result = default;
-        foreach (var item in items)
-        {
-            result += item;
+            return;
         }
 
-        foreach (var item in other.items)
+        for (int i = 0; i < length; i++)
         {
-            result += item;
+            items[i] = Sum(items[i], other.items[i]);
         }
-
-        return result;
     }
 }
