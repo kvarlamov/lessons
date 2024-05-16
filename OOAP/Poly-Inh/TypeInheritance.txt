@@ -1,0 +1,55 @@
+Допустим есть магазин и сущность Seller - продавец
+По типу: частное лицо, компания
+По местоположению: отечественный, иностранный,...
+
+Поскольку в C# не поддерживается множественное наследование, 
+применим наследование вида.
+Первый вариант (неправильный) - использовать перечисление enum:
+Выделяем указанные состояния в перечисления:
+public enum SellerType 
+{
+	None = 0,
+	Individual = 1,
+	Company = 2
+}
+
+public enum BusinessLocation
+{
+	None = 0,
+	Resident = 1,
+	Foreign = 2
+}
+
+и используем в классе
+
+class Seller
+{
+	...
+	public SellerType SellerType {get; init}
+	public BusinessLocation BusinessLocation {get; init}
+	...
+}
+
+Второй вариант (правильный) = использование полиморфизма (has-a):
+Выделяем в отдельные иерархии указанные состояния и используем в классе:
+
+public abstract class SellerType 
+{}
+
+public class IndividualSeller : SellerType
+{}
+
+public class CompanySeller : SellerType
+{}
+
+public abstract class BusinessLocation
+{}
+
+public class ResidentLocation : BusinessLocation
+{}
+
+public class ForeignLocation : BusinessLocation
+{}
+
+Это позволяет гибко реализовать логику для конкретных подклассов иерархий независимо 
+от логики основной иерархии Seller
