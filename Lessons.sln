@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOAP", "OOAP\OOAP.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOAPTests", "Tests\OOAPTests\OOAPTests.csproj", "{1E45B310-11EB-4950-9895-B41F548998AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardWork", "HardWork\HardWork.csproj", "{06B04AA1-5D51-4D7E-BCEE-070385971690}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{1E45B310-11EB-4950-9895-B41F548998AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E45B310-11EB-4950-9895-B41F548998AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E45B310-11EB-4950-9895-B41F548998AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B04AA1-5D51-4D7E-BCEE-070385971690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B04AA1-5D51-4D7E-BCEE-070385971690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B04AA1-5D51-4D7E-BCEE-070385971690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B04AA1-5D51-4D7E-BCEE-070385971690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
