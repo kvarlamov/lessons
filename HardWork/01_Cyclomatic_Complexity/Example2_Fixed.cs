@@ -1,4 +1,4 @@
-﻿namespace HardWork._01___Cyclomatic_Complexity;
+﻿namespace HardWork._01_Cyclomatic_Complexity;
 
 public class CustomerFixed
 {
