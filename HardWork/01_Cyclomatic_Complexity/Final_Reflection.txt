@@ -12,3 +12,17 @@
 впервые и приму его на вооружение.
 
 Ссылки на решения:
+Пример 1.
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example1_WithoutFix.cs
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example1_Fixed.cs
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example1_reflection.txt
+
+Пример 2.
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example2_withoutFix.cs
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example2_Fixed.cs
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example2_Reflection.txt
+
+Пример 3.
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example3_WithoutFix.cs
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example3_Fixed.cs
+https://github.com/kvarlamov/lessons/blob/main/HardWork/01_Cyclomatic_Complexity/Example3_Reflection.txt
