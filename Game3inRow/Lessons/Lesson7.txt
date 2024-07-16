@@ -1,0 +1,25 @@
+Кластер "Domain"
+-- GameGrid
+-- Element
+-- Bonus
+-- GameRecord
+
+Кластер "UserInterface":
+-- InputManager
+-- TurnManager
+
+Кластер "Logic":
+-- GameManager
+
+Кластер "Statistic":
+-- StatisticManager
+
+Кластер "Bonuses":
+-- BonusManager
+
+**********************
+Пока оставлены минимально необходимые модули, при это в кластеры 
+вероятно будут включены некоторые вспомогательные модули.
+
+
+
