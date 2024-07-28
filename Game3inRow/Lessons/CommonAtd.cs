@@ -68,17 +68,17 @@ public abstract class InputManager
 
     // Сделать ход (Переставить элементы) - отправляет команду в GameManager - logic    
     // Предусловие - получен корректный ввод (правильное количество координат)
-    public abstract void Turn(string input);
+    public abstract void Turn(string input); // todo - результат хода - перерисованная сетка
 
     // Начать новую игру
-    public abstract void StartNewGame();
+    public abstract void StartNewGame(); // результат - сетка
 
     // Завершить игру
     // Предусловие - игра была начата
-    public abstract void EndGame();
+    public abstract void EndGame(); // результат - статистика
 }
 
-public abstract class OutputManager
+public abstract class OutputManager // -- переделать на GameController - объединив с input manager
 {
     // Возвращает отображение сетки игроку
     // Предусловие - игра была начата (сетка инициализирована)
