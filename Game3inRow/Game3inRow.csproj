@@ -39,11 +39,30 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Domain\BaseElement.cs" />
+        <Compile Include="Domain\BaseEntity.cs" />
+        <Compile Include="Domain\ElementFactory.cs" />
+        <Compile Include="Domain\GameGrid.cs" />
+        <Compile Include="Domain\GameManager.cs" />
+        <Compile Include="Domain\GameStatistic.cs" />
+        <Compile Include="Domain\InputManager.cs" />
+        <Compile Include="Domain\OutputManager.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="StatisticManager.cs" />
+        <Compile Include="User.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="Lessons\Lesson1.txt" />
+      <Content Include="Lessons\Lesson10.txt" />
+      <Content Include="Lessons\Lesson2.txt" />
+      <Content Include="Lessons\Lesson3.txt" />
+      <Content Include="Lessons\Lesson4.txt" />
+      <Content Include="Lessons\Lesson5.txt" />
+      <Content Include="Lessons\Lesson6.txt" />
+      <Content Include="Lessons\Lesson7.txt" />
+      <Content Include="Lessons\Lesson8.txt" />
+      <Content Include="Lessons\Lesson9.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
