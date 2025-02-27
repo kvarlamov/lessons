@@ -16,6 +16,7 @@
       </Content>
       <Content Include="Dockerfile" />
       <Compile Include="Lesson1.fs" />
+      <Compile Include="Lesson2.fs" />
     </ItemGroup>
 
 </Project>
