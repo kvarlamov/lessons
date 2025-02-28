@@ -18,6 +18,7 @@
       <Compile Include="Lesson1.fs" />
       <Compile Include="Lesson2.fs" />
       <Compile Include="Lesson3.fs" />
+      <Compile Include="Lesson4.fs" />
     </ItemGroup>
 
 </Project>
