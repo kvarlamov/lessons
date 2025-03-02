@@ -1,5 +1,6 @@
 ﻿module F_sharp_practice.Lesson5
 
+//PREDICATES
 // 16.1
 let notDivisible  (n,m) = m % n = 0
 

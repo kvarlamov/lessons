@@ -1,5 +1,6 @@
 ﻿module F_sharp_practice.Lesson4
 
+//RECURSION
 // 7.1.1
 let rec fibo = function
     | 0 -> 0
