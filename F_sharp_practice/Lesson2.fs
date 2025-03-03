@@ -1,4 +1,6 @@
-﻿let g(n) = n + 5 // int -> int
+﻿module F_sharp_practice.Lesson2
+
+let g(n) = n + 5 // int -> int
 
 let gg = fun n -> n + 5
 
