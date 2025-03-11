@@ -25,6 +25,7 @@
       <Compile Include="Lesson8.fs" />
       <Compile Include="Lesson9.fs" />
       <Compile Include="Lesson10.fs" />
+      <Compile Include="Lesson11.fs" />
     </ItemGroup>
 
 </Project>
