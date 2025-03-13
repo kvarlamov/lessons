@@ -27,7 +27,7 @@ let rec dnto n =
 // 34.3
 let rec evenn n =
     if
-        n < 0 then []
+        n <= 0 then []
     else
         evenn(n - 1) @ [2 * (n - 1)]
         
