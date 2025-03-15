@@ -22,7 +22,6 @@ let rec rmodd = function
 // 39.2
 let rec del_even = function
     | [] -> []
-    | [_] -> []
     | head::tail ->
         if head % 2 <> 0 then head :: del_even tail
         else del_even tail
