@@ -32,6 +32,7 @@
       <Compile Include="Lesson15-folds.fs" />
       <Compile Include="Lesson16-set.fs" />
       <Compile Include="Lesson17-map.fs" />
+      <Compile Include="Lesson18-imp.fs" />
     </ItemGroup>
 
 </Project>
