@@ -33,6 +33,7 @@
       <Compile Include="Lesson16-set.fs" />
       <Compile Include="Lesson17-map.fs" />
       <Compile Include="Lesson18-imp.fs" />
+      <Compile Include="Lesson19-lazy.fs" />
     </ItemGroup>
 
 </Project>
