@@ -36,6 +36,7 @@
       <Compile Include="Lesson19-lazy.fs" />
       <Compile Include="Lesson20-seq.fs" />
       <Compile Include="Lesson21-seq2.fs" />
+      <Compile Include="Lesson22.fs" />
     </ItemGroup>
 
 </Project>
