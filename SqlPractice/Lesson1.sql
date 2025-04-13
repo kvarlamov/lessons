@@ -95,7 +95,7 @@ left join
 on 
     s.squad_id=d.squad_id
 group by 
-    s.name
+    s.name;
 
 -- 6. Получить список профессий с наибольшим количеством незавершённых задач ("pending" и "in_progress") у гномов этих профессий.
 with not_finished_tasks as (
