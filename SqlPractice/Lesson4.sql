@@ -32,12 +32,12 @@ SELECT
         'assignment_ids', (
             SELECT JSON_ARRAYAGG(da.assignment_id)
             FROM dwarf_assignments da
-            WHERE da.dwarf_id = d.dwarf_id AND da.end_date IS NULL
+            WHERE da.dwarf_id = d.dwarf_id
         ),
         'squad_ids', (
             SELECT JSON_ARRAYAGG(sm.squad_id)
             FROM squad_members sm
-            WHERE sm.dwarf_id = d.dwarf_id AND sm.exit_date IS NULL
+            WHERE sm.dwarf_id = d.dwarf_id
         ),
         'equipment_ids', (
             SELECT JSON_ARRAYAGG(de.equipment_id)
@@ -83,7 +83,7 @@ SELECT
         'project_ids', (
             SELECT JSON_ARRAYAGG(p.project_id)
             FROM projects p
-            WHERE p.workshop_id = w.workshop_id AND p.status = 'active'
+            WHERE p.workshop_id = w.workshop_id
         ),
         'input_material_ids', (
             SELECT JSON_ARRAYAGG(wm.material_id)
@@ -129,7 +129,7 @@ SELECT
         'member_ids', (
             SELECT JSON_ARRAYAGG(sm.dwarf_id)
             FROM squad_members sm
-            WHERE sm.squad_id = ms.squad_id AND sm.exit_date IS NULL
+            WHERE sm.squad_id = ms.squad_id
         ),
         'equipment_ids', (
             SELECT JSON_ARRAYAGG(se.equipment_id)
@@ -139,7 +139,7 @@ SELECT
         'operation_ids', (
             SELECT JSON_ARRAYAGG(so.operation_id)
             FROM squad_operations so
-            WHERE so.squad_id = ms.squad_id AND so.status IN ('completed', 'ongoing')
+            WHERE so.squad_id = ms.squad_id
         ),
         'training_schedule_ids', (
             SELECT JSON_ARRAYAGG(st.schedule_id)
