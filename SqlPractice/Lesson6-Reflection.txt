@@ -1,0 +1,16 @@
+1) поля w.workshop_id,
+        w.name AS workshop_name,
+        w.type AS workshop_type,
+        COUNT(DISTINCT wc.dwarf_id) AS num_craftsdwarves
+        wd.total_quantity_produced,
+    wd.total_production_value,
+    в моём решении аналогичны правильному
+2) daily_production_rate - в моём запросе использовал неверное вычисление.
+3) value_per_material_unit - решения аналогичны
+4) material_conversion_ratio - в моём случае рассчитан неверно. В правильном решении используется отдельное cte и другие поля
+5) workshop_utilization_percent - неверна формула и поля для расчёта.
+6) skill_quality_correlation - отсутствует в моём решении
+
+Также во всех формулах не использовал функцию Round, необходимую для корректного вывода.
+В правильном решении использовано несколько cte, что логически разделяет результаты.
+Также при изучении верного решения узнал про функцию CORR вычисляющую корреляцию между несколькими показателями.
