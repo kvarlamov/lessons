@@ -9,7 +9,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Size_Empty()
         {
-            Queue<int> queue = new Queue<int>();
+            AlgorithmsDataStructures.Queue<int> queue = new AlgorithmsDataStructures.Queue<int>();
             
             Assert.That(queue.Size(), Is.EqualTo(0));
         }
@@ -17,7 +17,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Size_NotEmpty()
         {
-            Queue<int> queue = new Queue<int>();
+            AlgorithmsDataStructures.Queue<int> queue = new AlgorithmsDataStructures.Queue<int>();
             queue.Enqueue(1);
             
             Assert.That(queue.Size(), Is.EqualTo(1));
@@ -28,7 +28,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Enqueue_Dequue()
         {
-            Queue<int> queue = new Queue<int>();
+            AlgorithmsDataStructures.Queue<int> queue = new AlgorithmsDataStructures.Queue<int>();
             queue.Enqueue(1);
             queue.Enqueue(2);
             
@@ -42,7 +42,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void SpinQueue()
         {
-            Queue<int> queue = new Queue<int>();
+            AlgorithmsDataStructures.Queue<int> queue = new AlgorithmsDataStructures.Queue<int>();
             queue.Enqueue(1);
             queue.Enqueue(2);
             queue.Enqueue(3);

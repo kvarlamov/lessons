@@ -5,4 +5,8 @@
         // Получает новый случайный элемент (через element elementFactory)
         public abstract Element GetNext();
     }
+
+    public class Element
+    {
+    }
 }

@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Size_empty_zero()
         {
-            Stack<int> stack = new Stack<int>();
+            AlgorithmsDataStructures.Stack<int> stack = new AlgorithmsDataStructures.Stack<int>();
 
             var result = stack.Size();
             
@@ -18,7 +18,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void SizePush_notempty_correct()
         {
-            Stack<int> stack = new Stack<int>();
+            AlgorithmsDataStructures.Stack<int> stack = new AlgorithmsDataStructures.Stack<int>();
             stack.Push(1);stack.Push(1);stack.Push(1);
 
             Assert.That(stack.Size(), Is.EqualTo(3));
@@ -29,7 +29,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Pop_empty_null()
         {
-            Stack<int> stack = new Stack<int>();
+            AlgorithmsDataStructures.Stack<int> stack = new AlgorithmsDataStructures.Stack<int>();
             var result = stack.Pop();
             
             Assert.That(result, Is.EqualTo(0));
@@ -38,7 +38,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Pop_notEmpty_null()
         {
-            Stack<int> stack = new Stack<int>();
+            AlgorithmsDataStructures.Stack<int> stack = new AlgorithmsDataStructures.Stack<int>();
             stack.Push(1);
             var result = stack.Pop();
             
@@ -49,7 +49,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Peek_Empty_null()
         {
-            Stack<int> stack = new Stack<int>();
+            AlgorithmsDataStructures.Stack<int> stack = new AlgorithmsDataStructures.Stack<int>();
             var result = stack.Peek();
             
             Assert.That(result, Is.EqualTo(0));
@@ -58,7 +58,7 @@ namespace AlgorithmsDataStructuresTests
         [Test]
         public void Peek_NotEmpty_resultAndSizeDontChanged()
         {
-            Stack<int> stack = new Stack<int>();
+            AlgorithmsDataStructures.Stack<int> stack = new AlgorithmsDataStructures.Stack<int>();
             stack.Push(1);
             var result = stack.Peek();
             
