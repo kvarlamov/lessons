@@ -110,6 +110,8 @@ type UserRepositoryInterface interface {
 
 Функционал ещё в процессе реализации, но такой подход к TDD определённо помогает добиваться выполнения целей проекта,
 а с тестами и реализацией пока помогает LLM.
+Код:
+https://gitlab.com/kvarlamov/secretsantabot
 
 Финал:
 
