@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace HardWork._04_CodeFollowDesign._2;
 
-// Спецификация в типах
+// Спецификация
 public record ProcessingContext(
     MovementsRetryTask RetryTask,
     MovementsRetrySubTask SubTask,
