@@ -16,7 +16,6 @@ public record BatchProcessingResult(
     bool IsCompleted,
     IReadOnlyCollection<Movement> RemainingMovements);
 
-// Уровень 2: Чистые правила преобразования
 public static class BackupProcessingRules
 {
     // Предусловия
@@ -45,7 +44,6 @@ public static class BackupProcessingRules
         => movements.Count == 0;
 }
 
-// Уровень 1: Координация эффектов с явными этапами
 public sealed class MovementsBackupTaskProcessingService
 {
     private readonly IMovementsRepository _movementsRepository;
