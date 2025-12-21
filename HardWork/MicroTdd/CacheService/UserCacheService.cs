@@ -15,16 +15,20 @@ public class UserCacheService : ICacheService<User>
     
     public User GetOrAdd(string key)
     {
-        if (!_cache.TryGetValue(key, out var user))
+        if (!long.TryParse(key, out var userId))
         {
-            return null;
+            throw new ArgumentException($"key should be long: {key}");
         }
+
+        if (_cache.TryGetValue(key, out var user)) return user;
         
-        return user;
+        var existingUserResult = _repository.GetUser(userId);
+        if (!existingUserResult.IsSuccess)
+        {
+            throw new InvalidOperationException($"User with key {key} was not found");
+        }
+        _cache.Add(key, existingUserResult.Value);
+        return existingUserResult.Value;
+
     }
 }
-
-public sealed class UserRepository
-{
-    
-} 

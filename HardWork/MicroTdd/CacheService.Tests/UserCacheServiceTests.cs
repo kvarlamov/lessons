@@ -15,9 +15,23 @@ public class UserCacheServiceTests
     }
     
     [Fact]
-    public void GetOrAdd_ReturnsValue()
+    public void GetOrAdd_KeyIsntCorrectFormat_Throw()
     {
-        var result = _service.GetOrAdd("test");
-        Assert.Equal(default(User), result);
+        Assert.ThrowsAny<Exception>(() => _service.GetOrAdd("test"));
+    }
+
+    [Fact]
+    public void GetOrAdd_UserNotExistInDb_Throw()
+    {
+        Assert.ThrowsAny<Exception>(() => _service.GetOrAdd("1"));
+    }
+
+    [Fact]
+    public void GetOrAdd_UserExistInDb_ReturnsExistingUser()
+    {
+        var existingUser = _userRepository.AddNew(User.CreateNew("test"));
+        
+        var cacheResult = _service.GetOrAdd(existingUser.Id.ToString());
+        Assert.Equal(existingUser, cacheResult);
     }
 }
