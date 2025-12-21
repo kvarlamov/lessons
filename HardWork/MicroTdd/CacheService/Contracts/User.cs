@@ -25,4 +25,14 @@ public class User
         
         return new User(id:0, firstName: firstName);
     }
+
+    public static User Create(long id, string firstName)
+    {
+        return new User(id,  firstName: firstName);
+    }
+
+    public string GetKey()
+    {
+        return Id.ToString();
+    }
 }

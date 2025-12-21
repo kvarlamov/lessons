@@ -23,4 +23,22 @@ public class UserTests
         Assert.Equal("test", user.FirstName);
         Assert.Equal(0, user.Id);
     }
+
+    [Fact]
+    public void User_Create()
+    {
+        var user = User.Create(3, "test");
+        Assert.NotNull(user);
+        Assert.Equal("test", user.FirstName);
+        Assert.Equal(3, user.Id);
+    }
+
+    [Fact]
+    public void GetUserKey()
+    {
+        var user = User.Create(1, "test");
+        
+        var key = user.GetKey();
+        Assert.Equal(user.Id.ToString(), key);
+    }
 }
