@@ -1,3 +1,4 @@
+/*
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -137,3 +138,4 @@ internal sealed class MovementEventsBatchProcessingService : IMovementEventsBatc
         return new ValidationHandlingResult(shouldStopProcessing, batchToProcess);
     }
 }
+*/

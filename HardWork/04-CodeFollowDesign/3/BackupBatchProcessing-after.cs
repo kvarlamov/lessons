@@ -1,3 +1,4 @@
+/*
 namespace HardWork._04_CodeFollowDesign._3;
 
 // Спецификации
@@ -160,3 +161,4 @@ public sealed class MovementsBackupTaskProcessingService
         await _movementsBackupTasksRepository.UpdateTask(context.Task, cts.Token);
     }
 }
+*/

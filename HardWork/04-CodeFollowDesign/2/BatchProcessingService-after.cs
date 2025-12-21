@@ -1,3 +1,5 @@
+/*
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -191,3 +193,5 @@ internal sealed class MovementEventsBatchProcessingService2 : IMovementEventsBat
         }
     }
 }
+
+*/

@@ -1,23 +1,4 @@
-namespace HardWork._04_CodeFollowDesign._3;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-using Ozon.Inventory.Asgard.MovementEventsStorage.Domain.MovementBackupTask;
-using Ozon.Inventory.Asgard.MovementEventsStorage.Domain.MovementOperationLogs;
-using Ozon.Inventory.Asgard.MovementEventsStorage.Domain.ValueObjects;
-using Ozon.Inventory.Asgard.MovementEventsStorage.DomainServices.MovementsBackupTasks.Configurations;
-using Ozon.Inventory.Asgard.MovementEventsStorage.Repository.Metrics;
-using Ozon.Inventory.Asgard.MovementEventsStorage.Repository.Postgres;
-
-namespace Ozon.Inventory.Asgard.MovementEventsStorage.DomainServices.MovementsBackupTasks.Services;
-
+/*
 internal sealed class MovementsBackupTaskProcessingService : IMovementsBackupTaskProcessingService
 {
     private readonly IMovementsRepository _movementsRepository;
@@ -146,3 +127,4 @@ internal sealed class MovementsBackupTaskProcessingService : IMovementsBackupTas
         _s3FileSize = s3FileSize;
     }
 }
+*/

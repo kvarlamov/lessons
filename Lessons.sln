@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlPractice", "SqlPractice\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFuzzer", "SimpleFuzzer\SimpleFuzzer.csproj", "{97129F45-5775-4A79-975F-AA6525D29688}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheService", "HardWork\MicroTdd\CacheService\CacheService.csproj", "{02219318-089F-475A-9E32-B6A33FA45758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheService.Tests", "HardWork\MicroTdd\CacheService.Tests\CacheService.Tests.csproj", "{256D5387-ABCF-4277-ACFD-5181CB9F1C4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,14 @@ Global
 		{97129F45-5775-4A79-975F-AA6525D29688}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97129F45-5775-4A79-975F-AA6525D29688}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97129F45-5775-4A79-975F-AA6525D29688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02219318-089F-475A-9E32-B6A33FA45758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02219318-089F-475A-9E32-B6A33FA45758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02219318-089F-475A-9E32-B6A33FA45758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02219318-089F-475A-9E32-B6A33FA45758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256D5387-ABCF-4277-ACFD-5181CB9F1C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256D5387-ABCF-4277-ACFD-5181CB9F1C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256D5387-ABCF-4277-ACFD-5181CB9F1C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256D5387-ABCF-4277-ACFD-5181CB9F1C4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

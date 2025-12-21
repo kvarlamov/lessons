@@ -12,7 +12,7 @@
 которая в свою очередь состоит из подзадач аналитики, и данный сервис фактически сохраняет кусочек данных по 
 аналитике, а не все необходимые данные целиком.
 */
-
+/*
 internal abstract class SaveAnalyticItemsServiceBase<TAnalyticItem> : ISaveAnalyticItemsService<TAnalyticItem>
     where TAnalyticItem : IAnalyticItem
 {
@@ -77,3 +77,4 @@ internal abstract class SaveAnalyticItemsServiceBase<TAnalyticItem> : ISaveAnaly
         IReadOnlyCollection<TAnalyticItem> analyticItems,
         CancellationToken cancellationToken);
 }
+*/

@@ -15,6 +15,7 @@
 при отсутствии ошибок отправляется дальше в выходной топик серсиса.
 */
 
+/*
 internal sealed class MovementOperationTaskEnricher : IMovementOperationTaskEnricher
 {
     private readonly IBatchingFacadeOperationsClient _batchingFacadeOperationsClient;
@@ -67,3 +68,4 @@ internal sealed class MovementOperationTaskEnricher : IMovementOperationTaskEnri
         }
     }
 }
+*/
