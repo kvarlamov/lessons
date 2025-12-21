@@ -4,11 +4,13 @@ namespace CircuitBreaker.Tests;
 
 public class UnitTest1
 {
+    private const int ThreshholdFailure = 3;
+    private const int OpenTimeSeconds = 5;
     private readonly CircuitBreaker _breaker;
 
     public UnitTest1()
     {
-        _breaker = new CircuitBreaker(3, TimeSpan.FromSeconds(5));
+        _breaker = new CircuitBreaker(ThreshholdFailure, TimeSpan.FromSeconds(OpenTimeSeconds));
     }
     
     [Fact]
@@ -22,7 +24,7 @@ public class UnitTest1
         _breaker.GetState().Should().BeTrue();
         
         //wait to close again
-        await Task.Delay(5000);
+        await Task.Delay(OpenTimeSeconds);
         await _breaker.ExecuteAsync(() => Task.CompletedTask);
         _breaker.GetState().Should().BeFalse();
     }
@@ -50,5 +52,48 @@ public class UnitTest1
     {
         await Assert.ThrowsAnyAsync<Exception>(() => _breaker.ExecuteAsync(() => throw new InvalidOperationException()));
         _breaker.GetFailureCount().Should().Be(1);
+        _breaker.GetState().Should().BeFalse();
     }
+    
+    [Fact]
+    public async Task OnSuccess_ResetFailure()
+    {
+        await Assert.ThrowsAnyAsync<Exception>(() => _breaker.ExecuteAsync(() => throw new InvalidOperationException()));
+        _breaker.GetFailureCount().Should().Be(1);
+        
+        await _breaker.ExecuteAsync(() => Task.CompletedTask);
+        _breaker.GetState().Should().BeFalse();
+        _breaker.GetFailureCount().Should().Be(0);
+    }
+
+    [Fact]
+    public async Task OnFailure_Threshhold_ClosedAfterFailureAndTimePass()
+    {
+        for (var i = 0; i < ThreshholdFailure; i++)
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _breaker.ExecuteAsync(() => throw new InvalidOperationException()));
+            _breaker.GetFailureCount().Should().Be(i+1);
+        }
+        
+        _breaker.GetState().Should().BeTrue();
+        await Assert.ThrowsAsync<InvalidOperationException>(() => _breaker.ExecuteAsync(() => Task.CompletedTask));
+        await Task.Delay(TimeSpan.FromSeconds(OpenTimeSeconds));
+        await _breaker.ExecuteAsync(() => Task.CompletedTask);
+        _breaker.GetState().Should().BeFalse();
+        _breaker.GetFailureCount().Should().Be(0);
+    }
+    
+    [Fact]
+    public async Task OnFailure_Threshhold_OpenState()
+    {
+        for (var i = 0; i < ThreshholdFailure; i++)
+        {
+            await Assert.ThrowsAnyAsync<Exception>(() => _breaker.ExecuteAsync(() => throw new InvalidOperationException()));
+            _breaker.GetFailureCount().Should().Be(i+1);
+        }
+        
+        _breaker.GetState().Should().BeTrue();
+        await Assert.ThrowsAsync<InvalidOperationException>(() => _breaker.ExecuteAsync(() => Task.CompletedTask));
+    }
+
 }
