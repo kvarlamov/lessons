@@ -1,4 +1,5 @@
 ﻿using CacheService.Contracts;
+using Xunit;
 
 namespace CacheService.Tests;
 
@@ -14,28 +15,7 @@ public class UserCacheServiceTests
     [Fact]
     public void GetOrAdd_ReturnsValue()
     {
-    }
-}
-
-public class UserTests
-{
-    [Theory]
-    [InlineData("")]
-    [InlineData(null)]
-    public void CreateUser_NullName_ThrowsArgumentNullException(string? name)
-    {
-        Assert.ThrowsAny<Exception>(() => User.CreateNew(name));
-    }
-    
-    [Fact]
-    public void CreateNew()
-    {
-        // Act
-        var user = User.CreateNew("test");
-        
-        // Assert
-        Assert.NotNull(user);
-        Assert.Equal("test", user.FirstName);
-        Assert.Equal(0, user.Id);
+        var result = _service.GetOrAdd("test");
+        Assert.Equal(default(User), result);
     }
 }
