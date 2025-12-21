@@ -18,6 +18,11 @@ public class User
     /// POST: created new user with id=0
     public static User CreateNew(string firstName)
     {
+        if (string.IsNullOrEmpty(firstName))
+        {
+            throw new ArgumentException("First name cannot be null or empty", nameof(firstName));
+        }
+        
         return new User(id:0, firstName: firstName);
     }
 }

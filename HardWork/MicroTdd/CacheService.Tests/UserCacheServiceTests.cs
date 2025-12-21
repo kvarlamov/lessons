@@ -19,6 +19,14 @@ public class UserCacheServiceTests
 
 public class UserTests
 {
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void CreateUser_NullName_ThrowsArgumentNullException(string? name)
+    {
+        Assert.ThrowsAny<Exception>(() => User.CreateNew(name));
+    }
+    
     [Fact]
     public void CreateNew()
     {
