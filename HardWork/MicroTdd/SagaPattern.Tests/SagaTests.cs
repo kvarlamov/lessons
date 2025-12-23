@@ -72,8 +72,8 @@ public class SagaTests
         var compensations = new List<string>();
         var saga = new Saga();
         var step1 = new SagaStep("1", () => { }, () => { compensations.Add("Compensate 1"); });
-        var step2 = new SagaStep("2", () => throw new InvalidOperationException());
-        var step3 = new SagaStep("3", () => { compensations.Add("3"); });
+        var step2 = new SagaStep("2", () => throw new InvalidOperationException(), () => { compensations.Add("Compensate 2"); });
+        var step3 = new SagaStep("3", () => { }, () => { compensations.Add("Compensate 3"); });
         saga.AddStep(step1);
         saga.AddStep(step2);
         saga.AddStep(step3);
@@ -81,5 +81,22 @@ public class SagaTests
         saga.Run();
         
         compensations.Should().BeEquivalentTo("Compensate 1");
+    }
+    
+    [Fact]
+    public void Run_WithCompensation_CompensatedInOrder()
+    {
+        var compensations = new List<string>();
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { }, () => { compensations.Add("Compensate 1"); });
+        var step2 = new SagaStep("2", () => { }, () => { compensations.Add("Compensate 2"); });
+        var step3 = new SagaStep("3", () => throw new InvalidOperationException(), () => { compensations.Add("Compensate 3"); });
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+        saga.AddStep(step3);
+        
+        saga.Run();
+        
+        compensations.Should().BeEquivalentTo("Compensate 2", "Compensate 1");
     }
 }
