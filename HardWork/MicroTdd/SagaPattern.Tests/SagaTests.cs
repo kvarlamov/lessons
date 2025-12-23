@@ -99,4 +99,22 @@ public class SagaTests
         
         compensations.Should().BeEquivalentTo("Compensate 2", "Compensate 1");
     }
+
+    [Fact]
+    public void Run_CompensationContinueWithException()
+    {
+        var compensations = new List<string>();
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { }, () => { compensations.Add("Compensate 1"); throw new Exception("Compensate 1 fail"); });
+        var step2 = new SagaStep("2", () => { }, () => { compensations.Add("Compensate 2"); });
+        var step3 = new SagaStep("3", () => throw new InvalidOperationException(), () => { compensations.Add("Compensate 3"); });
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+        saga.AddStep(step3);
+        
+        var exception = Assert.Throws<SagaExecutionException>(() => saga.Run());
+    
+        saga.CompensationErrors.Count.Should().Be(1);
+        compensations.Should().BeEquivalentTo("Compensate 2", "Compensate 1");
+    }
 }

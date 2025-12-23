@@ -14,10 +14,27 @@ public sealed class SagaStep
     }
 }
 
+public class SagaExecutionException : Exception
+{
+    public IReadOnlyList<Exception> CompensationErrors { get; }
+    
+    public SagaExecutionException(
+        string message, 
+        Exception innerException, 
+        List<Exception> compensationErrors)
+        : base(message, innerException)
+    {
+        CompensationErrors = compensationErrors;
+    }
+}
+
 public sealed class Saga
 {
     private readonly List<SagaStep>  _steps = new();
     private readonly List<SagaStep> _completedSteps = new();
+    private readonly List<Exception> _compensationErrors = new();
+    
+    public IReadOnlyList<Exception> CompensationErrors => _compensationErrors;
 
     public void AddStep(SagaStep step)
     {
@@ -33,11 +50,14 @@ public sealed class Saga
                 step.Execute();
                 _completedSteps.Add(step);
             }
-            catch (Exception exeption)
+            catch (Exception ex)
             {
-                Console.WriteLine(exeption);
+                Console.WriteLine(ex.Message);
                 Compensate();
-                return;
+                throw new SagaExecutionException(
+                    "Saga failed during execution", 
+                    ex, 
+                    _compensationErrors);
             }
         }
     }
@@ -46,7 +66,14 @@ public sealed class Saga
     {
         foreach (var step in _completedSteps.AsEnumerable().Reverse())
         {
-            step.Compensate?.Invoke();
+            try
+            {
+                step.Compensate?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                _compensationErrors.Add(ex);
+            }
         }
     }
 }
