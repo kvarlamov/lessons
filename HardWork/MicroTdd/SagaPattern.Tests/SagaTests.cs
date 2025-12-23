@@ -32,4 +32,54 @@ public class SagaTests
         saga.Run();
         executed.Should().BeTrue();
     }
+
+    [Fact]
+    public void Run_ExecutionOrder()
+    {
+        var stepNames =  new List<string>();
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { stepNames.Add("1"); });
+        var step2 = new SagaStep("2", () => { stepNames.Add("2"); });
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+        
+        saga.Run();
+        
+        stepNames.Should().HaveCount(2);
+        stepNames.Should().BeEquivalentTo("1", "2");
+    }
+
+    [Fact]
+    public void Run_WithException_StopOnError()
+    {
+        var stepNames =  new List<string>();
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { stepNames.Add("1"); });
+        var step2 = new SagaStep("2", () => throw new InvalidOperationException());
+        var step3 = new SagaStep("3", () => { stepNames.Add("3"); });
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+        saga.AddStep(step3);
+        
+        saga.Run();
+        
+        stepNames.Should().BeEquivalentTo("1");
+    }
+
+    [Fact]
+    public void Run_WithCompensation_Compensated()
+    {
+        var compensations = new List<string>();
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { }, () => { compensations.Add("Compensate 1"); });
+        var step2 = new SagaStep("2", () => throw new InvalidOperationException());
+        var step3 = new SagaStep("3", () => { compensations.Add("3"); });
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+        saga.AddStep(step3);
+        
+        saga.Run();
+        
+        compensations.Should().BeEquivalentTo("Compensate 1");
+    }
 }

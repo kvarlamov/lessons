@@ -17,6 +17,7 @@ public sealed class SagaStep
 public sealed class Saga
 {
     private readonly List<SagaStep>  _steps = new();
+    private readonly List<SagaStep> _completedSteps = new();
 
     public void AddStep(SagaStep step)
     {
@@ -27,7 +28,25 @@ public sealed class Saga
     {
         foreach (var step in _steps)
         {
-            step.Execute();
+            try
+            {
+                step.Execute();
+                _completedSteps.Add(step);
+            }
+            catch (Exception exeption)
+            {
+                Console.WriteLine(exeption);
+                Compensate();
+                return;
+            }
+        }
+    }
+
+    private void Compensate()
+    {
+        foreach (var step in _completedSteps.AsEnumerable().Reverse())
+        {
+            step.Compensate?.Invoke();
         }
     }
 }
