@@ -95,5 +95,4 @@ public class UnitTest1
         _breaker.GetState().Should().BeTrue();
         await Assert.ThrowsAsync<InvalidOperationException>(() => _breaker.ExecuteAsync(() => Task.CompletedTask));
     }
-
 }
