@@ -28,11 +28,21 @@ public class SagaExecutionException : Exception
     }
 }
 
+public enum SagaStatus
+{
+    NotStarted,
+    InProgress,
+    Completed,
+    Failed,
+    Compensated
+}
+
 public sealed class Saga
 {
     private readonly List<SagaStep>  _steps = new();
     private readonly List<SagaStep> _completedSteps = new();
     private readonly List<Exception> _compensationErrors = new();
+    public SagaStatus Status { get; private set; } = SagaStatus.NotStarted;
     
     public IReadOnlyList<Exception> CompensationErrors => _compensationErrors;
 
@@ -43,6 +53,7 @@ public sealed class Saga
 
     public void Run()
     {
+        Status = SagaStatus.InProgress;
         foreach (var step in _steps)
         {
             try
@@ -54,11 +65,17 @@ public sealed class Saga
             {
                 Console.WriteLine(ex.Message);
                 Compensate();
+                Status = _compensationErrors.Count == 0 
+                    ? SagaStatus.Compensated 
+                    : SagaStatus.Failed;
+                
                 throw new SagaExecutionException(
                     "Saga failed during execution", 
                     ex, 
                     _compensationErrors);
             }
+            
+            Status = SagaStatus.Completed;
         }
     }
 

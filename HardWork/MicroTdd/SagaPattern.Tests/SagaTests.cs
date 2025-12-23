@@ -61,7 +61,7 @@ public class SagaTests
         saga.AddStep(step2);
         saga.AddStep(step3);
         
-        saga.Run();
+        Assert.Throws<SagaExecutionException>(() => saga.Run());
         
         stepNames.Should().BeEquivalentTo("1");
     }
@@ -78,7 +78,7 @@ public class SagaTests
         saga.AddStep(step2);
         saga.AddStep(step3);
         
-        saga.Run();
+        Assert.Throws<SagaExecutionException>(() => saga.Run());
         
         compensations.Should().BeEquivalentTo("Compensate 1");
     }
@@ -95,7 +95,7 @@ public class SagaTests
         saga.AddStep(step2);
         saga.AddStep(step3);
         
-        saga.Run();
+        Assert.Throws<SagaExecutionException>(() => saga.Run());
         
         compensations.Should().BeEquivalentTo("Compensate 2", "Compensate 1");
     }
@@ -116,5 +116,32 @@ public class SagaTests
     
         saga.CompensationErrors.Count.Should().Be(1);
         compensations.Should().BeEquivalentTo("Compensate 2", "Compensate 1");
+    }
+    
+    [Fact]
+    public void SagaStatusIsCompletedWhenAllStepsSucceed()
+    {
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { });
+        var step2 = new SagaStep("2", () => { });
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+    
+        saga.Run();
+    
+        Assert.Equal(SagaStatus.Completed, saga.Status);
+    }
+    
+    [Fact]
+    public void SagaStatusIsCompensatedWhenStepFailsButCompensationSucceeds()
+    {
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { }, () => { });
+        var step2 = new SagaStep("2", () => throw new Exception());
+        saga.AddStep(step1);
+        saga.AddStep(step2);
+    
+        Assert.Throws<SagaExecutionException>(() => saga.Run());
+        Assert.Equal(SagaStatus.Compensated, saga.Status);
     }
 }
