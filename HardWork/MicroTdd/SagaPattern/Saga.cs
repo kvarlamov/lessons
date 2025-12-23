@@ -53,6 +53,11 @@ public sealed class Saga
 
     public void Run()
     {
+        if (Status != SagaStatus.NotStarted)
+        {
+            throw new InvalidOperationException("Saga can only be run once");
+        }
+        
         Status = SagaStatus.InProgress;
         foreach (var step in _steps)
         {

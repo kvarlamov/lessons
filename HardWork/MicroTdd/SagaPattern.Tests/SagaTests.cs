@@ -144,4 +144,16 @@ public class SagaTests
         Assert.Throws<SagaExecutionException>(() => saga.Run());
         Assert.Equal(SagaStatus.Compensated, saga.Status);
     }
+    
+    [Fact]
+    public void CannotRunSagaTwice()
+    {
+        var saga = new Saga();
+        var step1 = new SagaStep("1", () => { }, () => { });
+        saga.AddStep(step1);
+    
+        saga.Run();
+    
+        Assert.Throws<InvalidOperationException>(() => saga.Run());
+    }
 }
