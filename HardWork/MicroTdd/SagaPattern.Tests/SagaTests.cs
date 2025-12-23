@@ -20,4 +20,16 @@ public class SagaTests
         //Assert that not throw
         saga.AddStep(step);
     }
+
+    [Fact]
+    public void Run_StepsExecuted()
+    {
+        bool executed = false;
+        var saga = new Saga();
+        var step = new SagaStep("test", () => { executed = true; });
+        saga.AddStep(step);
+        
+        saga.Run();
+        executed.Should().BeTrue();
+    }
 }

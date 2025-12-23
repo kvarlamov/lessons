@@ -1,15 +1,5 @@
 ﻿namespace SagaPattern;
 
-public sealed class Saga
-{
-    private readonly List<SagaStep>  _steps = new();
-
-    public void AddStep(SagaStep step)
-    {
-        _steps.Add(step);
-    }
-}
-
 public sealed class SagaStep
 {
     public string Name { get; }
@@ -21,5 +11,23 @@ public sealed class SagaStep
         Name = name;
         Execute = execute;
         Compensate = compensate;
+    }
+}
+
+public sealed class Saga
+{
+    private readonly List<SagaStep>  _steps = new();
+
+    public void AddStep(SagaStep step)
+    {
+        _steps.Add(step);
+    }
+
+    public void Run()
+    {
+        foreach (var step in _steps)
+        {
+            step.Execute();
+        }
     }
 }
