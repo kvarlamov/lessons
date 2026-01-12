@@ -1,0 +1,175 @@
+Поскольку в рабочем коде не удалось найти пример с использованием неистинного наследования, 
+чтобы не брать полностью выдуманный пример, взял упрощённый кусок рабочего кода,
+где явно не использовалось неистинное наследование, 
+но косвенно оно было в провайдере данных DataProvider (GetStockTypeData).
+Другие проблемы:
+в StockTypeProcessor для добавления новых действий над данными требовались бы новые классы,
+которые по типу получали нужный класс (паттерн Strategy).
+
+Исходный рабочий код (в упрощённо-сокращённом виде):
+
+class MainStockTypeData
+{}
+
+class FirstStockTypeData : MainStockTypeData 
+{
+  public DataType Type => DataType.First;
+  ...
+}
+
+class SecondStockTypeData : MainStockTypeData 
+{
+  public DataType Type => DataType.Second;
+  ...
+}
+
+abstract class DataProvider
+{
+  public virtual MainStockTypeData GetStockTypeData()
+  {
+  }
+}
+
+class FirstTypeDataProvider
+{
+  public override MainStockTypeData GetStockTypeData()
+  {
+    FirstStockTypeData result = GetData();
+    return result;
+  }
+}
+
+class SecondTypeDataProvider
+{
+  public override MainStockTypeData GetStockTypeData()
+  {
+    SecondStockTypeData result = GetData();
+    return result;
+  }
+}
+
+Использование:
+
+class StockTypeProcessor
+{
+  public void Process(DataType dataType)
+  {
+    var provider = GetProvider(dataType);
+    // получаем данные через интерфейс провайдера
+    var data = provider.GetStockTypeData();
+    // для обработки данных используем аналогичный подход - но уже новый класс - процессор полученных данных
+    var processor = GetProcessor(dataType);
+    processor.ProcessData(data);
+    ...
+    
+  }
+  
+  private DataProvider GetProvider(DataType dataType)
+  {
+    return dataType switch 
+    {
+      DataType.First => new FirstTypeDataProvider(),
+      DataType.Second => new SecondTypeDataProvider(),
+      _ => throw new ArgumentException()
+    };
+  }
+  
+  ...
+}
+
+Поскольку в реальных проектах не использовал паттерн "Посетитель", делал реализацию по учебнику:
+После рефакторинга в тип данных MainStockTypeData был выделен метод Accept,
+который принимает интерфейс посетителя IStockTypeDataVisitor. 
+Посетитель же сам знает как обращаться с данными и знает тип данных.
+Был добавлен посетитель StockTypeDataProviderVisitor - получающий нужные данные,
+и посетитель DataProcessorVisitor - который обрабатывает данные нужного типа.
+Для добавления новой операции необходимо лишь добавить новый посетитель.
+Например посетитель публикации данных к Jira - JiraPublishVisitor.
+
+abstract class MainStockTypeData
+{
+  public abstract MainStockTypeData Accept(IStockTypeVisitor visitor);
+}
+
+class FirstStockTypeData : MainStockTypeData 
+{
+  public DataType Type => DataType.First;
+  
+  public override MainStockTypeData Accept(IStockTypeVisitor visitor)
+  {
+    return visitor.Visit(this);
+  }
+}
+
+class SecondStockTypeData : MainStockTypeData 
+{
+  public DataType Type => DataType.Second;
+  
+  public override MainStockTypeData Accept(IStockTypeVisitor visitor)
+  {
+    return visitor.Visit(this);
+  }
+}
+
+public interface IStockTypeDataVisitor
+{
+  MainStockTypeData Visit(FirstStockTypeData data);
+  MainStockTypeData Visit(SecondStockTypeData data);
+}
+
+public class StockTypeDataProviderVisitor : IStockTypeDataVisitor
+{
+  public MainStockTypeData Visit(FirstStockTypeData data)
+  {
+    // получаем данные нужного типа 1
+    FirstStockTypeData result = GetFromAnySource();
+    return result;
+  }
+  
+  public MainStockTypeData Visit(SecondStockTypeData data)
+  {
+    // получаем данные нужного типа 2
+    SecondStockTypeData result = GetFromAnySource();
+    return result;
+  }
+}
+
+Использование:
+
+class StockTypeProcessor
+{
+  public StockTypeProcessor()
+  {
+    _dataProviderVisitor = new StockTypeDataProviderVisitor();
+    _dataProcessorVisitor = new DataProcessorVisitor();
+
+  }
+  
+  public void Process(DataType dataType)
+    {
+      var dataType = GetBaseDataForVisitor(dataType);
+      // получаем данные через "пустой" тип и Visitor для данных
+      var data = dataType.Accept(_dataProviderVisitor);
+      // обрабатываем полученные данные Visitor'ом для обработки данных
+      data.Accept(_dataProcessorVisitor);
+      // ... добавляем другие операции над данными через нужный посетитель
+      
+    }
+    
+    private DataProvider GetBaseDataForVisitor(DataType dataType)
+    {
+      return dataType switch 
+      {
+        DataType.First => new FirstStockTypeData(),
+        DataType.Second => new SecondStockTypeData(),
+        _ => throw new ArgumentException()
+      };
+    }
+}
+  
+  Выводы:
+  Возможно показанный пример не полностью раскрывает плюсы использования данного паттерна,
+  поскольку стратегия выглядит более читаемой. Также в наших проектах часто используется именно данный паттерн, что упрощает понимание кода другими
+  разработчиками.
+  Однако мне удалось потренироваться в использовании паттерна, понять, почему он исключает возможность переопределения методов родительских классов.
+  Интересно потренироваться в использовании паттерна в расширенном формате.
