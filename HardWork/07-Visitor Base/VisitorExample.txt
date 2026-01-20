@@ -149,7 +149,7 @@ class StockTypeProcessor
     {
       var dataType = GetBaseDataForVisitor(dataType);
       // получаем данные через "пустой" тип и Visitor для данных
-      var data = dataType.Accept(_dataProviderVisitor);
+      var data = dataType.Accept();
       // обрабатываем полученные данные Visitor'ом для обработки данных
       data.Accept(_dataProcessorVisitor);
       // ... добавляем другие операции над данными через нужный посетитель
