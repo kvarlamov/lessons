@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagaPattern.Tests", "HardWo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixinsConcept", "MixinsConcept\MixinsConcept.csproj", "{A1B637DA-A701-4A88-AEBB-E6DEE747F849}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanCode.Realisation", "CleanCode.Realisation\CleanCode.Realisation.csproj", "{8C7BD77B-2FE9-4196-A1C0-DD71DA499F93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,10 @@ Global
 		{A1B637DA-A701-4A88-AEBB-E6DEE747F849}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B637DA-A701-4A88-AEBB-E6DEE747F849}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1B637DA-A701-4A88-AEBB-E6DEE747F849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C7BD77B-2FE9-4196-A1C0-DD71DA499F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C7BD77B-2FE9-4196-A1C0-DD71DA499F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C7BD77B-2FE9-4196-A1C0-DD71DA499F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C7BD77B-2FE9-4196-A1C0-DD71DA499F93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +196,7 @@ Global
 		{07739BE0-9DF8-4ACF-B670-BB44BD5FB7EB} = {7B7B9658-593D-429B-8928-8866831ED37E}
 		{905DAC25-BC84-4C8A-85E8-A801BD7C0520} = {07739BE0-9DF8-4ACF-B670-BB44BD5FB7EB}
 		{A1B637DA-A701-4A88-AEBB-E6DEE747F849} = {087C46AF-2960-4438-8F21-76F7093A106D}
+		{8C7BD77B-2FE9-4196-A1C0-DD71DA499F93} = {087C46AF-2960-4438-8F21-76F7093A106D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B57CBC45-D4C8-4E44-8CA7-50F74D57441A}
