@@ -76,7 +76,7 @@ var command = new ExecuteReconCalculationJobCommand();
 await _mediator.Send(command, tokenSource.Token);
 
 //7)
-// было: Обогащение параметров прямо в теле метода -- слишком длинная строка
+// было: Обогащение параметров прямо в параметрах метода -- слишком длинная строка
 result.EnrichWithTicketsAndDate(calculationJob.ReconDate, previousLaunchInfo.JiraTicket.WithUrl(JiraUrl), lastLaunchInfo.JiraTicket.WithUrl(JiraUrl));
 
 // стало: вынес обогащзение джира тикетов в отдельные переменные
